@@ -1,0 +1,27 @@
+module NovacastSDK
+  module {{moduleName}}
+    module Models
+{{#models}}
+      # {{description}}
+{{#model}}
+      class {{classname}} < NovacastSDK::BaseModel
+        attr_accessor {{#vars}}:{{{name}}}{{#hasMore}}, {{/hasMore}}{{/vars}}{{newline}}
+
+        def self.api_model_module
+          NovacastSDK::{{moduleName}}::Models
+        end
+
+        def self.model_properties
+          {
+            {{#vars}}
+            # {{description}}
+            :'{{{name}}}' => { base_name: '{{{baseName}}}', type: '{{{datatype}}}' }{{#hasMore}},{{/hasMore}}
+            {{/vars}}
+          }
+        end
+      end
+{{/model}}
+{{/models}}
+    end
+  end
+end

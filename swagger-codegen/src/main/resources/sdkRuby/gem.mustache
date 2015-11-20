@@ -1,0 +1,27 @@
+require 'novacast-sdk-core'
+
+# Models
+{{#models}}
+require '{{importPath}}'
+{{/models}}
+
+# APIs
+{{#apiInfo}}
+{{#apis}}
+require '{{importPath}}'
+{{/apis}}
+{{/apiInfo}}
+
+module NovacastSDK
+  module {{moduleName}}
+    def self.configure
+      yield NovacastSDK::Client::Configuration if block_given?
+    end
+
+    def self.config
+      NovacastSDK::Client::Configuration
+    end
+  end
+end
+
+NovacastSDK::{{moduleName}}.config.base_path = '{{contextPath}}'

@@ -1,0 +1,63 @@
+module NovacastSDK
+  module {{moduleName}}
+{{#operations}}
+    class {{classname}} < NovacastSDK::Client::BaseClient
+
+{{#operation}}
+{{newline}}
+      # {{summary}}
+      # {{notes}}
+{{#allParams}}{{#required}}      # @param {{paramName}} {{description}}
+{{/required}}{{/allParams}}      # @param [Hash] opts the optional parameters
+{{#allParams}}{{^required}}      # @option opts [{{{dataType}}}] :{{paramName}} {{description}}
+{{/required}}{{/allParams}}      # @return [{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}nil{{/returnType}}]
+      def {{nickname}}({{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}opts = {})
+        # checks if all required parameters are set
+        {{#allParams}}{{#required}}
+        raise ArgumentError, 'Missing required parameter "{{{paramName}}}"' if {{{paramName}}}.nil?
+        {{/required}}{{/allParams}}
+
+        op = NovacastSDK::Client::Operation.new '{{path}}', :{{httpMethod}}
+
+        # path parameters
+        path_params = {}{{#pathParams}}
+        path_params['{{baseName}}'] = {{paramName}}{{/pathParams}}
+        op.params = path_params
+
+        # header parameters
+        header_params = {}{{#headerParams}}{{#required}}
+        header_params[:'{{{baseName}}}'] = {{{paramName}}}{{/required}}{{/headerParams}}{{#headerParams}}{{^required}}
+        header_params[:'{{{baseName}}}'] = opts[:'{{{paramName}}}'] if opts[:'{{{paramName}}}']{{/required}}{{/headerParams}}
+        op.headers = header_params
+
+        # query parameters
+        query_params = {}{{#queryParams}}{{#required}}
+        query_params[:'{{{baseName}}}'] = {{{paramName}}}{{/required}}{{/queryParams}}{{#queryParams}}{{^required}}
+        query_params[:'{{{baseName}}}'] = opts[:'{{{paramName}}}'] if opts[:'{{{paramName}}}']{{/required}}{{/queryParams}}
+        op.query = query_params
+
+        # http body (model)
+        {{#bodyParam}}
+        op.body = {{#required}}{{{paramName}}}{{/required}}{{^required}}opts[:'{{{paramName}}}']{{/required}}.to_json
+        {{/bodyParam}}
+
+        {{#hasAuthMethods}}
+        # authentication requirement
+        op.auths = [{{#authMethods}}
+          { name: '{{{name}}}', key: '{{keyParamName}}', in_query: {{#isKeyInQuery}}true{{/isKeyInQuery}}{{^isKeyInQuery}}false{{/isKeyInQuery}} }{{#hasMore}},{{newline}}{{/hasMore}}
+        {{/authMethods}}]
+        {{/hasAuthMethods}}
+
+        resp = call_api op
+
+        {{#returnType}}
+        NovacastSDK::{{moduleName}}::Models::{{returnType}}.from_json resp.body
+        {{/returnType}}{{^returnType}}
+        nil
+        {{/returnType}}
+      end
+{{/operation}}
+    end
+{{/operations}}
+  end
+end
