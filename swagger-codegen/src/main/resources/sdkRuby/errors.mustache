@@ -1,0 +1,9 @@
+module NovacastSDK
+  module {{moduleName}}
+    module Errors
+{{#customErrorList}}
+      class {{name}} < NovacastSDK::Errors::Base; DEFAULT_STATUS={{status}}; end
+{{/customErrorList}}
+    end
+  end
+end

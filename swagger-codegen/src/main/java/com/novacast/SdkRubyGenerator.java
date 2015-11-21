@@ -126,6 +126,7 @@ public class SdkRubyGenerator extends DefaultCodegen implements CodegenConfig {
     cliOptions.add(new CliOption("gemName", "gem name (convention: underscore_case), default: swagger_client"));
     cliOptions.add(new CliOption("moduleName", "top module name (convention: CamelCase, usually corresponding to gem name), default: SwaggerClient"));
     cliOptions.add(new CliOption("gemVersion", "gem version, default: 1.0.0"));
+    cliOptions.add(new CliOption("customErrors", "custom error list (convention: comma separated list of <Error Name>:<HTTP Status>)"));
   }
 
   @Override
@@ -158,6 +159,22 @@ public class SdkRubyGenerator extends DefaultCodegen implements CodegenConfig {
           additionalProperties.put("gemVersion", gemVersion);
       }
 
+      if (additionalProperties.containsKey("customErrors")) {
+          List<Map<String, String>> errList = new ArrayList<Map<String, String>>();
+          String[] errSpecs = ((String) additionalProperties.get("customErrors")).split("[,\\s]+");
+
+          for (String spec : errSpecs) {
+            String[] details = spec.split(":");
+            Map<String, String> err = new HashMap<String, String>();
+            err.put("name", details[0]);
+            err.put("status", details[1]);
+            errList.add(err);
+          }
+          additionalProperties.put("customErrorList", errList);
+      }
+
+      additionalProperties.put("customErrorImportPath", gemName + "/errors.rb");
+
       // use constant model/api package (folder path)
       setModelPackage("models");
       setApiPackage("api");
@@ -166,12 +183,8 @@ public class SdkRubyGenerator extends DefaultCodegen implements CodegenConfig {
 
       supportingFiles.add(new SupportingFile("gemspec.mustache", "", gemName + ".gemspec"));
       supportingFiles.add(new SupportingFile("gem.mustache", libFolder, gemName + ".rb"));
-      //supportingFiles.add(new SupportingFile("api_client.mustache", gemFolder, "api_client.rb"));
-      //supportingFiles.add(new SupportingFile("api_error.mustache", gemFolder, "api_error.rb"));
-      //supportingFiles.add(new SupportingFile("configuration.mustache", gemFolder, "configuration.rb"));
       supportingFiles.add(new SupportingFile("version.mustache", gemFolder, "version.rb"));
-      //String modelFolder = gemFolder + File.separator + modelPackage.replace("/", File.separator);
-      //supportingFiles.add(new SupportingFile("base_object.mustache", modelFolder, "base_object.rb"));
+      supportingFiles.add(new SupportingFile("errors.mustache", gemFolder, "errors.rb"));
   }
 
   /**
