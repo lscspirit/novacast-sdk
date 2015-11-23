@@ -23,7 +23,10 @@ Gem::Specification.new do |spec|
   end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.require_paths = ['lib']
+  spec.require_paths = ['lib', 'rspec']
 
   spec.add_dependency 'novacast-sdk-core', '~> 0.2'
+
+  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rspec-rails', '~> 3.0.0'
 end
