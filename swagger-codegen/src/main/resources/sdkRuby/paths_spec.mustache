@@ -18,14 +18,8 @@ module NovacastSDK
         end
       end
 
-      def expect_path_not_routable(path)
-        expect(path).not_to be_routable
-      end
-    end
-
-    def self.init
-      ::RSpec.configure do |c|
-        c.include Helpers
+      def expect_path_routable(path)
+        expect(path).to be_routable
       end
     end
 
@@ -42,7 +36,7 @@ module NovacastSDK
               :'{{paramName}}' => '{{dataType}}'{{#hasMore}},{{newline}}{{/hasMore}}
             {{/pathParams}}
             }
-            expect_path_not_routable(:{{httpMethod}} => generate_path('{{#contextPath}}{{contextPath}}{{/contextPath}}{{path}}', path_params))
+            expect_path_routable(:{{httpMethod}} => generate_path('{{#contextPath}}{{contextPath}}{{/contextPath}}{{path}}', path_params))
           end
         end
       {{/operation}}
@@ -52,4 +46,8 @@ module NovacastSDK
 {{/apis}}
 {{/apiInfo}}
   end
+end
+
+RSpec.configure do |c|
+  c.include NovacastSDK::RSpec::Helpers
 end
