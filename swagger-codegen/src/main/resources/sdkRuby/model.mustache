@@ -15,7 +15,7 @@ module NovacastSDK
           {
             {{#vars}}
             # {{description}}
-            :'{{{name}}}' => { base_name: '{{{baseName}}}', type: '{{{datatype}}}' }{{#hasMore}},{{/hasMore}}
+            :'{{{name}}}' => { base_name: '{{{baseName}}}', type: '{{{datatype}}}', required: {{#required}}true{{/required}}{{^required}}false{{/required}} }{{#hasMore}},{{/hasMore}}
             {{/vars}}
           }
         end

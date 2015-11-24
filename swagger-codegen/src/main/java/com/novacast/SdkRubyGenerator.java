@@ -188,6 +188,7 @@ public class SdkRubyGenerator extends DefaultCodegen implements CodegenConfig {
 
       // API compliant Test Cases
       supportingFiles.add(new SupportingFile("paths_spec.mustache", "rspec/" + gemName, "paths_spec.rb"));
+      supportingFiles.add(new SupportingFile("apis_spec_helper.mustache", "rspec/" + gemName, "apis_spec_helper.rb"));
   }
 
   /**

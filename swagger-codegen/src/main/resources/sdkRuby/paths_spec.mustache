@@ -1,51 +1,53 @@
 module NovacastSDK
-  module RSpec
-    module Helpers
-      def generate_path(template, params)
-        path = template.sub('{format}','json')
-        params.reduce(path) do |result, (key, type)|
-          value = case type.downcase
-                    when 'integer', 'number'
-                      123456
-                    when 'boolean'
-                      true
-                    else
-                      'string'
-                  end
-          result.sub("{#{key}}", value)
+  module {{moduleName}}
+    module RSpec
+      module Helpers
+        def generate_path(template, params)
+          path = template.sub('{format}','json')
+          params.reduce(path) do |result, (key, type)|
+            value = case type.downcase
+                      when 'integer', 'number'
+                        123456
+                      when 'boolean'
+                        true
+                      else
+                        'string'
+                    end
+            result.sub("{#{key}}", value)
+          end
+        end
+
+        def expect_path_routable(path)
+          expect(path).to be_routable
         end
       end
-
-      def expect_path_routable(path)
-        expect(path).to be_routable
-      end
-    end
 
 {{#apiInfo}}
 {{#apis}}
   {{#operations}}
-    class {{classname}}Paths
-      def self.specs
-      {{#operation}}
-        ::RSpec.describe '{{httpMethod}} {{path}}', type: :routing do
-          it 'is a valid endpoint' do
-            path_params = {
-            {{#pathParams}}
-              :'{{paramName}}' => '{{dataType}}'{{#hasMore}},{{newline}}{{/hasMore}}
-            {{/pathParams}}
-            }
-            expect_path_routable(:{{httpMethod}} => generate_path('{{#contextPath}}{{contextPath}}{{/contextPath}}{{path}}', path_params))
+      class {{classname}}Paths
+        def self.specs
+        {{#operation}}
+          ::RSpec.describe '{{httpMethod}} {{path}}', type: :routing do
+            it 'is a valid endpoint' do
+              path_params = {
+              {{#pathParams}}
+                :'{{paramName}}' => '{{dataType}}'{{#hasMore}},{{newline}}{{/hasMore}}
+              {{/pathParams}}
+              }
+              expect_path_routable(:{{httpMethod}} => generate_path('{{#contextPath}}{{contextPath}}{{/contextPath}}{{path}}', path_params))
+            end
           end
+        {{/operation}}
         end
-      {{/operation}}
       end
-    end
   {{/operations}}
 {{/apis}}
 {{/apiInfo}}
+    end
   end
 end
 
 RSpec.configure do |c|
-  c.include NovacastSDK::RSpec::Helpers
+  c.include NovacastSDK::{{moduleName}}::RSpec::Helpers
 end

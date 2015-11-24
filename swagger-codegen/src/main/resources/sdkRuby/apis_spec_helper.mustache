@@ -1,0 +1,42 @@
+require 'json'
+
+module NovacastSDK
+  module {{moduleName}}
+    class ApiResponses
+{{#apiInfo}}{{#apis}}
+      RESPONSES = { {{#operations}}{{#operation}}
+        :{{operationId}} => {
+          {{#responses}}
+          {{code}} => '{{dataType}}'{{#hasMore}},{{/hasMore}}
+          {{/responses}}
+        }{{#hasMore}},{{newline}}{{/hasMore}} {{/operation}}{{/operations}}
+      }
+{{/apis}}{{/apiInfo}}
+
+      def self.compare(resp_hash, api, status_code)
+        raise ArgumentError, "Api '#{api}' response definition not found" unless (api = RESPONSES[api.to_sym])
+        raise ArgumentError, "Status code '#{status_code}' response definition not found for '#{api}'" unless (resp_type = api[status_code.to_i])
+
+        NovacastSDK::Utils.type_check resp_hash, resp_type do |model_name|
+          NovacastSDK::{{moduleName}}::Models.const_get(model_name).model_properties
+        end
+      end
+    end
+  end
+end
+
+RSpec::Matchers.define :be_api_response do |api, status|
+  match do |response_body|
+    json  = JSON.parse response_body
+    @diff = NovacastSDK::{{moduleName}}::ApiResponses.compare json, api, status
+    @diff.nil?
+  end
+
+  failure_message do
+    "expected response body be in #{api} (#{status}) format. Diff:\n#{@diff.to_s}"
+  end
+
+  failure_message_when_negated do
+    "expected response body to not be in #{api} (#{status}) format"
+  end
+end
