@@ -13,7 +13,7 @@ module NovacastSDK
                       else
                         'string'
                     end
-            result.sub("{#{key}}", value)
+            result.sub("{#{key}}", value.to_s)
           end
         end
 

@@ -14,12 +14,40 @@ module NovacastSDK
 {{/apis}}{{/apiInfo}}
 
       def self.compare(resp_hash, api, status_code)
-        raise ArgumentError, "Api '#{api}' response definition not found" unless (api = RESPONSES[api.to_sym])
-        raise ArgumentError, "Status code '#{status_code}' response definition not found for '#{api}'" unless (resp_type = api[status_code.to_i])
+        resp_type = find_response_type api, status_code
 
         NovacastSDK::Utils.type_check resp_hash, resp_type do |model_name|
           NovacastSDK::{{moduleName}}::Models.const_get(model_name).model_properties
         end
+      end
+
+      def self.response_type(api, status_code)
+        find_response_type api, status_code
+      end
+
+      private
+
+      def self.resolve_status(status_code)
+        if status_code.is_a?(Symbol)
+          Rack::Utils::SYMBOL_TO_STATUS_CODE.fetch(status_code) do
+            raise ArgumentError,
+                  "Invalid HTTP status: #{status_code.inspect}"
+          end
+        else
+          Integer(status_code)
+        end
+      end
+
+      def self.find_response_type(api, status_code)
+        # convert status_code in symbol into integer code
+        status_code = resolve_status status_code
+
+        # raise error if the response definition is not found for this api
+        raise ArgumentError, "Api '#{api}' response definition not found" unless (api = RESPONSES[api.to_sym])
+        # raise error if the response type (or a fallback) is not defined for this status code
+        raise ArgumentError, "Status code '#{status_code}' response definition not found for '#{api}'" unless (resp_type = api[status_code] || api[0])
+
+        resp_type
       end
     end
   end
@@ -27,16 +55,31 @@ end
 
 RSpec::Matchers.define :be_api_response do |api, status|
   match do |response_body|
-    json  = JSON.parse response_body
-    @diff = NovacastSDK::{{moduleName}}::ApiResponses.compare json, api, status
+    @actual = JSON.parse response_body
+    @diff   = NovacastSDK::{{moduleName}}::ApiResponses.compare @actual, api, status
     @diff.nil?
   end
 
   failure_message do
-    "expected response body be in #{api} (#{status}) format. Diff:\n#{@diff.to_s}"
+    expected_type = NovacastSDK::{{moduleName}}::ApiResponses.response_type api, status
+    "expected response body be in #{api} (#{status}) format. \n\tDiff: #{@diff.to_s} \n\tactual: #{@actual} \n\texpected: #{expected_type} object (please refer to api specification)"
   end
 
   failure_message_when_negated do
-    "expected response body to not be in #{api} (#{status}) format"
+    "expected response body to not be in #{api} (#{status}) format \n\tactual: #{@actual}"
   end
+end
+
+RSpec.shared_examples 'an api response' do |api, status, error_klass_name = nil|
+  it "responses in the format defined in api specification for #{api} (#{status})" do
+    expect(response.body).to be_api_response(api, status)
+  end
+
+  it "responses with a #{status} status" do
+    expect(response).to have_http_status(status)
+  end
+
+  it "responses with the #{error_klass_name} error" do
+    expect(response.body).to match(error_klass_name.to_s)
+  end if error_klass_name
 end
