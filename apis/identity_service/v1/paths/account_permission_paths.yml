@@ -1,0 +1,132 @@
+/accounts/{account_uid}/permissions:
+  parameters:
+    - name: account_uid
+      description: Uid of the Account
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getAccountPermissions
+    description: |
+      Get permissions associated with this account
+    parameters:
+      - name: resources
+        description: List of resource names
+        type: array
+        in: query
+        items:
+          type: string
+      - name: permissions
+        description: List of permission names
+        type: array
+        in: query
+        items:
+          type: string
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ResourcePermissionsList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/accounts/{account_uid}/permissions/validate:
+  parameters:
+    - name: account_uid
+      description: Uid of the Account
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: validateAccountPermission
+    description: |
+      Validate whether the Account has a particular permission on a resource
+    parameters:
+      - name: resource
+        description: name of the resource
+        type: string
+        in: query
+        required: true
+      - name: permission
+        description: name of the permission
+        type: string
+        in: query
+        required: true
+    responses:
+      '200':
+        description: Success
+        schema:
+          type: object
+          properties:
+            valid:
+              type: boolean
+              description: valid or not
+          required: ['valid']
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/accounts/{account_uid}/roles:
+  parameters:
+    - name: account_uid
+      description: Uid of the Account
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: setUserRole
+    description: |
+      Assign role to an Account
+    parameters:
+      - name: role
+        description: user role information
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserRoleRequest'
+    responses:
+      '200':
+        description: all roles associated with the Account
+        schema:
+          $ref: '#/definitions/RoleResourceMapList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/accounts/{account_uid}/role_permissions:
+  parameters:
+    - name: account_uid
+      description: Uid of the Account
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getAccountRolePermission
+    description: |
+      Get roles AND permissions associated with this account
+    parameters:
+      - name: resources
+        description: List of resource names
+        type: array
+        in: query
+        items:
+          type: string
+      - name: permissions
+        description: List of permission names
+        type: array
+        in: query
+        items:
+          type: string
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/RoleResourcePermissionsList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

@@ -1,0 +1,102 @@
+PermissionList:
+  type: object
+  title: list of permissions
+  properties:
+    permissions:
+      type: array
+      description: list of permission names
+      items:
+        type: string
+  required: ['permissions']
+
+ResourcePermissions:
+  type: object
+  title: List of permissions on a resource
+  properties:
+    resource:
+      type: string
+      description: Name of the AccessResource
+    permissions:
+      type: array
+      description: List of permission names
+      items:
+        type: string
+  required: ['resource', 'permissions']
+
+ResourcePermissionsList:
+  type: object
+  title: A collection of ResourcePermissions
+  properties:
+    items:
+      type: array
+      description: ResourcePermissions list
+      items:
+        $ref: '#/definitions/ResourcePermissions'
+  required: ['items']
+
+RoleResourcePermissions:
+  type: object
+  title: Resource permissions for a role
+  allOf:
+    - $ref: '#/definitions/ResourcePermissions'
+    - type: object
+      properties:
+        role_name:
+          type: string
+          description: Name of the AccessRole
+        role_desc:
+          type: string
+          description: Description of the AccessRole
+      required: ['role_name']
+
+RoleResourcePermissionsList:
+  type: object
+  title: A collection of RoleResourcePermissions
+  properties:
+    items:
+      type: array
+      description: RoleResourcePermissions list
+      items:
+        $ref: '#/definitions/RoleResourcePermissions'
+  required: ['items']
+
+RoleResourceMap:
+  type: object
+  title: mapping of role to a resource
+  properties:
+    role_name:
+      type: string
+      description: name of the role
+    role_desc:
+      type: string
+      description: description of the role
+    resource:
+      type: string
+      description: name of the resource
+  required: ['role_name', 'resource']
+
+RoleResourceMapList:
+  type: object
+  title: A collection of RoleResourceMap
+  properties:
+    items:
+      type: array
+      description: list of RoleResourceMap
+      items:
+        $ref: '#/definitions/RoleResourceMap'
+  required: ['items']
+
+UserRoleRequest:
+  type: object
+  title: Request object for the setUserRole API
+  properties:
+    role_set:
+      type: string
+      description: key of the role set
+    role:
+      type: string
+      description: name of the role
+    resource:
+      type: string
+      description: name of the resource
+  required: ['role_set', 'role', 'resource']

@@ -1,0 +1,22 @@
+AccessPermissionInfo:
+  type: object
+  title: Access Permission Details
+  properties:
+    name:
+      type: string
+      description: Name of the permission
+    desc:
+      type: string
+      description: Description of the permission
+  required: ['name']
+  
+AccessPermission:
+  title: Access Permission Object
+  allOf:
+    - $ref: '#/definitions/AccessPermissionInfo'
+    - type: object
+      properties:
+        id:
+          type: integer
+          description: Access Permission Id
+      required: ['id']

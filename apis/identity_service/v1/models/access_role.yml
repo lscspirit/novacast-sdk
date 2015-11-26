@@ -1,0 +1,32 @@
+AccessRoleInfo:
+  type: object
+  title: Access Role Details
+  properties:
+    role_set_id:
+      type: integer
+      description: Id of the role set in which this role belongs to
+    name:
+      type: string
+      description: Name of the role
+    desc:
+      type: string
+      description: Description of the role
+  required: ['role_set_id', 'name']
+
+AccessRole:
+  type: object
+  title: Access Role
+  allOf:
+    - $ref: '#/definitions/AccessRoleInfo'
+    - type: object
+      properties:
+        id:
+          type: integer
+          description: id of the AccessRole
+      required: ['id']
+      
+AccessRoleList:
+  type: array
+  title: Access Role List
+  items:
+    $ref: '#/definitions/AccessRole'

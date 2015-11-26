@@ -1,0 +1,25 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'Novacast Identity Service API'
+basePath: /api/v1
+produces:
+  - application/json
+consumes:
+  - application/json
+securityDefinitions:
+  accessKey:
+    type: apiKey
+    in: query
+    name: access_token
+  appSecret:
+    type: apiKey
+    in: query
+    name: app_token
+security:
+  - accessKey: []
+  - appSecret: []
+paths:
+  $spec_ref: 'paths'
+definitions:
+  $spec_ref: 'models'

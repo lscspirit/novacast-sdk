@@ -1,0 +1,58 @@
+AccountRequest:
+  type: object
+  title: Account Request Information
+  properties:
+    domain_name:
+      description: Domain name
+      type: string
+    provider_name:
+      description: OAuth provider name
+      type: string
+    identifier:
+      description: Account identifier (username or email)
+      type: string
+    password:
+      description: Account password
+      type: string
+    access_token:
+      description: Access token provided by a third party OAuth provider
+      type: string
+  required: ['domain_name', 'provider_name']
+
+Account:
+  type: object
+  title: Account Information
+  properties:
+    uid:
+      type: string
+      description: Account Unique ID
+    identifier:
+      type: string
+      description: Account identifier (username or email)
+    domain_id:
+      type: integer
+      description: Domain Id
+  required: ['uid', 'identifier', 'domain_id']
+
+LoginResponse:
+  type: object
+  title: Response to Login Request
+  properties:
+    user:
+      $ref: '#/definitions/Account'
+    token:
+      description: Access token
+      type: string
+  required: ['user', 'token']
+  
+LogoutResponse:
+  type: object
+  title: Respone to Logout Request
+  properties:
+    token:
+      description: Access token
+      type: string
+    revoked_at:
+      description: Time at which the token is revoked
+      type: string
+      format: date-time

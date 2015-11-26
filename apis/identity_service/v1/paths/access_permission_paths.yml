@@ -1,0 +1,62 @@
+/permissions:
+  post:
+    operationId: createAccessPermission
+    description: |
+      Create a new `AccessPermission`
+    parameters:
+      - name: permission
+        description: Details of the permission
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccessPermissionInfo'
+    responses:
+      '201':
+        description: AccessPermission created
+        schema:
+          $ref: '#/definitions/AccessPermission'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/permissions/{permission_id}:
+  parameters:
+    - name: permission_id
+      description: AccessPermission id
+      type: integer
+      in: path
+      required: true
+  put:
+    operationId: updateAccessPermission
+    description: |
+      Update an `AccessPermission`
+    parameters:
+      - name: permission
+        description: Details of the permission
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccessPermissionInfo'
+    responses:
+      '200':
+        description: AccessPermission updated
+        schema:
+          $ref: '#/definitions/AccessPermission'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    operationId: deleteAccessPermission
+    description: |
+      Delete an `AccessPermission`
+    responses:
+      '200':
+        description: AccessPermission deleted
+        schema:
+          $ref: '#/definitions/AccessPermission'
+      default:
+        description: Deletion failed
+        schema:
+          $ref: '#/definitions/Error'

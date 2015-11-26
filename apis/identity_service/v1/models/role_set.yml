@@ -1,0 +1,23 @@
+RoleSetInfo:
+  type: object
+  title: Role Set Details
+  properties:
+    key:
+      type: string
+      description: unique key to identify the role set
+    desc:
+      type: string
+      description: role set description
+  required: ['key']
+  
+RoleSet:
+  type: object
+  title: Model Title
+  allOf:
+    - $ref: '#/definitions/RoleSetInfo'
+    - type: object
+      properties:
+        id:
+          type: integer
+          description: Id of the RoleSet
+      required: ['id']

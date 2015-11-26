@@ -1,0 +1,102 @@
+/accounts:
+  post:
+    operationId: createAccount
+    description: |
+      Creates a new `Account`
+    parameters:
+      - name: info
+        description: Account Information
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccountRequest'
+    responses:
+      '201':
+        description: Account created
+        schema:
+          $ref: '#/definitions/Account'
+      default:
+        description: Account creation failed
+        schema:
+          $ref: '#/definitions/Error'
+/accounts/{account_uid}:
+  get:
+    operationId: getAccount
+    description: |
+      Gets the `User` object for the account
+    parameters:
+      - name: account_uid
+        in: path
+        required: true
+        type: string
+        description: Account UID
+    security:
+      - appSecret: []
+    responses:
+      '200':
+        description: Successful response
+        schema:
+          $ref: '#/definitions/Account'
+      default:
+        description: Error response
+        schema:
+          $ref: '#/definitions/Error'
+/accounts/login:
+  post:
+    operationId: signIn
+    description: |
+      Sign in
+    parameters:
+      - name: info
+        description: Account Information
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccountRequest'
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/LoginResponse'
+      default:
+        description: Error response
+        schema:
+          $ref: '#/definitions/Error'
+/accounts/logout:
+  get:
+    operationId: signOut
+    description: |
+      Sign out
+    security:
+      - accessKey: []
+    responses:
+      '200':
+        description: Successful response
+        schema:
+          $ref: '#/definitions/LogoutResponse'
+      default:
+        description: Error response
+        schema:
+          $ref: '#/definitions/Error'
+/access_tokens/{access_token}:
+  get:
+    operationId: validateToken
+    description: |
+      Validates an access token
+    parameters:
+      - name: access_token
+        description: Access token
+        type: string
+        in: path
+        required: true
+    security:
+      - appSecret: []
+    responses:
+      '200':
+        description: Successful response
+        schema:
+          $ref: '#/definitions/Account'
+      default:
+        description: Error response
+        schema:
+          $ref: '#/definitions/Error'

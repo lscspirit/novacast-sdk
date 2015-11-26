@@ -1,0 +1,114 @@
+/role_sets/{role_set_id}/roles:
+  parameters:
+    - name: role_set_id
+      description: AccessRoleSet id
+      type: integer
+      in: path
+      required: true
+  get:
+    operationId: getRoles
+    description: |
+      Get all `AccessRole` in the `AccessRoleSet`
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/AccessRoleList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createRole
+    description: |
+      Create a new `AccessRole`
+    parameters:
+      - name: role
+        description: Access role details
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccessRoleInfo'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/AccessRole'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/role_sets/{role_set_id}/roles/{role_name}/permissions:
+  parameters:
+    - name: role_set_id
+      description: id of the role set
+      type: integer
+      in: path
+      required: true
+    - name: role_name
+      description: name of the role
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: setPermissionForRole
+    description: |
+      Assign a permission on a resource to a role
+    parameters:
+      - name: permissions
+        description: ResourcePermissions object
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ResourcePermissions'
+    responses:
+      '200':
+        description: updated
+        schema:
+          $ref: '#/definitions/PermissionList'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/roles/{role_id}:
+  parameters:
+    - name: role_id
+      description: AccessRole id
+      type: integer
+      in: path
+      required: true
+  put:
+    operationId: updateRole
+    description: |
+      Update an `AccessRole`
+    parameters:
+      - name: role
+        description: Access role details
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccessRoleInfo'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/AccessRole'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    operationId: deleteAccessRole
+    description: |
+      Delete an `AccessRole`
+    responses:
+      '200':
+        description: Deleted
+        schema:
+          $ref: '#/definitions/AccessRole'
+      default:
+        description: Delete failed
+        schema:
+          $ref: '#/definitions/Error'

@@ -1,0 +1,63 @@
+/role_sets:
+  post:
+    operationId: createRoleSet
+    description: |
+      Create a new `RoleSet`
+    parameters:
+      - name: role_set
+        description: RoleSet Details
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/RoleSetInfo'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/RoleSet'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/role_sets/{role_set_id}:
+  get:
+    operationId: getRoleSet
+    description: |
+      Get a `RoleSet`
+    parameters:
+      - name: role_set_id
+        description: RoleSet Id
+        type: integer
+        in: path
+        required: true
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/RoleSet'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/role_sets/key/{role_set_key}:
+  get:
+    operationId: getRoleSetByKey
+    description: |
+      Get a `RoleSet` using the role set key
+    parameters:
+      - name: role_set_key
+        description: RoleSet key
+        type: string
+        in: path
+        required: true
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/RoleSet'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

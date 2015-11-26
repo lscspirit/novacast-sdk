@@ -1,0 +1,13 @@
+Domain:
+  type: object
+  title: Domain
+  properties:
+    id:
+      description: Domain Id
+      type: integer
+    key:
+      description: Domain unique key
+      type: string
+    name:
+      description: Domain name
+      type: string

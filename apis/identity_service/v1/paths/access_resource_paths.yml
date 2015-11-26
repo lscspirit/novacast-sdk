@@ -1,0 +1,62 @@
+/resources:
+  post:
+    operationId: createAccessResource
+    description: |
+      Create a new `AccessResource`
+    parameters:
+      - name: resource
+        description: Details of the resource
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccessResourceInfo'
+    responses:
+      '201':
+        description: AccessResource created
+        schema:
+          $ref: '#/definitions/AccessResource'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/resources/{resource_id}:
+  parameters:
+    - name: resource_id
+      description: AccessResource id
+      type: integer
+      in: path
+      required: true
+  put:
+    operationId: updateAccessResource
+    description: |
+      Update an `AccessResource`
+    parameters:
+      - name: resource
+        description: Name of the resource
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccessResourceInfo'
+    responses:
+      '200':
+        description: AccessResource updated
+        schema:
+          $ref: '#/definitions/AccessResource'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    operationId: deleteAccessResource
+    description: |
+      Delete an `AccessResource`
+    responses:
+      '200':
+        description: AccessResource deleted
+        schema:
+          $ref: '#/definitions/AccessResource'
+      default:
+        description: Deletion failed
+        schema:
+          $ref: '#/definitions/Error'

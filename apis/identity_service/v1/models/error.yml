@@ -1,0 +1,11 @@
+Error:
+  type: object
+  properties:
+    klass_name:
+      description: Error class name
+      type: string
+    messages:
+      description: An array of error messages
+      type: array
+      items:
+        type: string

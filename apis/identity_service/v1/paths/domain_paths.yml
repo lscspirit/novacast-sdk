@@ -1,0 +1,63 @@
+/domains:
+  post:
+    operationId: createDomain
+    description: |
+      Create a new `Domain`
+    parameters:
+      - name: domain
+        description: Domain details
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/Domain'
+    responses:
+      '201':
+        description: Domain created
+        schema:
+          $ref: '#/definitions/Domain'
+      default:
+        description: Domain creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/domains/{domain_id}:
+  get:
+    operationId: getDomain
+    description: |
+      Get a `Domain`
+    parameters:
+      - name: domain_id
+        description: Account Information
+        type: string
+        in: path
+        required: true
+    responses:
+      '200':
+        description: Domain found
+        schema:
+          $ref: '#/definitions/Domain'
+      default:
+        description: Domain lookup failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/domains/key/{domain_key}:
+  get:
+    operationId: getDomainByKey
+    description: |
+      Get a `Domain` using the domain key
+    parameters:
+      - name: domain_key
+        description: Domain key
+        type: string
+        in: path
+        required: true
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/Domain'
+      default:
+        description: Domain lookup failed
+        schema:
+          $ref: '#/definitions/Error'

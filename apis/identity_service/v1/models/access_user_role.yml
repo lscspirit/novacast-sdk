@@ -1,0 +1,26 @@
+AccessUserRoleInfo:
+  type: object
+  title: User Role Mapping
+  properties:
+    user_uid:
+      type: string
+      description: Uid of User
+    role_id:
+      type: integer
+      description: AccessRole id
+    resource_id:
+      type: integer
+      description: AccessResource id
+  required: ['user_uid', 'role_id', 'resource_id']
+
+AccessUserRole:
+  type: object
+  title: User Role Mapping
+  allOf:
+    - $ref: '#/definitions/AccessUserRoleInfo'
+    - type: object
+      properties:
+        id:
+          type: integer
+          description: AccessUserRole id
+      required: ['id']
