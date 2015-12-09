@@ -70,7 +70,7 @@ RSpec::Matchers.define :be_api_response do |api, status|
   end
 end
 
-RSpec.shared_examples 'an api response' do |api, status, error_klass_name = nil|
+RSpec.shared_examples 'an api response' do |api, status, error_klass_name = nil, error_message = nil|
   it "responses in the format defined in api specification for #{api} (#{status})" do
     expect(response.body).to be_api_response(api, status)
   end
@@ -82,4 +82,8 @@ RSpec.shared_examples 'an api response' do |api, status, error_klass_name = nil|
   it "responses with the #{error_klass_name} error" do
     expect(response.body).to match(error_klass_name.to_s)
   end if error_klass_name
+
+  it "responses with the error message" do
+    expect(response.body).to match(error_message.to_s)
+  end if error_message
 end
