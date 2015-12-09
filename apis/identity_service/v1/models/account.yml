@@ -1,58 +1,62 @@
 AccountRequest:
   type: object
-  title: Account Request Information
+  description: |
+    A request object for creating/changing `Account`
   properties:
     domain_name:
-      description: Domain name
+      description: domain name
       type: string
     provider_name:
       description: OAuth provider name
       type: string
     identifier:
-      description: Account identifier (username or email)
+      description: account identifier (username or email)
       type: string
     password:
-      description: Account password
+      description: account password
       type: string
     access_token:
-      description: Access token provided by a third party OAuth provider
+      description: access token provided by a third party OAuth provider
       type: string
   required: ['domain_name', 'provider_name']
 
 Account:
   type: object
-  title: Account Information
+  description: |
+    Account object
   properties:
     uid:
       type: string
-      description: Account Unique ID
+      description: account unique id (uid)
     identifier:
       type: string
-      description: Account identifier (username or email)
+      description: account identifier (username or email)
     domain_id:
       type: integer
-      description: Domain Id
+      description: domain id
   required: ['uid', 'identifier', 'domain_id']
 
 LoginResponse:
   type: object
-  title: Response to Login Request
+  description: |
+    Response to a login request
   properties:
     user:
       $ref: '#/definitions/Account'
     token:
-      description: Access token
+      description: access token
       type: string
   required: ['user', 'token']
-  
+
 LogoutResponse:
   type: object
-  title: Respone to Logout Request
+  description: |
+    Response to a logout request
   properties:
     token:
-      description: Access token
+      description: access token
       type: string
     revoked_at:
-      description: Time at which the token is revoked
+      description: revocation time
       type: string
       format: date-time

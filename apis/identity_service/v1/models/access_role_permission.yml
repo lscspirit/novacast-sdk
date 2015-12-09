@@ -1,28 +1,34 @@
-AccessRolePermissionInfo:
-  type: object
-  title: A mapping of AccessRole and AccessPermission
-  properties:
-    role_id:
-      type: integer
-      description: AccessRole id
-    permission_id:
-      type: integer
-      description: AccessPermission id
-  required: ['role_id', 'permission_id']
-
 AccessRolePermission:
   type: object
-  title: A mapping of AccessRole and AccessPermission
-  allOf:
-    - $ref: '#/definitions/AccessRolePermissionInfo'
-    - type: object
-      properties:
-        id:
-          type: integer
-          description: AccessRolePermission id
-          
+  description: |
+    Role-permission mapping object
+  properties:
+    id:
+      type: integer
+      description: role-permission id
+    role_set_id:
+      type: integer
+      description: role set id
+    role_id:
+      type: integer
+      description: access role id
+    role_name:
+      type: string
+      description: access role name
+    permission_id:
+      type: integer
+      description: access permission id
+    permission_name:
+      type: string
+      description: access permission name
+  required: ['id', 'role_set_id', 'role_id', 'role_name', 'permission_id', 'permission_name']
+
 AccessRolePermissionList:
-  type: array
-  title: List of AccessRolePermission
-  items:
-    $ref: '#/definitions/AccessRolePermission'
+  type: object
+  description: |
+    A collection of `AccessRolePermission` objects
+  properties:
+    items:
+      type: array
+      items:
+        $ref: '#/definitions/AccessRolePermission'

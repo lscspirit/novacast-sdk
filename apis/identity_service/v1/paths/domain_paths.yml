@@ -5,11 +5,11 @@
       Create a new `Domain`
     parameters:
       - name: domain
-        description: Domain details
+        description: domain details
         in: body
         required: true
         schema:
-          $ref: '#/definitions/Domain'
+          $ref: '#/definitions/DomainInfo'
     responses:
       '201':
         description: Domain created

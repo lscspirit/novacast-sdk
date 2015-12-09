@@ -1,32 +1,38 @@
 AccessRoleInfo:
   type: object
-  title: Access Role Details
+  description: |
+    Access role data
   properties:
-    role_set_id:
-      type: integer
-      description: Id of the role set in which this role belongs to
     name:
       type: string
-      description: Name of the role
+      description: name of the role
     desc:
       type: string
-      description: Description of the role
-  required: ['role_set_id', 'name']
+      description: description of the role
+  required: ['name']
 
 AccessRole:
   type: object
-  title: Access Role
+  description: |
+    Access role object
   allOf:
     - $ref: '#/definitions/AccessRoleInfo'
     - type: object
       properties:
         id:
           type: integer
-          description: id of the AccessRole
-      required: ['id']
-      
+          description: access role id
+        role_set_id:
+          type: integer
+          description: role set id
+      required: ['id', 'role_set_id']
+
 AccessRoleList:
-  type: array
-  title: Access Role List
-  items:
-    $ref: '#/definitions/AccessRole'
+  type: object
+  description: |
+    A collection of `AccessRole` objects
+  properties:
+    roles:
+      type: array
+      items:
+        $ref: '#/definitions/AccessRole'

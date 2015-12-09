@@ -1,23 +1,17 @@
 /accounts/{account_uid}/permissions:
   parameters:
     - name: account_uid
-      description: Uid of the Account
+      description: uid of the Account
       type: string
       in: path
       required: true
   get:
     operationId: getAccountPermissions
     description: |
-      Get permissions associated with this account
+      Get all permissions associated with this account
     parameters:
       - name: resources
-        description: List of resource names
-        type: array
-        in: query
-        items:
-          type: string
-      - name: permissions
-        description: List of permission names
+        description: filter the result by resource names
         type: array
         in: query
         items:
@@ -32,10 +26,38 @@
         schema:
           $ref: '#/definitions/Error'
 
+/accounts/{account_uid}/roles:
+  parameters:
+    - name: account_uid
+      description: uid of the Account
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getAccountRoles
+    description: |
+      Get all roles on resources, along with corresponding permissions, associated with this account
+    parameters:
+      - name: resources
+        description: filter the result by resource names
+        type: array
+        in: query
+        items:
+          type: string
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/RoleResourcePermissionsList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
 /accounts/{account_uid}/permissions/validate:
   parameters:
     - name: account_uid
-      description: Uid of the Account
+      description: uid of the Account
       type: string
       in: path
       required: true
@@ -64,68 +86,6 @@
               type: boolean
               description: valid or not
           required: ['valid']
-      default:
-        description: Failed
-        schema:
-          $ref: '#/definitions/Error'
-
-/accounts/{account_uid}/roles:
-  parameters:
-    - name: account_uid
-      description: Uid of the Account
-      type: string
-      in: path
-      required: true
-  post:
-    operationId: setUserRole
-    description: |
-      Assign role to an Account
-    parameters:
-      - name: role
-        description: user role information
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/UserRoleRequest'
-    responses:
-      '200':
-        description: all roles associated with the Account
-        schema:
-          $ref: '#/definitions/RoleResourceMapList'
-      default:
-        description: Failed
-        schema:
-          $ref: '#/definitions/Error'
-
-/accounts/{account_uid}/role_permissions:
-  parameters:
-    - name: account_uid
-      description: Uid of the Account
-      type: string
-      in: path
-      required: true
-  get:
-    operationId: getAccountRolePermission
-    description: |
-      Get roles AND permissions associated with this account
-    parameters:
-      - name: resources
-        description: List of resource names
-        type: array
-        in: query
-        items:
-          type: string
-      - name: permissions
-        description: List of permission names
-        type: array
-        in: query
-        items:
-          type: string
-    responses:
-      '200':
-        description: Success
-        schema:
-          $ref: '#/definitions/RoleResourcePermissionsList'
       default:
         description: Failed
         schema:

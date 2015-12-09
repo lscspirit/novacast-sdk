@@ -39,39 +39,6 @@
         schema:
           $ref: '#/definitions/Error'
 
-/role_sets/{role_set_id}/roles/{role_name}/permissions:
-  parameters:
-    - name: role_set_id
-      description: id of the role set
-      type: integer
-      in: path
-      required: true
-    - name: role_name
-      description: name of the role
-      type: string
-      in: path
-      required: true
-  post:
-    operationId: setPermissionForRole
-    description: |
-      Assign a permission on a resource to a role
-    parameters:
-      - name: permissions
-        description: ResourcePermissions object
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/ResourcePermissions'
-    responses:
-      '200':
-        description: updated
-        schema:
-          $ref: '#/definitions/PermissionList'
-      default:
-        description: Creation failed
-        schema:
-          $ref: '#/definitions/Error'
-
 /roles/{role_id}:
   parameters:
     - name: role_id
@@ -110,5 +77,33 @@
           $ref: '#/definitions/AccessRole'
       default:
         description: Delete failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/roles/{role_id}/permissions:
+  parameters:
+    - name: role_id
+      description: AccessRole id
+      type: integer
+      in: path
+      required: true
+  post:
+    operationId: setPermissionForRole
+    description: |
+      Assign a permission on a resource to a role
+    parameters:
+      - name: permissions
+        description: ResourcePermissions object
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ResourcePermissions'
+    responses:
+      '200':
+        description: updated
+        schema:
+          $ref: '#/definitions/PermissionList'
+      default:
+        description: Creation failed
         schema:
           $ref: '#/definitions/Error'

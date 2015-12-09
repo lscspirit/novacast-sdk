@@ -1,26 +1,52 @@
-AccessUserRoleInfo:
+AccessRoleResource:
   type: object
-  title: User Role Mapping
+  description: |
+    Role to resource map (with ids)
   properties:
-    user_uid:
-      type: string
-      description: Uid of User
     role_id:
       type: integer
-      description: AccessRole id
+      description: access role id
     resource_id:
       type: integer
-      description: AccessResource id
-  required: ['user_uid', 'role_id', 'resource_id']
+      description: access resource id
+  required: ['role_id', 'resource_id']
 
 AccessUserRole:
   type: object
-  title: User Role Mapping
-  allOf:
-    - $ref: '#/definitions/AccessUserRoleInfo'
-    - type: object
-      properties:
-        id:
-          type: integer
-          description: AccessUserRole id
-      required: ['id']
+  description: |
+    User-role-resource mapping object
+  properties:
+    id:
+      type: integer
+      description: access user role id
+    user_uid:
+      type: string
+      description: user account uid
+    role_set_id:
+      type: integer
+      description: role set id
+    role_id:
+      type: integer
+      description: access role id
+    role_name:
+      type: string
+      description: access role name
+    resource_id:
+      type: integer
+      description: access resource id
+    resource_name:
+      type: string
+      description: access resource name
+  required: ['id', 'user_uid', 'role_set_id', 'role_id', 'role_name', 'resource_id', 'resource_name']
+
+AccessUserRoleList:
+  type: object
+  description: |
+    A collection of `AccessUserRole`
+  properties:
+    user_roles:
+      type: array
+      description: list of access user role object
+      items:
+        $ref: '#/definitions/AccessUserRole'
+  required: ['user_roles']

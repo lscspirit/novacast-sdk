@@ -1,19 +1,25 @@
-/user_roles:
+/accounts/{account_uid}/user_roles:
+  parameters:
+    - name: account_uid
+      description: uid of the user account
+      type: integer
+      in: path
+      required: true
   get:
-    operationId: getUserRoles
+    operationId: getAccountUserRoles
     description: |
       Get all `AccessUserRole`
     responses:
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/AccessUserRole'
+          $ref: '#/definitions/AccessUserRoleList'
       default:
         description: Failed
         schema:
           $ref: '#/definitions/Error'
   post:
-    operationId: createUserRole
+    operationId: createAccountUserRole
     description: |
       Create a new `AccessUserRole`
     parameters:
@@ -22,8 +28,12 @@
         in: body
         required: true
         schema:
-          $ref: '#/definitions/AccessUserRoleInfo'
+          $ref: '#/definitions/AccessRoleResource'
     responses:
+      '200':
+        description: Already exist
+        schema:
+          $ref: '#/definitions/AccessUserRole'
       '201':
         description: Created
         schema:

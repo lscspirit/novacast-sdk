@@ -1,22 +1,24 @@
 AccessResourceInfo:
   type: object
-  title: Access Resource Information
+  description: |
+    Access resource data
   properties:
     name:
       type: string
-      description: Name of the resource
+      description: name of the resource
     desc:
       type: string
-      description: Description of the resource
+      description: description of the resource
   required: ['name']
 
 AccessResource:
-  title: Access Resource Object
+  description: |
+    Access resource object
   allOf:
     - $ref: '#/definitions/AccessResourceInfo'
     - type: object
       properties:
         id:
           type: integer
-          description: Access Resource Id
+          description: access resource id
       required: ['id']

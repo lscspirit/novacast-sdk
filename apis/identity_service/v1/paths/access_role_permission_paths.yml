@@ -1,4 +1,10 @@
-/role_permissions:
+/roles/{role_id}/permissions:
+  parameters:
+    - name: role_id
+      description: AccessRole id
+      type: integer
+      in: path
+      required: true
   get:
     operationId: getRolePermissions
     description: |
@@ -22,8 +28,16 @@
         in: body
         required: true
         schema:
-          $ref: '#/definitions/AccessRolePermission'
+          type: object
+          properties:
+            permission_id:
+              type: integer
+              description: access permission id
     responses:
+      '200':
+        description: Already exist
+        schema:
+          $ref: '#/definitions/AccessRolePermission'
       '201':
         description: Created
         schema:

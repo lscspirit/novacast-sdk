@@ -1,13 +1,24 @@
-Domain:
+DomainInfo:
   type: object
-  title: Domain
+  description: |
+    Domain data
   properties:
-    id:
-      description: Domain Id
-      type: integer
     key:
-      description: Domain unique key
+      description: unique domain key
       type: string
     name:
-      description: Domain name
+      description: domain name
       type: string
+  required: ['key']
+Domain:
+  type: object
+  description: |
+    Domain object
+  allOf:
+    - $ref: '#/definitions/DomainInfo'
+    - type: object
+      properties:
+        id:
+          description: domain id
+          type: integer
+      required: ['id']

@@ -1,11 +1,13 @@
 Error:
   type: object
+  description: |
+    Error response
   properties:
     klass_name:
-      description: Error class name
+      description: error class name
       type: string
     messages:
-      description: An array of error messages
+      description: list of error messages
       type: array
       items:
         type: string
