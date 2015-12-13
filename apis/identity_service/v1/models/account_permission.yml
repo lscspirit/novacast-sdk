@@ -1,3 +1,18 @@
+AssignRoleRequest:
+  type: object
+  description: Request body for assignAccountRole
+  properties:
+    role_set:
+      type: string
+      description: key of the role set
+    role:
+      type: string
+      description: name of the role
+    resource:
+      type: string
+      description: name of the resource
+  required: ['role_set', 'role', 'resource']
+
 ResourcePermissions:
   type: object
   description: list of permissions for a single resource

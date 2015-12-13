@@ -16,9 +16,6 @@ securityDefinitions:
     type: apiKey
     in: query
     name: app_token
-security:
-  - accessKey: []
-  - appSecret: []
 paths:
   $spec_ref: 'paths'
 definitions:

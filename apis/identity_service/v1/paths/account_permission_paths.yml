@@ -53,6 +53,30 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+  post:
+    operationId: assignAccountRole
+    description: |
+      Assign a role to an account
+    parameters:
+      - name: role
+        description: role data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AssignRoleRequest'
+    responses:
+      '200':
+        description: Already exist
+        schema:
+          $ref: '#/definitions/RoleResourcePermissions'
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/RoleResourcePermissions'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
 
 /accounts/{account_uid}/permissions/validate:
   parameters:
