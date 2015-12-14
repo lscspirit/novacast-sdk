@@ -1,0 +1,31 @@
+ChannelData:
+  type: object
+  description: Channel data
+  properties:
+    name:
+      type: string
+      description: channel name
+  required: ['name']
+
+Channel:
+  type: object
+  description: Channel
+  allOf:
+    - $ref: '#/definitions/ChannelData'
+    - type: object
+      properties:
+        uid:
+          type: string
+          description: channel uid
+      required: ['uid']
+
+ChannelList:
+  type: object
+  description: List of channels
+  properties:
+    channels:
+      type: array
+      description: collection of channels
+      items:
+        $ref: '#/definitions/Channel'
+  required: ['channels']

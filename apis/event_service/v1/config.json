@@ -1,0 +1,6 @@
+{
+  "gemName":    "novacast-event-sdk",
+  "moduleName": "EventV1",
+  "gemVersion": "1.0.0",
+  "customErrors": "EventNotActive:404,NoEventAccess:401"
+}

@@ -1,0 +1,81 @@
+/channels:
+  get:
+    operationId: getChannelList
+    description: |
+      Get a list of all channel for the current user
+    security:
+      - accessKey: []
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ChannelList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createChannel
+    description: |
+      Create a new channel
+    parameters:
+      - name: channel
+        description: channel data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ChannelData'
+    security:
+      - accessKey: []
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/Channel'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/channels/{channel_uid}:
+  parameters:
+    - name: channel_uid
+      description: uid of the channel
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getChannel
+    description: |
+      Get a channel
+    security:
+      - accessKey: []
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/Channel'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: updateChannel
+    description: |
+      Update a channel
+    parameters:
+      - name: channel
+        description: channel data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ChannelData'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/Channel'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
