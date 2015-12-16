@@ -1,0 +1,109 @@
+/channels/{channel_uid}/events:
+  parameters:
+    - name: channel_uid
+      description: channel uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getChannelEvents
+    description: |
+      Get all events belongs to this channel
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/EventList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createEvent
+    description: |
+      Create a new event
+    parameters:
+      - name: body
+        description: event creation request data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EventCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/EventExtended'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/events/{event_uid}:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getEvent
+    description: |
+      Get Event with extended details
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/EventExtended'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: updateEvent
+    description: |
+      Update an event
+    parameters:
+      - name: body
+        description: event update request data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EventUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/EventExtended'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/events/{event_uid}/stage:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  put:
+    operationId: changeEventStage
+    description: |
+      Update the event stage
+    parameters:
+      - name: body
+        description: event stage update request data
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EventStageRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/Event'
+      default:
+        description: Stage update failed
+        schema:
+          $ref: '#/definitions/Error'

@@ -1,0 +1,89 @@
+PublicAlias:
+  type: object
+  description: Event alias mapping
+  properties:
+    uid:
+      type: string
+      description: uid of the alias mapping
+    path:
+      type: string
+      description: alias path
+  required: ['uid', 'path']
+
+EventCreateRequest:
+  type: object
+  description: Event creation request
+  properties:
+    name:
+      type: string
+      description: name of the event
+    asset_bundle_uid:
+      type: string
+      description: uid of the asset bundle
+    user_set_uid:
+      type: string
+      description: uid of the user set
+  required: ['name', 'asset_bundle_uid', 'user_set_uid']
+
+EventUpdateRequest:
+  type: object
+  description: Event update request
+  properties:
+    name:
+      type: string
+      description: name of the event
+    asset_bundle_uid:
+      type: string
+      description: uid of the asset bundle
+    user_set_uid:
+      type: string
+      description: uid of the user set
+
+EventStageRequest:
+  type: object
+  description: Event stage update request
+  properties:
+    stage:
+      type: string
+      description: event stage
+  required: ['stage']
+
+Event:
+  type: object
+  description: Event object
+  properties:
+    uid:
+      type: string
+      description: uid of the event
+    name:
+      type: string
+      description: name of the event
+    stage:
+      type: string
+      description: state of the event
+  required: ['uid', 'name', 'stage']
+
+EventExtended:
+  type: object
+  description: Event object with extended details
+  allOf:
+    - $ref: '#/definitions/Event'
+    - type: object
+      properties:
+        public_aliases:
+          type: array
+          description: list of public aliases
+          items:
+            $ref: '#/definitions/PublicAlias'
+      required: ['public_aliases']
+
+EventList:
+  type: object
+  description: List of events
+  properties:
+    events:
+      type: array
+      description: a collection of Event
+      items:
+        $ref: '#/definitions/Event'
+  required: ['events']
