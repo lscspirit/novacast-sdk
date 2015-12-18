@@ -1,0 +1,59 @@
+SessionModuleResource:
+  type: object
+  description: session module resource
+  properties:
+    usage:
+      type: string
+      description: usage of this resource
+    rn:
+      type: string
+      description: unique resource name
+  required: ['usage', 'rn']
+
+SessionModuleConfig:
+  type: object
+  description: Session module configuration
+  properties:
+    config:
+      type: object
+      description: configuration data
+    resources:
+      type: array
+      description: a collection of resources used by this module
+      items:
+        $ref: '#/definitions/SessionModuleResource'
+  required: ['config']
+
+SessionModule:
+  type: object
+  description: Session module definitions
+  allOf:
+    - $ref: '#/definitions/SessionModuleConfig'
+    - type: object
+      properties:
+        module_name:
+          type: string
+          description: name of the module
+      required: ['module_name']
+
+SessionModuleList:
+  type: object
+  description: List of SessionModule
+  properties:
+    modules:
+      type: array
+      description: a collection of session module configurations
+      items:
+        $ref: '#/definitions/SessionModule'
+  required: ['modules']
+
+SessionModuleUpdateRequest:
+  type: object
+  description: Session module update request
+  properties:
+    modules:
+      type: array
+      description: a collection of module configurations
+      items:
+        $ref: '#/definitions/SessionModule'
+  required: ['modules']

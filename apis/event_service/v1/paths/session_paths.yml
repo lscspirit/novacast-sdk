@@ -1,0 +1,110 @@
+/events/{event_uid}/sessions:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getEventSessionList
+    description: |
+      Get all sessions for the event
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/EventSessionList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createEventSession
+    description: |
+      Create a new session for the event
+    parameters:
+      - name: body
+        description: create session request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EventSessionCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/EventSession'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}:
+  parameters:
+    - name: session_uid
+      description: event session uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getEventSession
+    description: |
+      Get an event session with extended details
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/EventSessionExtended'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/runtime:
+  parameters:
+    - name: session_uid
+      description: event session uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getEventSessionRuntime
+    description: |
+      Get the page runtime configuration of event session
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PageRuntime'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/modules:
+  parameters:
+    - name: session_uid
+      description: event session uid
+      type: string
+      in: path
+      required: true
+  put:
+    operationId: updateSessionModules
+    description: |
+      Update the module configurations for a event session
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SessionModuleUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/SessionModuleList'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'

@@ -1,0 +1,83 @@
+SessionPageException:
+  type: object
+  description: Exception to a session page
+  properties:
+    event_page_path:
+      type: string
+      description: page event path
+    session_uid:
+      type: string
+      description: uid of the session from which the event page is excluded
+    session_pathname:
+      type: string
+      description: path name of the session
+  required: ['event_page_path', 'session_uid', 'session_pathname']
+
+PageExceptionList:
+  type: object
+  description: List of SessionPageException
+  properties:
+    exceptions:
+      type: array
+      description: collection of session page exception
+      items:
+        $ref: '#/definitions/SessionPageException'
+  required: ['exceptions']
+
+EventSessionCreateRequest:
+  type: object
+  description: request for creating a new event session
+  properties:
+    label:
+      type: string
+      description: label of the session
+    pathname:
+      type: string
+      description: path name of the session
+  required: ['label', 'pathname']
+
+EventSession:
+  type: object
+  description: Event session object
+  properties:
+    uid:
+      type: string
+      description: event session uid
+    label:
+      type: string
+      description: label of the session
+    pathname:
+      type: string
+      description: pathname of the session
+    event_uid:
+      type: string
+      description: uid of the event that this session belongs to
+    event_name:
+      type: string
+      description: name of the event that this session belongs to
+  required: ['uid', 'label', 'pathname', 'event_uid', 'event_name']
+
+EventSessionExtended:
+  type: object
+  description: Event session object with extended details
+  allOf:
+    - $ref: '#/definitions/EventSession'
+    - type: object
+      properties:
+        modules:
+          type: array
+          description: a collection of session modules
+          items:
+            $ref: '#/definitions/SessionModule'
+      required: ['modules']
+
+EventSessionList:
+  type: object
+  description: a list of EventSession
+  properties:
+    sessions:
+      type: array
+      description: a collection of event session objects
+      items:
+        $ref: '#/definitions/EventSession'
+  required: ['sessions']

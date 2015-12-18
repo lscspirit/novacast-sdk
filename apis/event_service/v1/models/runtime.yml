@@ -1,0 +1,25 @@
+ModuleRuntime:
+  type: object
+  description: Runtime configuration for a module
+  properties:
+    module_name:
+      type: string
+      description: name of the module
+    runtime:
+      type: object
+      description: module runtime configuration
+  required: ['module_name', 'runtime']
+
+PageRuntime:
+  type: object
+  description: runtime configuration for use by client
+  properties:
+    session_uid:
+      type: string
+      description: uid of the current session
+    modules:
+      type: array
+      description: runtime config for individual module
+      items:
+        $ref: '#/definitions/ModuleRuntime'
+  required: ['session_uid', 'modules']
