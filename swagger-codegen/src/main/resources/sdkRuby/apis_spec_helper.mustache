@@ -2,10 +2,82 @@ require 'json'
 
 module NovacastSDK
   module {{moduleName}}
+    class Utils
+      def self.type_check(target, type_name)
+        NovacastSDK::Utils.type_check target, type_name do |model_name|
+          NovacastSDK::{{moduleName}}::Models.const_get(model_name)
+        end
+      end
+    end
+
+    class ApiRequests
+  {{#apiInfo}}{{#apis}}
+      REQUESTS = { {{#operations}}{{#operation}}
+        {{operationId}}: {
+          {{#allParams}}
+          :'{{baseName}}' => {
+            type: '{{dataType}}',
+            path_param: {{#isPathParam}}true{{/isPathParam}}{{^isPathParam}}false{{/isPathParam}},
+            body_param: {{#isBodyParam}}true{{/isBodyParam}}{{^isBodyParam}}false{{/isBodyParam}},
+            required: {{#required}}true{{/required}}{{^required}}false{{/required}}
+          }{{#hasMore}},{{/hasMore}}
+          {{/allParams}}
+        }{{#hasMore}},{{newline}}{{/hasMore}} {{/operation}}{{/operations}}
+      }
+  {{/apis}}{{/apiInfo}}
+
+      def self.compare(req_params, api)
+        req_def = find_request_definition api
+
+        diff = {}
+        req_def.each_pair do |param_name, definition|
+          is_body = definition[:body_param]
+          is_path = definition[:path_param]
+          is_req  = definition[:required]
+          data_type = definition[:type]
+
+          # find the particular parameter value
+          # if this is a body param, then use the whole request parameter object
+          param_val = is_body ? req_params : req_params[param_name]
+
+          if is_path
+            # ignore path parameter
+            next
+          elsif param_val.nil? && is_req
+            # parameter is missing but is required
+            diff[param_name] = :missing
+          else
+            result    = NovacastSDK::{{moduleName}}::Utils.type_check param_val, data_type
+
+            if is_body
+              # ignore not allowed parameter if this is body parameter
+              # because the all request params (i.e. the whole request.params) are included when checking body param
+              result.reject! { |k, v| v == :not_allowed } if is_body && !result.nil?
+
+              # merge the result to the top-level diff because
+              # body parameters go to the top-level params
+              diff.merge!(result) unless result.nil? || result.empty?
+            else
+              diff[param_name] = result unless result.nil? || result.empty?
+            end
+          end
+        end
+
+        diff.empty? ? nil : diff
+      end
+
+      private
+
+      def self.find_request_definition(api)
+        raise "Api '#{api}' request definition not found" unless (definition = REQUESTS[api.to_sym])
+        definition
+      end
+    end
+
     class ApiResponses
 {{#apiInfo}}{{#apis}}
       RESPONSES = { {{#operations}}{{#operation}}
-        :{{operationId}} => {
+        {{operationId}}: {
           {{#responses}}
           {{code}} => '{{dataType}}'{{#hasMore}},{{/hasMore}}
           {{/responses}}
@@ -17,7 +89,7 @@ module NovacastSDK
         resp_type = find_response_type api, status_code
 
         NovacastSDK::Utils.type_check resp_hash, resp_type do |model_name|
-          NovacastSDK::{{moduleName}}::Models.const_get(model_name).model_properties
+          NovacastSDK::{{moduleName}}::Models.const_get(model_name)
         end
       end
 
@@ -43,13 +115,29 @@ module NovacastSDK
         status_code = resolve_status status_code
 
         # raise error if the response definition is not found for this api
-        raise ArgumentError, "Api '#{api}' response definition not found" unless (api = RESPONSES[api.to_sym])
+        raise ArgumentError, "Api '#{api}' response definition not found" unless (api_def = RESPONSES[api.to_sym])
         # raise error if the response type (or a fallback) is not defined for this status code
-        raise ArgumentError, "Status code '#{status_code}' response definition not found for '#{api}'" unless (resp_type = api[status_code] || api[0])
+        raise ArgumentError, "Status code '#{status_code}' response definition not found for '#{api}'" unless (resp_type = api_def[status_code] || api_def[0])
 
         resp_type
       end
     end
+  end
+end
+
+RSpec::Matchers.define :be_api_request do |api|
+  match do |request_params|
+    @actual = request_params
+    @diff   = NovacastSDK::{{moduleName}}::ApiRequests.compare @actual, api
+    @diff.nil?
+  end
+
+  failure_message do
+    "expected request to be in #{api} format. \n\tDiff: #{@diff.to_s} \n\tactual: #{@actual} (please refer to api specification)"
+  end
+
+  failure_message_when_negated do
+    "expected reqeust to not be in #{api} format \n\tactual: #{@actual}"
   end
 end
 
@@ -70,7 +158,13 @@ RSpec::Matchers.define :be_api_response do |api, status|
   end
 end
 
-RSpec.shared_examples 'an api response' do |api, status, error_klass_name = nil, error_message = nil|
+RSpec.shared_examples 'accepting novacast {{moduleName}} sdk api request' do |api|
+  it "accepts request in the format defined in api specification for #{api}" do
+    expect(request.params).to be_api_request(api)
+  end
+end
+
+RSpec.shared_examples 'a novacast {{moduleName}} sdk api' do |api, status, error_klass_name = nil, error_message = nil|
   it "responses in the format defined in api specification for #{api} (#{status})" do
     expect(response.body).to be_api_response(api, status)
   end
