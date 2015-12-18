@@ -1,0 +1,26 @@
+PageContent:
+  type: object
+  description: content of a event page
+  properties:
+    locale:
+      type: string
+      description: locale of the page content
+    path:
+      type: string
+      description: page path of the event page
+    content:
+      type: string
+      description: page content
+  required: ['locale', 'path', 'content']
+
+PageContentUpdateRequest:
+  type: object
+  description: update request for a page content
+  properties:
+    content_locale:
+      type: string
+      description: locale of the page content
+    content:
+      type: string
+      description: page content
+  required: ['content']

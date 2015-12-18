@@ -1,0 +1,45 @@
+/events/{event_uid}/page_contents/{page_path}:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+    - name: page_path
+      description: event page path
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getEventPageContent
+    description: |
+      Get the page content of a event page
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PageContent'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: updateEventPageContent
+    description: |
+      Update the page content of the event page
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PageContentUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/PageContent'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'

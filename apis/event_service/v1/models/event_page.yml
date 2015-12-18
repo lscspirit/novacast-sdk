@@ -1,0 +1,126 @@
+PageMapping:
+  type: object
+  description: Mapping of a event page to a usage or a different path
+  properties:
+    uid:
+      type: string
+      description: uid of the mapping
+    type:
+      type: string
+      description: mapping type (usage or path)
+    key:
+      type: string
+      description: key of the mapping (usage name for 'usage' type; path for 'path' type)
+    event_page_path:
+      type: string
+      description: page path of the event page
+    session_uid:
+      type: string
+      description: uid of the session to which this page is mapped (if applicable)
+  required: ['uid', 'type', 'key', 'event_page_path']
+
+PageMappingList:
+  type: object
+  description: List of page mapping
+  properties:
+    mappings:
+      type: array
+      description: collection of PageMapping
+      items:
+        $ref: '#/definitions/PageMapping'
+  required: ['mappings']
+
+EventPageCreateRequest:
+  type: object
+  description: Information of a event page
+  properties:
+    path:
+      type: string
+      description: event page path
+    session_uid:
+      type: string
+      description: uid of the event page's session
+    public:
+      type: boolean
+      description: whether this page can be accessed publicly
+    usage:
+      type: string
+      description: page usage
+  required: ['path']
+
+EventPageUpdateRequest:
+  type: object
+  description: Information of a event page
+  properties:
+    path:
+      type: string
+      description: event page path
+    session_uid:
+      type: string
+      description: uid of the event page's session
+    public:
+      type: boolean
+      description: whether this page can be accessed publicly
+
+EventPage:
+  type: object
+  description: Event page object
+  properties:
+    event_uid:
+      type: string
+      description: uid of the event
+    session_uid:
+      type: string
+      description: uid of the event session
+    path:
+      type: string
+      description: event page path
+    public:
+      type: boolean
+      description: whether this page can be accessed publicly
+    page_config:
+      type: string
+      description: page configuration in json
+    mappings:
+      type: array
+      description: page mappings
+      items:
+        $ref: '#/definitions/PageMapping'
+  required: ['event_uid', 'path', 'public']
+
+SessionExceptionUpdate:
+  type: object
+  description: Session exception update request for shared session page
+  properties:
+    session_uids:
+      type: array
+      description: a collection of session uids
+      items:
+        type: string
+  required: ['session_uids']
+
+SessionException:
+  type: object
+  description: session exception details
+  properties:
+    session_uid:
+      type: string
+      description: session uid
+    session_pathname:
+      type: string
+      description: session pathname
+  required: ['session_uid', 'session_pathname']
+
+PageSessionExceptions:
+  type: object
+  description: A list of session exceptions for shared session page
+  properties:
+    page_path:
+      type: string
+      description: event page path
+    exceptions:
+      type: array
+      description: a collection of session exceptions
+      items:
+        $ref: '#/definitions/SessionException'
+  required: ['page_path', 'exceptions']

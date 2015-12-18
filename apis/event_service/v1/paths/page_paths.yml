@@ -1,0 +1,119 @@
+/events/{event_uid}/pages:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: createEventPage
+    description: |
+      Create a new page for a event
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EventPageCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/EventPage'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/events/{event_uid}/pages/{page_path}:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+    - name: page_path
+      description: event page path
+      type: string
+      in: query
+      required: true
+  get:
+    operationId: getEventPage
+    description: |
+      Get the event page
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/EventPage'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: updateEventPage
+    description: |
+      Update the event page
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EventPageUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/EventPage'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/events/{event_uid}/page_exceptions/{page_path}:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+    - name: page_path
+      description: event page path
+      type: string
+      in: query
+      required: true
+  get:
+    operationId: getPageExceptions
+    description: |
+      Get the session exceptions for a shared session page
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PageSessionExceptions'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: updatePageExceptions
+    description: |
+      Update the session exceptions for a shared session page
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SessionExceptionUpdate'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/PageSessionExceptions'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
