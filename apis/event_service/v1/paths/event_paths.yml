@@ -107,3 +107,24 @@
         description: Stage update failed
         schema:
           $ref: '#/definitions/Error'
+
+/events/{event_uid}/user_set:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getEventUserSet
+    description: |
+      Get the user set for the event
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/UserSetExtended'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
