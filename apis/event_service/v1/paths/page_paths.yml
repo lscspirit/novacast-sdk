@@ -36,7 +36,7 @@
     - name: page_path
       description: event page path
       type: string
-      in: query
+      in: path
       required: true
   get:
     operationId: getEventPage
@@ -82,7 +82,7 @@
     - name: page_path
       description: event page path
       type: string
-      in: query
+      in: path
       required: true
   get:
     operationId: getPageExceptions

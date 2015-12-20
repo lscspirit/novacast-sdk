@@ -1,0 +1,211 @@
+EnrollmentField:
+  type: object
+  description: Enrollment field information
+  properties:
+    name:
+      type: string
+      description: name of the field
+    data_type:
+      type: string
+      description: data type of the field
+    label:
+      type: string
+      description: label of the field
+    optional:
+      type: boolean
+      description: whether the field is required
+    index:
+      type: integer
+      description: index of the field
+  required: ['name', 'data_type', 'label', 'optional', 'index']
+
+EnrollmentFieldValue:
+  type: object
+  description: value of enrollment fields
+  properties:
+    field_name:
+      type: string
+      description: name of the field
+    value:
+      type: string
+      description: value of the field
+  required: ['field_name', 'value']
+
+Enrollment:
+  type: object
+  description: Enrollment information
+  properties:
+    account_type:
+      type: string
+      description: type of the account
+    account_uid:
+      type: string
+      description: uid of the account
+    revoked:
+      type: boolean
+      description: account is revoked
+      default: false
+  required: ['account_type', 'account_uid']
+
+WhiteListRequest:
+  type: object
+  description: Request to white-list accounts in a user set
+  properties:
+    type:
+      type: string
+      description: identifier type
+      enum: ['acct_identifier', 'invitation']
+    activation_code:
+      type: boolean
+      description: requires activation codegen
+      default: false
+    identifiers:
+      type: array
+      description: a list of identifiers
+      items:
+        type: string
+  required: ['type', 'identifiers']
+
+WhiteListedUser:
+  type: object
+  description: white-listed account information
+  properties:
+    uid:
+      type: string
+      description: uid of this white-list entry
+    type:
+      type: string
+      description: identifier type
+      enum: ['acct_identifier', 'invitation']
+    identifier:
+      type: string
+      description: account identifier
+    activation_code:
+      type: string
+      description: activation code for this entry
+  required: ['uid', 'type', 'identifier']
+
+WhiteListedUserList:
+  type: object
+  description: a list of newly white-listed account
+  properties:
+    entries:
+      type: array
+      description: a collection of white-listed entries
+      items:
+        $ref: '#/definitions/WhiteListedUser'
+  required: ['entries']
+
+UserSet:
+  type: object
+  description: User set
+  properties:
+    uid:
+      type: string
+      description: user set uid
+    rn:
+      type: string
+      description: user set resource name
+    label:
+      type: string
+      description: label
+    access:
+      type: string
+      description: access level
+    enrollment:
+      type: boolean
+      description: enrollment required
+    account_only:
+      type: boolean
+      description: account only access
+  required: ['uid', 'rn', 'label', 'access', 'enrollment', 'account_only']
+
+UserSetExtended:
+  type: object
+  description: User set with extended details
+  allOf:
+    - $ref: '#/definitions/UserSet'
+    - type: object
+      properties:
+        fields:
+          type: array
+          description: a collection of enrollment fields
+          items:
+            $ref: '#/definitions/EnrollmentField'
+      required: ['fields']
+
+UserSetList:
+  type: object
+  description: A list of user sets
+  properties:
+    user_sets:
+      type: array
+      description: a collection of user sets
+      items:
+        $ref: '#/definitions/UserSet'
+  required: ['user_sets']
+
+UserSetCreateRequest:
+  type: object
+  description: User set create request
+  properties:
+    label:
+      type: string
+      description: label
+    access:
+      type: string
+      description: access level
+      default: public
+    enrollment:
+      type: boolean
+      description: enrollment required
+      default: false
+    account_only:
+      type: boolean
+      description: account only access
+      default: false
+    fields:
+      type: array
+      description: enrollment fields
+      items:
+        $ref: '#/definitions/EnrollmentField'
+  required: ['label']
+
+UserSetUpdateRequest:
+  type: object
+  description: User set update request
+  properties:
+    label:
+      type: string
+      description: label
+    access:
+      type: string
+      description: access level
+      default: public
+    enrollment:
+      type: boolean
+      description: enrollment required
+      default: false
+    account_only:
+      type: boolean
+      description: account only access
+      default: false
+    fields:
+      type: array
+      description: enrollment fields
+      items:
+        $ref: '#/definitions/EnrollmentField'
+
+UserSetEnrollRequest:
+  type: object
+  description: user set enrollment request
+  properties:
+    account_uid:
+      type: string
+      description: uid of the account to enroll
+    fields:
+      type: array
+      description: enrollment field values
+      items:
+        $ref: '#/definitions/EnrollmentFieldValue'
+  required: ['account_uid']

@@ -1,0 +1,141 @@
+/channels/{channel_uid}/user_sets:
+  parameters:
+    - name: channel_uid
+      description: channel uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getUserSetList
+    description: |
+      Get all user sets for channel
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/UserSetList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createUserSet
+    description: |
+      Create a new user set
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserSetCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/UserSetExtended'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/user_sets/{user_set_uid}:
+  parameters:
+    - name: user_set_uid
+      description: user set uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getUserSet
+    description: |
+      Get a user set with extended details
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/UserSetExtended'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: updateUserSet
+    description: |
+      Update a user set
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserSetUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/UserSetExtended'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/user_sets/{user_set_uid}/enroll:
+  parameters:
+    - name: user_set_uid
+      description: user set uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: enrollToUserSet
+    description: |
+      Enroll an account to a user set
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserSetEnrollRequest'
+    responses:
+      '200':
+        description: Already Enrolled
+        schema:
+          $ref: '#/definitions/Enrollment'
+      '201':
+        description: Enrolled
+        schema:
+          $ref: '#/definitions/Enrollment'
+      default:
+        description: Enrollment failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/user_sets/{user_set_uid}/white_list:
+  parameters:
+    - name: user_set_uid
+      description: user set uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: whiteListAccounts
+    description: |
+      White-list an account in a user set
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/WhiteListRequest'
+    responses:
+      '200':
+        description: White-listed
+        schema:
+          $ref: '#/definitions/WhiteListedUserList'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'

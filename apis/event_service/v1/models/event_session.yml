@@ -1,29 +1,3 @@
-SessionPageException:
-  type: object
-  description: Exception to a session page
-  properties:
-    event_page_path:
-      type: string
-      description: page event path
-    session_uid:
-      type: string
-      description: uid of the session from which the event page is excluded
-    session_pathname:
-      type: string
-      description: path name of the session
-  required: ['event_page_path', 'session_uid', 'session_pathname']
-
-PageExceptionList:
-  type: object
-  description: List of SessionPageException
-  properties:
-    exceptions:
-      type: array
-      description: collection of session page exception
-      items:
-        $ref: '#/definitions/SessionPageException'
-  required: ['exceptions']
-
 EventSessionCreateRequest:
   type: object
   description: request for creating a new event session
