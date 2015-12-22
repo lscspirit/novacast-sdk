@@ -1,0 +1,14 @@
+PresignedUpload:
+  type: object
+  description: presigned upload data
+  properties:
+    url:
+      type: string
+      description: upload url
+    fields:
+      type: object
+      description: fields to be sent along with the upload request
+    callback_data:
+      type: object
+      description: data to be sent along with the callback upon successful upload
+  required: ['url', 'fields', 'callback_data']

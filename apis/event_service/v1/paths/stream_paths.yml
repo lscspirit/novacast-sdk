@@ -1,0 +1,145 @@
+/channels/{channel_uid}/streams:
+  parameters:
+    - name: channel_uid
+      description: channel uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getStreamMediumList
+    description: |
+      Get all the streams for this channel
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/StreamMediumInfoList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createStreamMedium
+    description: |
+      Create a new stream medium
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/StreamMediumCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/StreamMediumInfo'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/streams/{stream_medium_uid}:
+  parameters:
+    - name: stream_medium_uid
+      description: stream medium uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getStreamMedium
+    description: |
+      Get stream medium object
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/StreamMedium'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/streams/{stream_medium_uid}/sources:
+  parameters:
+    - name: stream_medium_uid
+      description: stream medium uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: createStreamSource
+    description: |
+      Create a new source for a stream medium
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/StreamSourceCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/StreamSource'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/streams/{stream_medium_uid}/sources/pre_upload:
+  parameters:
+    - name: stream_medium_uid
+      description: stream medium uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: streamSourcePreUpload
+    description: |
+      Create a stream source for remote resource
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/StreamSourcePreUploadRequest'
+    responses:
+      '200':
+        description: data for uploading the remote resource
+        schema:
+          $ref: '#/definitions/PresignedUpload'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/stream_sources/{stream_source_uid}/confirm:
+  parameters:
+    - name: stream_source_uid
+      description: stream source uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: confirmStreamSource
+    description: |
+      Confirm the successful uploading of remote stream source
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/StreamSourceConfirmRequest'
+    responses:
+      '200':
+        description: Created
+        schema:
+          $ref: '#/definitions/StreamSource'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'

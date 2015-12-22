@@ -1,0 +1,98 @@
+StreamSource:
+  type: object
+  description: stream source information
+  properties:
+    uid:
+      type: string
+      description: uid of the stream source
+    rn:
+      type: string
+      description: resource name
+    url:
+      type: string
+      description: url of the stream
+    source:
+      type: string
+      description: source provider of the stream
+      enum: ['url', 'aws_s3', 'jwplatform']
+  required: ['uid', 'rn', 'url', 'source']
+
+StreamMediumInfo:
+  type: object
+  description: information about a stream medium
+  properties:
+    uid:
+      type: string
+      description: uid of the stream
+    rn:
+      type: string
+      description: resource name
+    label:
+      type: string
+      description: stream label
+  required: ['uid', 'rn', 'label']
+
+StreamMedium:
+  type: object
+  description: stream medium object including stream sources details
+  allOf:
+    - $ref: '#/definitions/StreamMediumInfo'
+    - type: object
+      properties:
+        sources:
+          type: array
+          description: a collection of stream sources
+          items:
+            $ref: '#/definitions/StreamSource'
+      required: ['sources']
+
+StreamMediumInfoList:
+  type: object
+  description: list of stream medium information
+  properties:
+    media:
+      type: array
+      description: a collection of stream medium info
+      items:
+        $ref: '#/definitions/StreamMediumInfo'
+  required: ['media']
+
+StreamMediumCreateRequest:
+  type: object
+  description: stream medium create request
+  properties:
+    label:
+      type: string
+      description: stream label
+  required: ['label']
+
+StreamSourceCreateRequest:
+  type: object
+  description: Stream source creation request
+  properties:
+    type:
+      type: string
+      description: type/provider of the source
+      enum: ['url', 'aws_s3', 'jwplatform']
+    url_or_key:
+      type: string
+      description: provider specific url or identifier of the source
+  required: ['type', 'url_or_key']
+
+StreamSourcePreUploadRequest:
+  type: object
+  description: Stream source pre-upload request
+  properties:
+    filename:
+      type: string
+      description: filename
+  required: ['filename']
+
+StreamSourceConfirmRequest:
+  type: object
+  description: stream source confirmation request
+  properties:
+    token:
+      type: string
+      description: stream source confirmation token
+  required: ['token']
