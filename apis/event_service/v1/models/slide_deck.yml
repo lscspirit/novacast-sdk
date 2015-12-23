@@ -71,15 +71,6 @@ SlideDeckCreateRequest:
       description: label
   required: ['label']
 
-SlideUploadRequest:
-  type: object
-  description: slide upload request
-  properties:
-    file:
-      type: file
-      description: slide image file
-  required: ['file']
-
 SlideOrderRequest:
   type: object
   description: a ordered list of slide uid
@@ -89,4 +80,4 @@ SlideOrderRequest:
       description: list of slide uids
       items:
         type: string
-  required: ['uids']
+  required: ['ordered_uids']

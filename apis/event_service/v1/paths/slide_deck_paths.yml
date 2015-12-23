@@ -1,9 +1,9 @@
-/channels/{channel_uid}/slide_dekcs:
+/channels/{channel_uid}/slide_decks:
   parameters:
     - name: channel_uid
       description: channel uid
       type: string
-      in: query
+      in: path
       required: true
   get:
     operationId: getSlideDeckList
@@ -73,12 +73,11 @@
       Upload a slide
     consumes: ['multipart/form-data']
     parameters:
-      - name: body
-        description: request body
-        in: body
+      - name: file
+        type: file
+        description: slide image file
+        in: formData
         required: true
-        schema:
-          $ref: '#/definitions/SlideUploadRequest'
     responses:
       '201':
         description: Created
