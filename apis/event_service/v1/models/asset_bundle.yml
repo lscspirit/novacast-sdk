@@ -1,0 +1,78 @@
+BundleContent:
+  type: object
+  description: asset bundle content
+  properties:
+    url:
+      type: string
+      description: url of the content
+    file_path:
+      type: string
+      description: path within the bundle
+  required: ['url', 'file_path']
+
+AssetBundleInfo:
+  type: object
+  description: asset bundle
+  properties:
+    uid:
+      type: string
+      description: asset bundle uid
+    rn:
+      type: string
+      description: resource name
+    label:
+      type: string
+      description: label
+  required: ['uid', 'rn', 'label']
+
+AssetBundle:
+  type: object
+  description: Asset bundle with contents
+  allOf:
+    - $ref: '#/definitions/AssetBundleInfo'
+    - type: object
+      properties:
+        contents:
+          type: array
+          description: collection of bundle contents
+          items:
+            $ref: '#/definitions/BundleContent'
+      required: ['contents']
+
+AssetBundleInfoList:
+  type: object
+  description: a list of asset bundle info
+  properties:
+    bundles:
+      type: array
+      description: a collection of asset bundle informations
+      items:
+        $ref: '#/definitions/AssetBundleInfo'
+  required: ['bundles']
+
+AssetBundleCreateRequest:
+  type: object
+  description: asset bundle creation request
+  properties:
+    label:
+      type: string
+      description: asset bundle label
+  required: ['label']
+
+BundleContentPreUploadRequest:
+  type: object
+  description: bundle content pre upload request
+  properties:
+    file_path:
+      type: string
+      description: content path within the bundle
+  required: ['file_path']
+
+BundleContentConfirmRequest:
+  type: object
+  description: bundle content confirm request
+  properties:
+    token:
+      type: string
+      description: confirmation token
+  required: ['token']

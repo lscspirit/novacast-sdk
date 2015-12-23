@@ -1,0 +1,148 @@
+/channels/{channel_uid}/assets:
+  parameters:
+    - name: channel_uid
+      description: channel uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getAssetBundleList
+    description: |
+      Get information for all asset bundles in a channel
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/AssetBundleInfoList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createAssetBundle
+    description: |
+      Create a new asset bundle
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AssetBundleCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/AssetBundleInfo'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/assets/{asset_bundle_uid}:
+  parameters:
+    - name: asset_bundle_uid
+      description: asset bundle uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getAssetBundle
+    description: |
+      Get asset bundle with contents
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/AssetBundle'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/assets/{asset_bundle_uid}/pre_upload:
+  parameters:
+    - name: asset_bundle_uid
+      description: asset bundle uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: bundleContentPreUpload
+    description: |
+      Pre upload asset bundle content
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/BundleContentPreUploadRequest'
+    responses:
+      '200':
+        description: Created
+        schema:
+          $ref: '#/definitions/PresignedUpload'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/assets/{asset_bundle_uid}/confirm/{file_path}:
+  parameters:
+    - name: asset_bundle_uid
+      description: asset bundle uid
+      type: string
+      in: path
+      required: true
+    - name: file_path
+      description: content path within the bundle
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: confirmBundleContent
+    description: |
+      Confirm a pre-upload asset bundle content
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/BundleContentConfirmRequest'
+    responses:
+      '200':
+        description: Confirmed
+        schema:
+          $ref: '#/definitions/BundleContent'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/assets/{asset_bundle_uid}/contents/{file_path}:
+  parameters:
+    - name: asset_bundle_uid
+      description: asset bundle uid
+      type: string
+      in: path
+      required: true
+    - name: file_path
+      description: content path within the bundle
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getBundleContent
+    description: |
+      Get an asset bundle content
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/BundleContent'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
