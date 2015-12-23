@@ -1,0 +1,92 @@
+Slide:
+  type: object
+  description: Information of individual slide
+  properties:
+    uid:
+      type: string
+      description: slide uid
+    rn:
+      type: string
+      description: resource name
+    page:
+      type: integer
+      description: page number
+    url:
+      type: string
+      description: url of the slide image file
+    thumb_url:
+      type: string
+      description: url of the slide thumbnail file
+  required: ['uid', 'rn', 'page', 'url']
+
+SlideDeckInfo:
+  type: object
+  description: slide deck information
+  properties:
+    uid:
+      type: string
+      description: uid of the slide deck
+    rn:
+      type: string
+      description: resource name
+    label:
+      type: string
+      description: label
+    page_count:
+      type: integer
+      description: number of pages in the slide deck
+  required: ['uid', 'rn', 'label', 'page_count']
+
+SlideDeck:
+  type: object
+  description: slide deck and slides information
+  allOf:
+    - $ref: '#/definitions/SlideDeckInfo'
+    - type: object
+      properties:
+        slides:
+          type: array
+          description: collection of slide information
+          items:
+            $ref: '#/definitions/Slide'
+      required: ['slides']
+
+SlideDeckInfoList:
+  type: object
+  description: a list of slide deck information
+  properties:
+    decks:
+      type: array
+      description: a collection of slide deck information
+      items:
+        $ref: '#/definitions/SlideDeckInfo'
+  required: ['decks']
+
+SlideDeckCreateRequest:
+  type: object
+  description: slide deck create request
+  properties:
+    label:
+      type: string
+      description: label
+  required: ['label']
+
+SlideUploadRequest:
+  type: object
+  description: slide upload request
+  properties:
+    file:
+      type: file
+      description: slide image file
+  required: ['file']
+
+SlideOrderRequest:
+  type: object
+  description: a ordered list of slide uid
+  properties:
+    ordered_uids:
+      type: array
+      description: list of slide uids
+      items:
+        type: string
+  required: ['uids']

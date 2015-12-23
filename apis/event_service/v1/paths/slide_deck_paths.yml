@@ -1,0 +1,118 @@
+/channels/{channel_uid}/slide_dekcs:
+  parameters:
+    - name: channel_uid
+      description: channel uid
+      type: string
+      in: query
+      required: true
+  get:
+    operationId: getSlideDeckList
+    description: |
+      Get all slide deck for the channel
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/SlideDeckInfoList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createSlideDeck
+    description: |
+      Create a new slide deck
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SlideDeckCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/SlideDeckInfo'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/slide_decks/{slide_deck_uid}:
+  parameters:
+    - name: slide_deck_uid
+      description: slide deck uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getSlideDeck
+    description: |
+      Get a slide deck
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/SlideDeck'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/slide_decks/{slide_deck_uid}/upload:
+  parameters:
+    - name: slide_deck_uid
+      description: slide deck uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: uploadSlide
+    description: |
+      Upload a slide
+    consumes: ['multipart/form-data']
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SlideUploadRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/Slide'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/slide_decks/{slide_deck_uid}/rearrange:
+  parameters:
+    - name: slide_deck_uid
+      description: slide deck uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: rearrangeSlides
+    description: |
+      Rearrange the order of slide
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SlideOrderRequest'
+    responses:
+      '200':
+        description: Created
+        schema:
+          $ref: '#/definitions/SlideDeck'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
