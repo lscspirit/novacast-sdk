@@ -158,13 +158,13 @@ RSpec::Matchers.define :be_api_response do |api, status|
   end
 end
 
-RSpec.shared_examples 'accepting novacast {{moduleName}} sdk api request' do |api|
+RSpec.shared_examples 'a novacast {{moduleName}} sdk api' do |api, status, error_klass_name = nil, error_message = nil|
+  status_code = NovacastSDK::{{moduleName}}::ApiResponses.resolve_status(status)
+
   it "accepts request in the format defined in api specification for #{api}" do
     expect(request.params).to be_api_request(api)
-  end
-end
+  end if status_code.between?(200, 299)
 
-RSpec.shared_examples 'a novacast {{moduleName}} sdk api' do |api, status, error_klass_name = nil, error_message = nil|
   it "responses in the format defined in api specification for #{api} (#{status})" do
     expect(response.body).to be_api_response(api, status)
   end
