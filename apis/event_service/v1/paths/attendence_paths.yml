@@ -1,0 +1,25 @@
+/events/{event_uid}/attendances:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: trackAttendance
+    description: |
+      Record user attendance
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/TrackAttendanceRequest'
+    responses:
+      '200':
+        description: Tracked
+      default:
+        description: Track failed
+        schema:
+          $ref: '#/definitions/Error'

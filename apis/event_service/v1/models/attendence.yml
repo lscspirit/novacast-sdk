@@ -1,0 +1,17 @@
+TrackAttendanceRequest:
+  type: object
+  description: track attendance request
+  properties:
+    client_session_id:
+      type: string
+      description: client browser session id
+    client_ip:
+      type: string
+      description: client ip address
+    user_agent:
+      type: string
+      description: client browser user agent string
+    session_uid:
+      type: string
+      description: event session uid
+  required: ['client_session_id']
