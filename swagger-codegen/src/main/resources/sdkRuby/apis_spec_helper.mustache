@@ -88,8 +88,14 @@ module NovacastSDK
       def self.compare(resp_hash, api, status_code)
         resp_type = find_response_type api, status_code
 
-        NovacastSDK::Utils.type_check resp_hash, resp_type do |model_name|
-          NovacastSDK::{{moduleName}}::Models.const_get(model_name)
+        if resp_type.blank?
+          # if there is no response type, then the response body is expected to be empty
+          # if the body is not empty then return :invalid_type
+          resp_hash.nil? ? nil : :invalid_type
+        else
+          NovacastSDK::Utils.type_check resp_hash, resp_type do |model_name|
+            NovacastSDK::{{moduleName}}::Models.const_get(model_name)
+          end
         end
       end
 
@@ -143,7 +149,7 @@ end
 
 RSpec::Matchers.define :be_api_response do |api, status|
   match do |response_body|
-    @actual = JSON.parse response_body
+    @actual = response_body.blank? ? nil : JSON.parse(response_body)
     @diff   = NovacastSDK::{{moduleName}}::ApiResponses.compare @actual, api, status
     @diff.nil?
   end
