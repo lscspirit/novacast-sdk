@@ -1,0 +1,81 @@
+/events/{event_uid}/page_mappings:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getPageMappingList
+    description: |
+      Get the list of page mappings for the event
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PageMappingList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createPageMapping
+    description: |
+      Create a new page mapping
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PageMappingCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/PageMapping'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/page_mappings/{mapping_uid}:
+  parameters:
+    - name: mapping_uid
+      description: uid of the page mapping
+      type: string
+      in: path
+      required: true
+  put:
+    operationId: updatePageMapping
+    description: |
+      Update a page mapping
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PageMappingUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/PageMapping'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    operationId: deletePageMapping
+    description: |
+      Delete a page mapping
+    responses:
+      '200':
+        description: Deleted
+        schema:
+          $ref: '#/definitions/PageMapping'
+      default:
+        description: Delete failed
+        schema:
+          $ref: '#/definitions/Error'

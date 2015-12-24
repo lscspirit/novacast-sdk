@@ -1,35 +1,3 @@
-PageMapping:
-  type: object
-  description: Mapping of a event page to a usage or a different path
-  properties:
-    uid:
-      type: string
-      description: uid of the mapping
-    type:
-      type: string
-      description: mapping type (usage or path)
-    key:
-      type: string
-      description: key of the mapping (usage name for 'usage' type; path for 'path' type)
-    event_page_path:
-      type: string
-      description: page path of the event page
-    session_uid:
-      type: string
-      description: uid of the session to which this page is mapped (if applicable)
-  required: ['uid', 'type', 'key', 'event_page_path']
-
-PageMappingList:
-  type: object
-  description: List of page mapping
-  properties:
-    mappings:
-      type: array
-      description: collection of PageMapping
-      items:
-        $ref: '#/definitions/PageMapping'
-  required: ['mappings']
-
 EventPageCreateRequest:
   type: object
   description: Information of a event page
