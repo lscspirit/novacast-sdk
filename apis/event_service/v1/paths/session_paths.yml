@@ -75,7 +75,7 @@
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/PageRuntime'
+          $ref: '#/definitions/SessionRuntime'
       default:
         description: Failed
         schema:

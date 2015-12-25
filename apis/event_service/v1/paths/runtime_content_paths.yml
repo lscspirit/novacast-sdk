@@ -1,0 +1,84 @@
+
+/events/{event_uid}/contents:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getContentByMapping
+    description: |
+      Get event content by page mapping
+    parameters:
+      - name: type
+        description: page mapping type ('usage' or 'path')
+        type: string
+        in: query
+        required: true
+      - name: key
+        description: page mapping key (usage key or page path name)
+        type: string
+        in: query
+        required: true
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/EventContent'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/events/{event_uid}/contents/{content_path}:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+    - name: content_path
+      description: path to access the content
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getContentByPath
+    description: |
+      Get event content by path
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/EventContent'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/events/{event_uid}/runtimes/{content_path}:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+    - name: content_path
+      description: path to access the content
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getRuntimeByPath
+    description: |
+      Get runtime by path
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PageRuntime'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

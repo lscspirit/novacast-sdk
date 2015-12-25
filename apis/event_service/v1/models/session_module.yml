@@ -57,3 +57,17 @@ SessionModuleUpdateRequest:
       items:
         $ref: '#/definitions/SessionModule'
   required: ['modules']
+
+SessionRuntime:
+  type: object
+  description: runtime configuration for use by client
+  properties:
+    session_uid:
+      type: string
+      description: uid of the current session
+    modules:
+      type: array
+      description: runtime config for individual module
+      items:
+        $ref: '#/definitions/ModuleRuntime'
+  required: ['session_uid', 'modules']

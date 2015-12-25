@@ -22,4 +22,28 @@ PageRuntime:
       description: runtime config for individual module
       items:
         $ref: '#/definitions/ModuleRuntime'
-  required: ['session_uid', 'modules']
+
+EventContent:
+  type: object
+  description: Event content with meta information
+  properties:
+    type:
+      type: string
+      description: content type
+      enum: ['html', 'url']
+    value:
+      type: string
+      description: content value
+    public:
+      type: string
+      description: content is public
+    content_path:
+      type: string
+      description: content path for the page (only available for 'html' type)
+    session_uid:
+      type: string
+      description: uid of the session (only available for 'html' type)
+    mapping_uid:
+      type: string
+      description: mapping uid (only available for 'html' type)
+  required: ['type', 'value', 'public']
