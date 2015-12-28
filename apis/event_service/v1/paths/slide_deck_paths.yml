@@ -59,6 +59,39 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+  put:
+    operationId: updateSlideDeck
+    description: |
+      Update the slide deck
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SlideDeckUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/SlideDeckInfo'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    operationId: deleteSlideDeck
+    description: |
+      Delete a slide deck
+    responses:
+      '200':
+        description: Deleted
+        schema:
+          $ref: '#/definitions/SlideDeckInfo'
+      default:
+        description: Delete failed
+        schema:
+          $ref: '#/definitions/Error'
 
 /slide_decks/{slide_deck_uid}/upload:
   parameters:
@@ -68,23 +101,49 @@
       in: path
       required: true
   post:
-    operationId: uploadSlide
+    operationId: uploadSlides
     description: |
       Upload a slide
     consumes: ['multipart/form-data']
     parameters:
-      - name: file
-        type: file
-        description: slide image file
+      - name: files
+        type: array
+        description: image files
         in: formData
         required: true
+        items:
+          type: string
+          format: binary
+        collectionFormat: multi
     responses:
-      '201':
-        description: Created
+      '200':
+        description: Uploaded
         schema:
-          $ref: '#/definitions/Slide'
+          $ref: '#/definitions/SlideDeck'
       default:
-        description: Creation failed
+        description: Upload failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/slide_decks/{slide_deck_uid}/delete_slides:
+  post:
+    operationId: deleteSlides
+    description: |
+      Delete slides from slide deck
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SlideDeleteRequest'
+    responses:
+      '200':
+        description: Slides deleted
+        schema:
+          $ref: '#/definitions/SlideDeck'
+      default:
+        description: Deletion failed
         schema:
           $ref: '#/definitions/Error'
 

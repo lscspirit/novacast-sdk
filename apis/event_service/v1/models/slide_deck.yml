@@ -71,6 +71,14 @@ SlideDeckCreateRequest:
       description: label
   required: ['label']
 
+SlideDeckUpdateRequest:
+  type: object
+  description: slide deck update request
+  properties:
+    label:
+      type: string
+      description: label
+
 SlideOrderRequest:
   type: object
   description: a ordered list of slide uid
@@ -81,3 +89,14 @@ SlideOrderRequest:
       items:
         type: string
   required: ['ordered_uids']
+
+SlideDeleteRequest:
+  type: object
+  description: request to delete slides from a slide deck
+  properties:
+    slide_uids:
+      type: array
+      description: uids of the slides to be deleted
+      items:
+        type: string
+  required: ['slide_uids']
