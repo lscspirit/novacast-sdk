@@ -126,6 +126,12 @@
           $ref: '#/definitions/Error'
 
 /slide_decks/{slide_deck_uid}/delete_slides:
+  parameters:
+    - name: slide_deck_uid
+      description: slide deck uid
+      type: string
+      in: path
+      required: true
   post:
     operationId: deleteSlides
     description: |
