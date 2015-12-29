@@ -1,0 +1,66 @@
+/question_contents/{question_content_uid}/submissions:
+  parameters:
+    - name: question_content_uid
+      description: question content uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getQuestionSubmissions
+    description: |
+      Get all submissions for a question content
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/QuestionSubmissionList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/question_contents/{question_content_uid}/users/{user_uid}/submissions:
+  parameters:
+    - name: question_content_uid
+      description: question content uid
+      type: string
+      in: path
+      required: true
+    - name: user_uid
+      description: uid of the submitter
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getQuestionSubmissionsForUser
+    description: |
+      Get question content submissions for a user
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/QuestionSubmissionList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createQuestionSubmission
+    description: |
+      Create a question content submission
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/QuestionSubmissionCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/QuestionSubmission'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'

@@ -209,3 +209,12 @@ QuestionContentOrderRequest:
       additionalProperties:
         type: integer
   required: ['content_orders']
+
+QuestionSubmissionCreateRequest:
+  type: object
+  description: question submission create request
+  properties:
+    answer:
+      type: object
+      description: answer object
+  required: ['answer']
