@@ -1,0 +1,211 @@
+QuestionContentType:
+  type: object
+  description: question set content type
+  properties:
+    name:
+      type: string
+      description: type name
+    desc:
+      type: string
+      description: type description
+    type_key:
+      type: string
+      description: key name
+    params:
+      type: object
+      description: config parameters
+  required: ['name', 'type_key', 'params']
+
+QuestionContent:
+  type: object
+  description: question set content
+  properties:
+    uid:
+      type: string
+      description: uid of the content
+    question:
+      type: string
+      description: question text
+    order:
+      type: string
+      description: order index
+    content:
+      type: object
+      description: answer content
+    question_content_type:
+      $ref: '#/definitions/QuestionContentType'
+  required: ['uid', 'question', 'order', 'content', 'question_content_type']
+
+QuestionSubmission:
+  type: object
+  description: question submission
+  properties:
+    user_uid:
+      type: string
+      description: uid of the submitter
+    answer:
+      type: object
+      description: answer object
+    created_at:
+      type: string
+      format: date-time
+      description: submission time
+    question_content_type:
+      $ref: '#/definitions/QuestionContentType'
+  required: ['user_uid', 'answer', 'created_at', 'question_content_type']
+
+QuestionSetInfo:
+  type: object
+  description: Question set information
+  properties:
+    uid:
+      type: string
+      description: unique identifier
+    rn:
+      type: string
+      description: resource name
+    label:
+      type: string
+      description: label
+    state:
+      type: string
+      description: question set state
+  required: ['uid', 'rn', 'label', 'state']
+
+QuestionSet:
+  type: object
+  description: Question set object with contents
+  allOf:
+    - $ref: '#/definitions/QuestionSetInfo'
+    - type: object
+      properties:
+        contents:
+          type: array
+          description: question set contents
+          items:
+            $ref: '#/definitions/QuestionContent'
+  required: ['contents']
+
+QuestionSetInfoList:
+  type: object
+  description: a list of question sets info
+  properties:
+    sets:
+      type: array
+      description: question set info collection
+      items:
+        $ref: '#/definitions/QuestionSetInfo'
+  required: ['sets']
+
+QuestionSetList:
+  type: object
+  description: a list of question sets
+  properties:
+    sets:
+      type: array
+      description: question set collection
+      items:
+        $ref: '#/definitions/QuestionSet'
+  required: ['sets']
+
+QuestionContentList:
+  type: object
+  description: a list of question contents
+  properties:
+    contents:
+      type: array
+      description: question content collection
+      items:
+        $ref: '#/definitions/QuestionContent'
+  required: ['contents']
+
+QuestionSubmissionList:
+  type: object
+  description: a list of question submissions
+  properties:
+    submissions:
+      type: array
+      description: question submission collection
+      items:
+        $ref: '#/definitions/QuestionSubmission'
+  required: ['submissions']
+
+QuestionContentTypeList:
+  type: object
+  description: a list of question content types
+  properties:
+    types:
+      type: array
+      description: question content types collection
+      items:
+        $ref: '#/definitions/QuestionContentType'
+  required: ['types']
+
+QuestionSetCreateRequest:
+  type: object
+  description: Question set creation request
+  properties:
+    label:
+      type: string
+      description: label
+    state:
+      type: string
+      description: question set state
+  required: ['label', 'state']
+
+QuestionSetUpdateRequest:
+  type: object
+  description: Question set update request
+  properties:
+    label:
+      type: string
+      description: label
+    state:
+      type: string
+      description: question set state
+
+QuestionContentCreateRequest:
+  type: object
+  description: question content create request
+  properties:
+    question:
+      type: string
+      description: question text
+    order:
+      type: string
+      description: order index
+    content:
+      type: object
+      description: answer content
+    type:
+      type: string
+      description: content type
+  required: ['question', 'order', 'content', 'type']
+
+QuestionContentUpdateRequest:
+  type: object
+  description: question content create request
+  properties:
+    question:
+      type: string
+      description: question text
+    order:
+      type: string
+      description: order index
+    content:
+      type: object
+      description: answer content
+    type:
+      type: string
+      description: content type key
+
+QuestionContentOrderRequest:
+  type: object
+  description: Question set content reorder request
+  properties:
+    content_orders:
+      type: object
+      description: uid to order mapping
+      additionalProperties:
+        type: integer
+  required: ['content_orders']
