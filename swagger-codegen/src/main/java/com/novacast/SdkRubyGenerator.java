@@ -123,9 +123,11 @@ public class SdkRubyGenerator extends DefaultCodegen implements CodegenConfig {
 
     // remove modelPackage and apiPackage added by default
     cliOptions.clear();
-    cliOptions.add(new CliOption("gemName", "gem name (convention: underscore_case), default: swagger_client"));
+    cliOptions.add(new CliOption("gemName", "gem name, default: swagger_client"));
+    cliOptions.add(new CliOption("sdkName", "sdk name, default: swagger_client"));
     cliOptions.add(new CliOption("moduleName", "top module name (convention: CamelCase, usually corresponding to gem name), default: SwaggerClient"));
     cliOptions.add(new CliOption("gemVersion", "gem version, default: 1.0.0"));
+    cliOptions.add(new CliOption("apiVersion", "api version, default: 1.0.0"));
     cliOptions.add(new CliOption("customErrors", "custom error list (convention: comma separated list of <Error Name>:<HTTP Status>)"));
   }
 
@@ -133,13 +135,18 @@ public class SdkRubyGenerator extends DefaultCodegen implements CodegenConfig {
   public void processOpts() {
       super.processOpts();
 
+      // uses 'gemName' property as gemName if available
+      // otherwise, uses 'sdkName' property
       if (additionalProperties.containsKey("gemName")) {
           setGemName((String) additionalProperties.get("gemName"));
+      } else if (additionalProperties.containsKey("sdkName")) {
+          setGemName((String) additionalProperties.get("sdkName"));
       }
       if (additionalProperties.containsKey("moduleName")) {
           setModuleName((String) additionalProperties.get("moduleName"));
       }
 
+      // determines the gem and module names when either one or both are missing
       if (gemName == null && moduleName == null) {
           setGemName("swagger_client");
           setModuleName(generateModuleName(gemName));
@@ -149,15 +156,20 @@ public class SdkRubyGenerator extends DefaultCodegen implements CodegenConfig {
           setModuleName(generateModuleName(gemName));
       }
 
+      // finalizes the gemName and moduleName
       additionalProperties.put("gemName", gemName);
       additionalProperties.put("moduleName", moduleName);
 
+      // uses 'gemVersion' property as gemVersion if available
+      // otherwise, uses 'apiVersion' property
       if (additionalProperties.containsKey("gemVersion")) {
           setGemVersion((String) additionalProperties.get("gemVersion"));
-      } else {
-          // not set, pass the default value to template
-          additionalProperties.put("gemVersion", gemVersion);
+      } else if (additionalProperties.containsKey("apiVersion")) {
+          setGemVersion((String) additionalProperties.get("apiVersion"));
       }
+
+      // finalizes the gemVersion
+      additionalProperties.put("gemVersion", gemVersion);
 
       if (additionalProperties.containsKey("customErrors")) {
           List<Map<String, String>> errList = new ArrayList<Map<String, String>>();
