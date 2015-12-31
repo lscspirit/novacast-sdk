@@ -1,5 +1,5 @@
 {
-  "gemName":    "novacast-identity-sdk",
+  "sdkName":    "novacast-identity-sdk",
   "moduleName": "IdentityV1",
-  "gemVersion": "1.0.0"
+  "apiVersion": "1.0.0"
 }
