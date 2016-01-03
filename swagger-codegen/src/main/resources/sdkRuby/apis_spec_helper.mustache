@@ -43,7 +43,10 @@ module NovacastSDK
           if is_path
             # ignore path parameter
             next
-          elsif param_val.nil? && is_req
+          elsif param_val.nil?
+            # ignore missing parameter if it is not required
+            next unless is_req
+
             # parameter is missing but is required
             diff[param_name] = :missing
           else
