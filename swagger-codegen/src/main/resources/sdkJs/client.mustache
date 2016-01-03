@@ -1,0 +1,17 @@
+'use strict';
+
+var BaseClient = require('../core/client');
+
+// Requires API
+{{#apiInfo}}{{#apis}}
+var {{classname}} = require('{{importPath}}');
+{{/apis}}{{/apiInfo}}
+
+// Exports
+module.exports = {
+  {{#apiInfo}}{{#apis}}
+  {{classname}}: function(host_url) {
+    return new BaseClient(host_url, '{{contextPath}}', {{classname}});
+  }{{#hasMore}},{{/hasMore}}
+  {{/apis}}{{/apiInfo}}
+};

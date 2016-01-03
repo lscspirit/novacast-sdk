@@ -1,0 +1,137 @@
+'use strict';
+
+var Serializer = new function() {
+  this.serialize = function(value, datatype) {
+    if (typeof value === 'undefined' || value === null) return null;
+
+    var Models = require('./models');
+
+    //
+    // Array type
+    //
+    var array_type = datatype.match(/^Array\[(.*)\]$/i);
+    if (array_type != null) {
+      // this is a Array type
+
+      if(Object.prototype.toString.call(value) === '[object Array]') {
+        var vals = [];
+        for (var i = 0; i < value.length; i++) {
+          vals.push(this.serialize(value[i], array_type[1]));
+        }
+        return vals;
+      } else {
+        throw new Error('property value is not an array');
+      }
+    }
+
+    //
+    // Hash type
+    //
+    var hash_type = datatype.match(/^Hash\[String(?: ?, ?)(.*)\]$/i);
+    if (hash_type != null) {
+      var hash = {};
+
+      // this is a Hash type
+      for (var prop in value) {
+        if (value.hasOwnProperty(prop)) {
+          hash[prop] = this.serialize(value[prop], hash_type[1]);
+        }
+      }
+
+      return hash;
+    }
+
+    switch(datatype) {
+      case "DateTime":
+        return value.toJSON();
+      case "Date":
+        return value.toJSON().replace(/T.+/,'');
+      case "String":
+        return value.toString();
+      case "Integer":
+        return value;
+      case "Float":
+        return value;
+      case "BOOLEAN":
+        return value === true || (/^(true|t|yes|y|1)$/i).test(value);
+      case "Object":
+        return value;
+      case "File":
+        return value;
+      case "Byte":
+        return value;
+      default:
+        return Models[datatype]._serialize(value);
+    }
+  };
+
+  this.deserialize = function(value, datatype) {
+    if (typeof value === 'undefined' || value === null) return null;
+
+    var Models = require('./models');
+
+    //
+    // Array type
+    //
+    var array_type = datatype.match(/^Array\[(.*)\]$/i);
+    if (array_type != null) {
+      // this is a Array type
+
+      if(Object.prototype.toString.call(value) === '[object Array]') {
+        var vals = [];
+        for (var i = 0; i < value.length; i++) {
+          vals.push(this.deserialize(value[i], array_type[1]));
+        }
+        return vals;
+      } else {
+        throw new Error('property value is not an array');
+      }
+    }
+
+    //
+    // Hash type
+    //
+    var hash_type = datatype.match(/^Hash\[String(?: ?, ?)(.*)\]$/i);
+    if (hash_type != null) {
+      var hash = {};
+
+      // this is a Hash type
+      for (var prop in value) {
+        if (value.hasOwnProperty(prop)) {
+          hash[prop] = this.deserialize(value[prop], hash_type[1]);
+        }
+      }
+
+      return hash;
+    }
+
+    //
+    // Primitive types
+    //
+    switch(datatype) {
+      case "DateTime":
+        return new Date(value);
+      case "Date":
+        return new Date(value);
+      case "String":
+        return value.toString();
+      case "Integer":
+        return parseInt(value, 10);
+      case "Float":
+        return parseFloat(value);
+      case "BOOLEAN":
+        return value === true || (/^(true|t|yes|y|1)$/i).test(value);
+      case "Object":
+        return value;
+      case "File":
+        return undefined;
+      case "Byte":
+        return value.toString();
+      default:
+        // sdk models
+        return Models[datatype]._deserialize(value);
+    }
+  };
+};
+
+module.exports = Serializer;

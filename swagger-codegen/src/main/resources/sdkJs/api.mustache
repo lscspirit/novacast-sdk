@@ -1,0 +1,113 @@
+'use strict';
+
+var assign     = require('object-assign');
+var Deferred   = require('deferred');
+var Serializer = require('../serializer');
+
+{{#operations}}
+var OPERATIONS = {
+  {{#operation}}
+  /*
+   * {{summary}}
+   * {{notes}}
+{{#pathParams}}   * @param {{paramName}} - {{description}}
+{{/pathParams}}{{#allParams}}{{^isPathParam}}{{#required}}   * @param {{paramName}} - {{description}}
+{{/required}}{{/isPathParam}}{{/allParams}}   * @param {Object.<string, *>} optionals - optional parameters
+{{#allParams}}{{^required}}   * @param {{=<% %>=}}{<%dataType%>}<%={{ }}=%> optionals.{{paramName}} - {{description}}
+{{/required}}{{/allParams}}   * @return {{=<% %>=}}{<%#returnType%><%returnType%><%/returnType%><%^returnType%>nil<%/returnType%>}<%={{ }}=%>
+   */
+  {{nickname}} : function({{#pathParams}}{{paramName}}, {{/pathParams}}{{#allParams}}{{^isPathParam}}{{#required}}{{paramName}}, {{/required}}{{/isPathParam}}{{/allParams}}optionals) {
+    var opts = assign({}, optionals);
+
+    // check if all required parameters are present
+    {{#allParams}}{{#required}}
+    if (typeof {{paramName}} === 'undefined' || {{paramName}} === null) throw new Error('Required parameter "{{paramName}}" is missing');
+    {{/required}}{{/allParams}}
+
+    var op = this.buildOperation('{{path}}', '{{httpMethod}}');
+
+    // api mime type
+    op.consumes = [{{#consumes}}'{{mediaType}}'{{#hasMore}}, {{/hasMore}}{{/consumes}}];
+
+    {{#hasPathParams}}
+    // path parameters
+    op.params = {
+      {{#pathParams}}
+      '{{baseName}}': Serializer.serialize({{paramName}}, '{{dataType}}'){{#hasMore}}, {{/hasMore}}
+      {{/pathParams}}
+    };
+    {{/hasPathParams}}
+
+    {{#hasHeaderParams}}
+    // header parameters
+    op.headers = {
+      {{#headerParams}}
+      '{{baseName}}': Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}'){{#hasMore}},{{/hasMore}}
+      {{/headerParams}}
+    };
+    {{/hasHeaderParams}}
+
+    {{#hasQueryParams}}
+    // query parameters
+    op.query = {
+      {{#queryParams}}
+      '{{baseName}}': Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}'){{#hasMore}},{{/hasMore}}
+      {{/queryParams}}
+    };
+    {{/hasQueryParams}}
+
+    {{#hasBodyParam}}{{#bodyParam}}
+    // http body (model)
+    op.body = Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}');
+    {{/bodyParam}}{{/hasBodyParam}}
+
+    {{#hasHeaderParams}}
+    // form parameters
+    op.form = {
+      {{#headerParams}}
+      '{{baseName}}': Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}'){{#hasMore}},{{/hasMore}}
+      {{/headerParams}}
+    };
+    {{/hasHeaderParams}}
+
+    {{#hasAuthMethods}}
+    // authentication requirement
+    op.auths = [{{#authMethods}}
+      { name: '{{{name}}}', key: '{{keyParamName}}', in_query: {{#isKeyInQuery}}true{{/isKeyInQuery}}{{^isKeyInQuery}}false{{/isKeyInQuery}} }{{#hasMore}},{{newline}}{{/hasMore}}
+    {{/authMethods}}];
+    {{/hasAuthMethods}}
+
+    // response types
+    var resp_types = {
+      {{#responses}}
+      {{code}}: '{{dataType}}'{{#hasMore}},{{/hasMore}}
+      {{/responses}}
+    };
+
+    // execute the operation
+    var op_defer = Deferred();
+    op.execute().done(function(result) {
+      var return_obj = Serializer.deserialize(result.body, resp_types[result.statusCode] || resp_types[0]);
+      op_defer.resolve(return_obj);
+    }, function(result) {
+      if (result instanceof Error) {
+        op_defer.reject(result);
+      } else {
+        var api_error = Serializer.deserialize(result.body, resp_types[result.statusCode] || resp_types[0]);
+
+        // converts the api error into a javascript error object
+        var err_obj = new Error(api_error.messages.join(', '));
+        err_obj.name = api_error.klass_name
+
+        op_defer.reject(error_obj);
+      }
+    });
+
+    return op_defer.promise;
+  }{{#hasMore}},{{/hasMore}}
+  {{/operation}}
+};
+
+module.exports = OPERATIONS;
+
+{{/operations}}

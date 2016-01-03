@@ -1,0 +1,37 @@
+'use strict';
+
+var Serializer = require('../serializer');
+
+{{#models}}{{#model}}
+var {{classname}} = function() {
+  {{#vars}}
+  this.{{{name}}} = null;
+  {{/vars}}
+
+  this._serialize = function() {
+    return {{classname}}._serialize(this);
+  };
+};
+
+{{classname}}._serialize = function(data) {
+  var obj = {};
+
+  {{#vars}}
+  obj['{{{name}}}'] = Serializer.serialize(data['{{{name}}}'], '{{{datatype}}}');
+  {{/vars}}
+
+  return obj;
+};
+
+{{classname}}._deserialize = function(data) {
+  var obj = new {{classname}}();
+
+  {{#vars}}
+  obj.{{{name}}} = Serializer.deserialize(data['{{{name}}}'], '{{{datatype}}}');
+  {{/vars}}
+
+  return obj;
+};
+
+module.exports = {{classname}};
+{{/model}}{{/models}}

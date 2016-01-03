@@ -2,6 +2,10 @@ module NovacastSDK
   module {{moduleName}}
 {{#operations}}
     class {{classname}} < NovacastSDK::Client::BaseClient
+      # SDK Configuration
+      def self.config
+        NovacastSDK::{{moduleName}}.config
+      end
 
 {{#operation}}
 {{newline}}

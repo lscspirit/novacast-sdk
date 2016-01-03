@@ -1,0 +1,8 @@
+'use strict';
+
+var MODELS = {};
+{{#models}}{{#model}}
+MODELS['{{classname}}'] = require('{{importPath}}');
+{{/model}}{{/models}}
+
+module.exports = MODELS;
