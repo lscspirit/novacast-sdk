@@ -23,7 +23,7 @@ EventCreateRequest:
     user_set_uid:
       type: string
       description: uid of the user set
-  required: ['name', 'asset_bundle_uid', 'user_set_uid']
+  required: ['name']
 
 EventUpdateRequest:
   type: object
