@@ -11,12 +11,11 @@ module NovacastSDK
 {{newline}}
       # {{summary}}
       # {{notes}}
-{{#pathParams}}      # @param {{paramName}} {{description}}
-{{/pathParams}}{{#allParams}}{{^isPathParam}}{{#required}}      # @param {{paramName}} {{description}}
-{{/required}}{{/isPathParam}}{{/allParams}}      # @param [Hash] opts the optional parameters
-{{#allParams}}{{^required}}      # @option opts [{{{dataType}}}] :{{paramName}} {{description}}
+{{#allParams}}{{#required}}      # @param {{paramName}} {{description}}
+{{/required}}{{/allParams}}{{#allParams}}{{^required}}{{^hasMore}}      # @param [Hash] opts the optional parameters
+{{/hasMore}}{{/required}}{{/allParams}}{{#allParams}}{{^required}}      # @option opts [{{{dataType}}}] :{{paramName}} {{description}}
 {{/required}}{{/allParams}}      # @return [{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}nil{{/returnType}}]
-      def {{nickname}}({{#pathParams}}{{paramName}}, {{/pathParams}}{{#allParams}}{{^isPathParam}}{{#required}}{{paramName}}, {{/required}}{{/isPathParam}}{{/allParams}}opts = {})
+      def {{nickname}}({{#allParams}}{{#required}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#allParams}}{{^required}}{{^hasMore}}opts = {}{{/hasMore}}{{/required}}{{/allParams}})
         # checks if all required parameters are set
         {{#allParams}}{{#required}}
         raise ArgumentError, 'Missing required parameter "{{{paramName}}}"' if {{{paramName}}}.nil?
@@ -31,25 +30,25 @@ module NovacastSDK
 
         # header parameters
         header_params = {}{{#headerParams}}{{#required}}
-        header_params[:'{{{baseName}}}'] = {{{paramName}}}{{/required}}{{/headerParams}}{{#headerParams}}{{^required}}
-        header_params[:'{{{baseName}}}'] = opts[:'{{{paramName}}}'] if opts[:'{{{paramName}}}']{{/required}}{{/headerParams}}
+        header_params['{{baseName}}'] = {{paramName}}{{/required}}{{/headerParams}}{{#headerParams}}{{^required}}
+        header_params['{{baseName}}'] = opts['{{paramName}}'] if opts['{{paramName}}']{{/required}}{{/headerParams}}
         op.headers = header_params
 
         # query parameters
         query_params = {}{{#queryParams}}{{#required}}
-        query_params[:'{{{baseName}}}'] = {{{paramName}}}{{/required}}{{/queryParams}}{{#queryParams}}{{^required}}
-        query_params[:'{{{baseName}}}'] = opts[:'{{{paramName}}}'] if opts[:'{{{paramName}}}']{{/required}}{{/queryParams}}
+        query_params['{{baseName}}'] = {{paramName}}{{/required}}{{/queryParams}}{{#queryParams}}{{^required}}
+        query_params['{{baseName}}'] = opts['{{paramName}}'] if opts['{{paramName}}']{{/required}}{{/queryParams}}
         op.query = query_params
 
         # http body (model)
         {{#bodyParam}}
-        op.body = {{#required}}{{{paramName}}}{{/required}}{{^required}}opts[:'{{{paramName}}}']{{/required}}.to_json
+        op.body = {{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}.to_json
         {{/bodyParam}}
 
         {{#hasAuthMethods}}
         # authentication requirement
         op.auths = [{{#authMethods}}
-          { name: '{{{name}}}', key: '{{keyParamName}}', in_query: {{#isKeyInQuery}}true{{/isKeyInQuery}}{{^isKeyInQuery}}false{{/isKeyInQuery}} }{{#hasMore}},{{newline}}{{/hasMore}}
+          { name: '{{name}}', key: '{{keyParamName}}', in_query: {{#isKeyInQuery}}true{{/isKeyInQuery}}{{^isKeyInQuery}}false{{/isKeyInQuery}} }{{#hasMore}},{{newline}}{{/hasMore}}
         {{/authMethods}}]
         {{/hasAuthMethods}}
 

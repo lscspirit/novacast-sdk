@@ -10,14 +10,14 @@ var OPERATIONS = {
   /*
    * {{summary}}
    * {{notes}}
-{{#pathParams}}   * @param {{paramName}} - {{description}}
-{{/pathParams}}{{#allParams}}{{^isPathParam}}{{#required}}   * @param {{paramName}} - {{description}}
-{{/required}}{{/isPathParam}}{{/allParams}}   * @param {Object.<string, *>} optionals - optional parameters
-{{#allParams}}{{^required}}   * @param {{=<% %>=}}{<%dataType%>}<%={{ }}=%> optionals.{{paramName}} - {{description}}
+{{#allParams}}{{#required}}   * @param {{paramName}} - {{description}}
+{{/required}}{{/allParams}}{{#allParams}}{{^required}}{{^hasMore}}   * @param {Object.<string, *>} optionals - optional parameters
+{{/hasMore}}{{/required}}{{/allParams}}{{#allParams}}{{^required}}   * @param {{=<% %>=}}{<%dataType%>}<%={{ }}=%> optionals.{{paramName}} - {{description}}
 {{/required}}{{/allParams}}   * @return {{=<% %>=}}{<%#returnType%><%returnType%><%/returnType%><%^returnType%>nil<%/returnType%>}<%={{ }}=%>
    */
-  {{nickname}} : function({{#pathParams}}{{paramName}}, {{/pathParams}}{{#allParams}}{{^isPathParam}}{{#required}}{{paramName}}, {{/required}}{{/isPathParam}}{{/allParams}}optionals) {
-    var opts = assign({}, optionals);
+  {{nickname}} : function({{#allParams}}{{#required}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/allParams}}{{#allParams}}{{^required}}{{^hasMore}}optionals{{/hasMore}}{{/required}}{{/allParams}}) {
+    {{! allParams ^required ^hasMore = hasOptionalParams }}
+    {{#allParams}}{{^required}}{{^hasMore}}var opts = assign({}, optionals);{{/hasMore}}{{/required}}{{/allParams}}
 
     // check if all required parameters are present
     {{#allParams}}{{#required}}
@@ -56,6 +56,15 @@ var OPERATIONS = {
     };
     {{/hasQueryParams}}
 
+    {{#hasFormParams}}
+    // query parameters
+    op.query = {
+      {{#formParams}}
+      '{{baseName}}': Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}'){{#hasMore}},{{/hasMore}}
+      {{/formParams}}
+    };
+    {{/hasFormParams}}
+
     {{#hasBodyParam}}{{#bodyParam}}
     // http body (model)
     op.body = Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}');
@@ -91,15 +100,17 @@ var OPERATIONS = {
       op_defer.resolve(return_obj);
     }, function(result) {
       if (result instanceof Error) {
+        result.messages = [result.message];
         op_defer.reject(result);
       } else {
         var api_error = Serializer.deserialize(result.body, resp_types[result.statusCode] || resp_types[0]);
 
         // converts the api error into a javascript error object
         var err_obj = new Error(api_error.messages.join(', '));
-        err_obj.name = api_error.klass_name
+        err_obj.name = api_error.klass_name;
+        err_obj.messages = api_error.messages;
 
-        op_defer.reject(error_obj);
+        op_defer.reject(err_obj);
       }
     });
 

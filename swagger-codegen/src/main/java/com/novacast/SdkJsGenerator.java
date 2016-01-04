@@ -3,6 +3,10 @@ package com.novacast;
 import io.swagger.codegen.*;
 import io.swagger.models.properties.*;
 
+import io.swagger.models.Swagger;
+import io.swagger.models.Model;
+import io.swagger.models.Operation;
+
 import java.util.*;
 import java.io.File;
 
@@ -123,6 +127,8 @@ public class SdkJsGenerator extends DefaultCodegen implements CodegenConfig {
   public void processOpts() {
       super.processOpts();
 
+      setSortParamsByRequiredFlag(new Boolean(true));
+
       if (additionalProperties.containsKey("packageName")) {
           setPackageName((String) additionalProperties.get("packageName"));
       } else if (additionalProperties.containsKey("sdkName")) {
@@ -198,6 +204,34 @@ public class SdkJsGenerator extends DefaultCodegen implements CodegenConfig {
    */
   public String modelFileFolder() {
     return outputFolder + File.separator + modelPackage.replace("/", File.separator);
+  }
+
+  @Override
+  public CodegenOperation fromOperation(String path, String httpMethod, Operation operation, Map<String, Model> definitions, Swagger swagger) {
+    CodegenOperation op = super.fromOperation(path, httpMethod, operation, definitions, swagger);
+
+    // put paramters in this order: "path", other "required" then "optional"
+    Collections.sort(op.allParams, new Comparator<CodegenParameter>() {
+      @Override
+      public int compare(CodegenParameter one, CodegenParameter another) {
+        boolean oneRequired = one.required == null ? false : one.required;
+        boolean oneIsPath   = one.isPathParam == null ? false : one.isPathParam;
+        boolean anotherRequired = another.required == null ? false : another.required;
+        boolean anotherIsPath   = another.isPathParam == null ? false : another.isPathParam;
+        if (oneIsPath == anotherIsPath) {
+          if (sortParamsByRequiredFlag != true) return 0;
+          else if (oneRequired == anotherRequired) return 0;
+          else if (oneRequired) return -1;
+          else return 1;
+        }
+        else if (oneIsPath) return -1;
+        else return 1;
+      }
+    });
+
+    updateHasMore(op.allParams);
+
+    return op;
   }
 
   /**
@@ -413,5 +447,14 @@ public class SdkJsGenerator extends DefaultCodegen implements CodegenConfig {
     // remove everything else other than word, number and _
     // $php_variable => php_variable
     return name.replaceAll("[^a-zA-Z0-9_]", "");
+  }
+
+  private static void updateHasMore(List<CodegenParameter> objs) {
+    if (objs != null) {
+        for (int i = 0; i < objs.size(); i++) {
+            objs.get(i).secondaryParam = (i > 0) ? (new Boolean(true)) : null;
+            objs.get(i).hasMore = (i < objs.size() - 1) ? (new Boolean(true)) : null;
+        }
+    }
   }
 }
