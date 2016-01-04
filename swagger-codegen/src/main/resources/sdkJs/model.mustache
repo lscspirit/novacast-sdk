@@ -5,7 +5,7 @@ var Serializer = require('../serializer');
 {{#models}}{{#model}}
 var {{classname}} = function() {
   {{#vars}}
-  this.{{{name}}} = null;
+  this.{{{baseName}}} = null;
   {{/vars}}
 
   this._serialize = function() {
@@ -17,7 +17,7 @@ var {{classname}} = function() {
   var obj = {};
 
   {{#vars}}
-  obj['{{{name}}}'] = Serializer.serialize(data['{{{name}}}'], '{{{datatype}}}');
+  obj['{{{baseName}}}'] = Serializer.serialize(data['{{{baseName}}}'], '{{{datatype}}}');
   {{/vars}}
 
   return obj;
@@ -27,7 +27,7 @@ var {{classname}} = function() {
   var obj = new {{classname}}();
 
   {{#vars}}
-  obj.{{{name}}} = Serializer.deserialize(data['{{{name}}}'], '{{{datatype}}}');
+  obj.{{{baseName}}} = Serializer.deserialize(data['{{{baseName}}}'], '{{{datatype}}}');
   {{/vars}}
 
   return obj;
