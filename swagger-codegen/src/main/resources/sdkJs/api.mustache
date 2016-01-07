@@ -28,6 +28,7 @@ var OPERATIONS = {
 
     // api mime type
     op.consumes = [{{#consumes}}'{{mediaType}}'{{#hasMore}}, {{/hasMore}}{{/consumes}}];
+    op.produces = [{{#produces}}'{{mediaType}}'{{#hasMore}}, {{/hasMore}}{{/produces}}];
 
     {{#hasPathParams}}
     // path parameters
@@ -57,8 +58,8 @@ var OPERATIONS = {
     {{/hasQueryParams}}
 
     {{#hasFormParams}}
-    // query parameters
-    op.query = {
+    // form parameters
+    op.form = {
       {{#formParams}}
       '{{baseName}}': Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}'){{#hasMore}},{{/hasMore}}
       {{/formParams}}
