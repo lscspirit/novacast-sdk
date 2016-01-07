@@ -41,44 +41,35 @@ var OPERATIONS = {
 
     {{#hasHeaderParams}}
     // header parameters
-    op.headers = {
-      {{#headerParams}}
-      '{{baseName}}': Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}'){{#hasMore}},{{/hasMore}}
-      {{/headerParams}}
-    };
+    op.headers = {};
+    {{#headerParams}}
+    {{#required}}op.headers['{{baseName}}'] = Serializer.serialize({{paramName}}, '{{dataType}}');{{/required}}
+    {{^required}}if({{paramName}}) op.headers['{{baseName}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
+    {{/headerParams}}
     {{/hasHeaderParams}}
 
     {{#hasQueryParams}}
     // query parameters
-    op.query = {
-      {{#queryParams}}
-      '{{baseName}}': Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}'){{#hasMore}},{{/hasMore}}
-      {{/queryParams}}
-    };
+    op.query = {};
+    {{#queryParams}}
+    {{#required}}op.query['{{baseName}}'] = Serializer.serialize({{paramName}}, '{{dataType}}');{{/required}}
+    {{^required}}if({{paramName}}) op.query['{{baseName}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
+    {{/queryParams}}
     {{/hasQueryParams}}
 
     {{#hasFormParams}}
     // form parameters
-    op.form = {
-      {{#formParams}}
-      '{{baseName}}': Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}'){{#hasMore}},{{/hasMore}}
-      {{/formParams}}
-    };
+    op.form = {};
+    {{#formParams}}
+    {{#required}}op.form['{{baseName}}'] = Serializer.serialize({{paramName}}, '{{dataType}}');{{/required}}
+    {{^required}}if({{paramName}}) op.form['{{baseName}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
+    {{/formParams}}
     {{/hasFormParams}}
 
     {{#hasBodyParam}}{{#bodyParam}}
     // http body (model)
     op.body = Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}');
     {{/bodyParam}}{{/hasBodyParam}}
-
-    {{#hasHeaderParams}}
-    // form parameters
-    op.form = {
-      {{#headerParams}}
-      '{{baseName}}': Serializer.serialize({{#required}}{{paramName}}{{/required}}{{^required}}opts['{{paramName}}']{{/required}}, '{{dataType}}'){{#hasMore}},{{/hasMore}}
-      {{/headerParams}}
-    };
-    {{/hasHeaderParams}}
 
     {{#hasAuthMethods}}
     // authentication requirement
