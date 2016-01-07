@@ -70,12 +70,33 @@ EventExtended:
     - $ref: '#/definitions/Event'
     - type: object
       properties:
+        asset_bundle_uid:
+          type: string
+          description: asset bundle uid
+        user_set_uid:
+          type: string
+          description: user set uid
         public_aliases:
           type: array
           description: list of public aliases
           items:
             $ref: '#/definitions/PublicAlias'
-      required: ['public_aliases']
+        page_mappings:
+          type: array
+          description: list of page mappings
+          items:
+            $ref: '#/definitions/PageMapping'
+        event_sessions:
+          type: array
+          description: list of sessions
+          items:
+            $ref: '#/definitions/EventSession'
+        event_pages:
+          type: array
+          description: list of pages
+          items:
+            $ref: '#/definitions/EventPage'
+      required: ['public_aliases', 'page_mappings', 'event_sessions', 'event_pages']
 
 EventList:
   type: object

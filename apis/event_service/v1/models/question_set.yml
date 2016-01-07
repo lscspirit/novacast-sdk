@@ -27,7 +27,7 @@ QuestionContent:
       type: string
       description: question text
     order:
-      type: string
+      type: integer
       description: order index
     content:
       type: object
