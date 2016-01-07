@@ -1,4 +1,4 @@
-# Swagger Codegen for the sdkJs library
+# Swagger Codegen for the Novacast SDK library
 
 ## Overview
 This is a boiler-plate project to generate your own client library with Swagger.  It's goal is
@@ -47,17 +47,18 @@ Once modified, you can run this:
 mvn package
 ```
 
-In your generator project.  A single jar file will be produced in `target`.  You can now use that with codegen:
+Now your templates are available to the client generator.
+
+
+A custom NodeJS script is available for use to generate the SDKs:
 
 ```
-java -cp /path/to/swagger-codegen-distribution:/path/to/your/jar io.swagger.codegen.Codegen -l sdkRuby -o ./test
+node scripts/generate_sdk.js -s apis/event_service/v1 -l sdkRuby -o output/sdkRuby
 ```
 
 ```
-java -cp /path/to/swagger-codegen-distribution:/path/to/your/jar io.swagger.codegen.Codegen -l sdkJs -o ./test
+node scripts/generate_sdk.js -s apis/event_service/v1 -l sdkJs -o output/sdkJs
 ```
-
-Now your templates are available to the client generator and you can write output values
 
 ## But how do I modify this?
 The `SdkRubyGenerator.java` and `SdkJsGenerator.java` have comments in it--lots of comments.  There is no good substitute
