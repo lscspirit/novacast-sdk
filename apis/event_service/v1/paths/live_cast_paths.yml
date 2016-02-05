@@ -1,0 +1,62 @@
+/mods/live_cast/sessions/{session_uid}:
+  parameters:
+    - name: session_uid
+      description: session uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getLiveCastState
+    description: |
+      (LiveCast) Get the current LiveCast module state
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/LiveCastState'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/mods/live_cast/sessions/{session_uid}/page:
+  parameters:
+    - name: session_uid
+      description: session uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getLiveCastPage
+    description: |
+      Get the current live cast page
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/LiveCastSlidePage'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: updateLiveCastPage
+    description: |
+      (LiveCast) Change slide page
+      This will also publish a LiveCastSlidePage command to the session pub sub channel
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/LiveCastPageChangeRequest'
+    responses:
+      '200':
+        description: Changed
+        schema:
+          $ref: '#/definitions/LiveCastState'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'

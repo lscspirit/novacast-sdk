@@ -1,0 +1,29 @@
+LiveCastState:
+  type: object
+  description: (LiveCast) state of the LiveCast module
+  properties:
+    page:
+      type: integer
+      description: current page number
+
+LiveCastSlidePage:
+  type: object
+  description: (LiveCast) module slide change command
+  properties:
+    active:
+      $ref: '#/definitions/Slide'
+    pre_loads:
+      type: array
+      description: list of slides to be pre-loaded
+      items:
+        $ref: '#/definitions/Slide'
+  required: ['active']
+
+LiveCastPageChangeRequest:
+  type: object
+  description: (LiveCast) Page change request
+  properties:
+    page:
+      type: integer
+      description: page number to change to
+  required: ['page']
