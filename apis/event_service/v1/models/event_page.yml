@@ -7,14 +7,17 @@ EventPageCreateRequest:
       description: event page path
     session_uid:
       type: string
-      description: uid of the event page's session
+      description: uid of the event page's session. Null if this is a shared session page.
     public:
       type: boolean
       description: whether this page can be accessed publicly
+    level:
+      type: string
+      description: the page level - event, single, shared
     usage:
       type: string
       description: page usage
-  required: ['path']
+  required: ['path', 'level']
 
 EventPageUpdateRequest:
   type: object
@@ -29,7 +32,10 @@ EventPageUpdateRequest:
     public:
       type: boolean
       description: whether this page can be accessed publicly
-
+    level:
+      type: string
+      description: the page level - event, single, shared
+      
 EventPage:
   type: object
   description: Event page object
@@ -46,6 +52,9 @@ EventPage:
     public:
       type: boolean
       description: whether this page can be accessed publicly
+    level:
+      type: string
+      description: the page level - event, single, shared
     page_config:
       type: string
       description: page configuration in json
@@ -54,7 +63,7 @@ EventPage:
       description: page mappings
       items:
         $ref: '#/definitions/PageMapping'
-  required: ['event_uid', 'path', 'public']
+  required: ['event_uid', 'path', 'public', 'level']
 
 SessionExceptionUpdate:
   type: object
