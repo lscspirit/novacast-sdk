@@ -70,6 +70,9 @@ EventExtended:
     - $ref: '#/definitions/Event'
     - type: object
       properties:
+        default_session_uid:
+          type: string
+          description: default session uid
         asset_bundle_uid:
           type: string
           description: asset bundle uid
@@ -96,7 +99,7 @@ EventExtended:
           description: list of pages
           items:
             $ref: '#/definitions/EventPage'
-      required: ['public_aliases', 'page_mappings', 'event_sessions', 'event_pages']
+      required: ['default_session_uid', 'public_aliases', 'page_mappings', 'event_sessions', 'event_pages']
 
 EventList:
   type: object

@@ -29,7 +29,10 @@ EventSession:
     event_name:
       type: string
       description: name of the event that this session belongs to
-  required: ['uid', 'label', 'pathname', 'event_uid', 'event_name']
+    is_default:
+      type: boolean
+      description: whether the session is a event's default
+  required: ['uid', 'label', 'pathname', 'event_uid', 'event_name', 'is_default']
 
 EventSessionExtended:
   type: object
