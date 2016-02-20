@@ -17,7 +17,7 @@ var {{classname}} = function() {
   var obj = {};
 
   {{#vars}}
-  {{^required}}if (data['{{baseName}}']) {{/required}}obj['{{baseName}}'] = Serializer.serialize(data['{{baseName}}'], '{{datatype}}');
+  {{^required}}if (data['{{baseName}}'] != undefined) {{/required}}obj['{{baseName}}'] = Serializer.serialize(data['{{baseName}}'], '{{datatype}}');
   {{/vars}}
 
   return obj;
