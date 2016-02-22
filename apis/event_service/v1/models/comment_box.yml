@@ -1,0 +1,35 @@
+UserComment:
+  type: object
+  description: user comment
+  properties:
+    account_uid:
+      type: string
+      description: uid of the submitter
+    content:
+      type: string
+      description: content of the comment
+    submitted_at:
+      type: string
+      format: date-time
+      description: submission time
+  required: ['account_uid', 'content', 'submitted_at']
+
+UserCommentList:
+  type: object
+  description: List of user comments
+  properties:
+    comments:
+      type: array
+      description: list of comments
+      items:
+        $ref: '#/definitions/UserComment'
+  required: ['comments']
+
+UserCommentPostRequest:
+  type: object
+  description: user comment post request
+  properties:
+    content:
+      type: string
+      description: comment content
+  required: ['content']

@@ -1,0 +1,43 @@
+/mods/comment_box/comments:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: query
+    - name: session_uid
+      description: param description
+      type: integer
+      in: query
+  get:
+    operationId: getUserComments
+    description: |
+      Get comments submitted for a event or a session
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/UserCommentList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: postUserComment
+    description: |
+      Post a new comment
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserCommentPostRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/UserComment'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
