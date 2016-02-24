@@ -14,7 +14,7 @@ StreamSource:
     source:
       type: string
       description: source provider of the stream
-      enum: ['url', 'aws_s3', 'jwplatform']
+      enum: ['url', 'aws_s3', 'jwplatform', 'wowza']
   required: ['uid', 'rn', 'url', 'source']
 
 StreamMediumInfo:
@@ -73,7 +73,7 @@ StreamSourceCreateRequest:
     type:
       type: string
       description: type/provider of the source
-      enum: ['url', 'aws_s3', 'jwplatform']
+      enum: ['url', 'aws_s3', 'jwplatform', 'wowza_hls', 'wowza_rtmp']
     url_or_key:
       type: string
       description: provider specific url or identifier of the source
