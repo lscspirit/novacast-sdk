@@ -1,0 +1,82 @@
+/events/{event_uid}/data_sets:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getDataSetList
+    description: |
+      Get all data sets for the event
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/DataSetList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createDataSet
+    description: |
+      Create a new data set for the event
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/DataSetCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/DataSet'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/data_sets/{data_set_uid}:
+  parameters:
+    - name: data_set_uid
+      description: data set uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getDataSet
+    description: |
+      Get a data set
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/DataSet'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/data_sets/{data_set_uid}/partitions:
+  parameters:
+    - name: data_set_uid
+      description: data set uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getDataSetPartitions
+    description: |
+      Get all partitions for a data set
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/DataSetPartitionList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

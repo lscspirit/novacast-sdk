@@ -1,0 +1,66 @@
+DataSet:
+  type: object
+  description: Data Set
+  properties:
+    uid:
+      type: string
+      description: uid of the stream
+    label:
+      type: string
+      description: stream label
+    production:
+      type: boolean
+      description: production use
+    active:
+      type: boolean
+      description: active data set
+  required: ['uid', 'label', 'production', 'active']
+
+DataSetList:
+  type: object
+  description: a list of DataSet
+  properties:
+    data_sets:
+      type: array
+      description: collection of data set objects
+      items:
+        $ref: '#/definitions/DataSet'
+  required: ['data_sets']
+
+DataSetPartition:
+  type: object
+  description: Data set partition
+  properties:
+    uid:
+      type: string
+      description: uid of the stream
+    event_session_uid:
+      type: string
+      description: Name of the permission
+  required: ['uid', 'event_session_uid']
+
+DataSetPartitionList:
+  type: object
+  description: a list of DataSetPartition
+  properties:
+    partitions:
+      type: array
+      description: collection of data set partition objects
+      items:
+        $ref: '#/definitions/DataSetPartition'
+  required: ['partitions']
+
+DataSetCreateRequest:
+  type: object
+  description: Data Set creation request
+  properties:
+    label:
+      type: string
+      description: stream label
+    production:
+      type: boolean
+      description: production use
+    active:
+      type: boolean
+      description: active data set
+  required: ['label']
