@@ -1,35 +1,35 @@
-UserComment:
+UserFeedback:
   type: object
-  description: user comment
+  description: user feedback
   properties:
     account_uid:
       type: string
       description: uid of the submitter
     content:
       type: string
-      description: content of the comment
+      description: content of the feedback
     submitted_at:
       type: string
       format: date-time
       description: submission time
   required: ['account_uid', 'content', 'submitted_at']
 
-UserCommentList:
+UserFeedbackList:
   type: object
-  description: List of user comments
+  description: list of user feedbacks
   properties:
-    comments:
+    feedbacks:
       type: array
-      description: list of comments
+      description: list of feedbacks
       items:
-        $ref: '#/definitions/UserComment'
-  required: ['comments']
+        $ref: '#/definitions/UserFeedback'
+  required: ['feedbacks']
 
-UserCommentPostRequest:
+UserFeedbackPostRequest:
   type: object
-  description: user comment post request
+  description: user feedback post request
   properties:
     content:
       type: string
-      description: comment content
+      description: feedback content
   required: ['content']

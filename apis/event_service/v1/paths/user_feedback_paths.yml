@@ -1,42 +1,43 @@
-/mods/comment_box/comments:
+/mods/user_feedback/{session_uid}/feedbacks:
   parameters:
-    - name: event_uid
-      description: event uid
-      type: string
-      in: query
     - name: session_uid
       description: param description
-      type: integer
-      in: query
+      type: string
+      in: path
   get:
-    operationId: getUserComments
+    operationId: getUserFeedbacks
     description: |
-      Get comments submitted for a event or a session
+      Get user feedbacks submitted for a session
+    parameters:
+      - name: data_set_uid
+        description: uid of the data set. Default to the active data set of the event
+        type: string
+        in: query
     responses:
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/UserCommentList'
+          $ref: '#/definitions/UserFeedbackList'
       default:
         description: Failed
         schema:
           $ref: '#/definitions/Error'
   post:
-    operationId: postUserComment
+    operationId: postUserFeedback
     description: |
-      Post a new comment
+      Post a new user feedback
     parameters:
       - name: body
         description: request body
         in: body
         required: true
         schema:
-          $ref: '#/definitions/UserCommentPostRequest'
+          $ref: '#/definitions/UserFeedbackPostRequest'
     responses:
       '201':
         description: Created
         schema:
-          $ref: '#/definitions/UserComment'
+          $ref: '#/definitions/UserFeedback'
       default:
         description: Creation failed
         schema:
