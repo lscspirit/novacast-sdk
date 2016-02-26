@@ -1,0 +1,72 @@
+QuestionManifest:
+  type: object
+  description: question manifests
+  properties:
+    uid:
+      type: string
+      description: uid of the manifest
+    rn:
+      type: string
+      description: resource name      
+    label:
+      type: string
+      description: label for the manifest
+    manifest_type:
+      type: string
+      description: type for the manifest
+    config:
+      type: object
+      description: extra config info for this manifest
+    question_set:
+      $ref: '#/definitions/QuestionSetInfo'
+  required: ['uid', 'label', 'manifest_type', 'config', 'question_set']
+
+QuestionManifestList:
+  type: object
+  description: a list of question manifests
+  properties:
+    manifests:
+      type: array
+      description: question manifest collection
+      items:
+        $ref: '#/definitions/QuestionManifest'
+  required: ['manifests']
+
+QuestionManifestCreateRequest:
+  type: object
+  description: Question manifest creation request
+  properties:
+    label:
+      type: string
+      description: label
+    manifest_type:
+      type: string
+      description: question manifest type
+    question_set_uid:
+      type: string
+      description: uid for the question set associated
+  required: ['label', 'manifest_type', 'question_set_uid']
+
+QuestionManifestUpdateRequest:
+  type: object
+  description: Question manifest update request
+  properties:
+    label:
+      type: string
+      description: label
+    manifest_type:
+      type: string
+      description: question manifest type
+    question_set_uid:
+      type: string
+      description: uid for the question set associated
+  required: ['label', 'manifest_type', 'question_set_uid']
+
+QuestionManifestDeleteResponse:
+  type: object
+  description: Question manifest deletion response
+  properties:
+    question_manifest_uid:
+      type: string
+      description: the uid of the manifest deleted
+

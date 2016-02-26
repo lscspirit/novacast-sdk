@@ -1,0 +1,94 @@
+/channels/{channel_uid}/question_manifests:
+  parameters:
+    - name: channel_uid
+      description: channel uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getQuestionManifests
+    description: |
+      Get the list of question manifests
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/QuestionManifestList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createQuestionManifest
+    description: |
+      Create a new question manifest
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/QuestionManifestCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/QuestionManifest'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/question_manifests/{question_manifest_uid}:
+  parameters:
+    - name: question_manifest_uid
+      description: question manifest uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getQuestionManifest
+    description: |
+      Get a question manifest
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/QuestionManifest'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: updateQuestionManifest
+    description: |
+      Update a question manifest
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/QuestionManifestUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/QuestionManifest'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    operationId: deleteQuestionManifest
+    description: |
+      Delete a question manifest
+    responses:
+      '200':
+        description: Deleted
+        schema:
+          $ref: '#/definitions/QuestionManifestDeleteResponse'
+      default:
+        description: Delete failed
+        schema:
+          $ref: '#/definitions/Error'
