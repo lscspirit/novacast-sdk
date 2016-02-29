@@ -11,10 +11,7 @@ DataSet:
     production:
       type: boolean
       description: production use
-    active:
-      type: boolean
-      description: active data set
-  required: ['uid', 'label', 'production', 'active']
+  required: ['uid', 'label', 'production']
 
 DataSetList:
   type: object
@@ -60,7 +57,13 @@ DataSetCreateRequest:
     production:
       type: boolean
       description: production use
-    active:
-      type: boolean
-      description: active data set
   required: ['label']
+
+ActiveDataSetUpdateRequest:
+  type: object
+  description: Request for changing the active data set for an event
+  properties:
+    data_set_uid:
+      type: string
+      description: uid of the data set to be set as active
+  required: ['data_set_uid']
