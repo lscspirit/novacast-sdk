@@ -9,6 +9,10 @@ var {{classname}} = require('{{importPath}}');
 
 // Exports
 module.exports = {
+  // Model Serializer
+  Serializer: require('./serializer'),
+
+  // APIs
   {{#apiInfo}}{{#apis}}
   {{classname}}: function(host_url) {
     return new BaseClient(host_url, '{{contextPath}}', {{classname}});
