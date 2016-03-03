@@ -1,7 +1,7 @@
 /mods/user_feedback/{session_uid}/feedbacks:
   parameters:
     - name: session_uid
-      description: param description
+      description: uid of the session
       type: string
       in: path
   get:

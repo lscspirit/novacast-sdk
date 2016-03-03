@@ -1,0 +1,151 @@
+/mods/forum_post/sessions/{session_uid}:
+  parameters:
+    - name: session_uid
+      description: uid of the session
+      type: string
+      in: path
+  get:
+    operationId: getForumPosts
+    description: |
+      Get all forum posts of the session
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ForumPostList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createForumPost
+    description: |
+      Create a new forum post
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ForumPostCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/ForumPost'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/mods/forum_post/sessions/{session_uid}/extended:
+  parameters:
+    - name: session_uid
+      description: uid of the session
+      type: string
+      in: path
+  get:
+    operationId: getExtendedForumPosts
+    description: |
+      Get all forum posts (with extended information) of the session
+    parameters:
+      - name: data_set_uid
+        description: uid of the data set. Default to the active data set of the event
+        type: string
+        in: query
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ForumPostExtendedList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/mods/forum_post/sessions/{session_uid}/account/likes:
+  parameters:
+    - name: session_uid
+      description: uid of the session
+      type: string
+      in: path
+  get:
+    operationId: getForumPostLikesForAccount
+    description: |
+      Get all forum posts likes of the session submitted by the access user
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ForumPostLikeList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/mods/forum_post/posts/{forum_post_uid}:
+  parameters:
+    - name: forum_post_uid
+      description: uid of the forum post
+      type: string
+      in: path
+  put:
+    operationId: updateForumPost
+    description: |
+      Update the state of a forum post
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ForumPostUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/ForumPostExtended'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/mods/forum_post/posts/{forum_post_uid}/likes:
+  parameters:
+    - name: forum_post_uid
+      description: uid of the forum post
+      type: string
+      in: path
+  get:
+    operationId: getForumPostLikes
+    description: |
+      Get all likes for the forum post
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ForumPostLikeList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: likeForumPost
+    description: |
+      Like or unlike a forum post
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ForumPostLikeRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/ForumPostLike'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
