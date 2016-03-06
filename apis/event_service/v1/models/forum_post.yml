@@ -14,11 +14,14 @@ ForumPost:
     likes:
       type: integer
       description: number of likes
+    visible:
+      type: boolean
+      description: visible to public
     submitted_at:
       type: string
       format: date-time
       description: submission time
-  required: ['display_name', 'content', 'submitted_at']
+  required: ['display_name', 'content', 'submitted_at', 'visible']
 
 ForumPostExtended:
   type: object
@@ -73,10 +76,10 @@ ForumPostLike:
     forum_post_uid:
       type: string
       description: uid of the forum post
-    like:
+    liked:
       type: boolean
       description: like or unlike
-  required: ['forum_post_uid', 'like']
+  required: ['forum_post_uid', 'liked']
 
 ForumPostLikeList:
   type: object
