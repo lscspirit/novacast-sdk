@@ -1,0 +1,38 @@
+PollStatus:
+  type: object
+  description: question set content
+  properties:
+    start_time:
+      type: integer
+      description: start time of the poll
+    end_time:
+      type: integer
+      description: end time of the poll
+    status:
+      type: string
+      description: the text status of the poll
+    statistics:
+      type: object
+      description: stores current statistics of the poll
+  required: ['start_time', 'end_time', 'status', 'statistics']
+
+PollStatusControlRequest:
+  type: object
+  description: control a poll status
+  properties:
+    question_content_uid:
+      type: string
+      description: the question content that is associated with this poll
+  required: ['question_content_uid']
+
+AddPollStatRequest:
+  type: object
+  description: add poll status statistics requests
+  properties:
+    question_content_uid:
+      type: string
+      description: the question content that is associated with this poll
+    choice:
+      type: string
+      description: a JSON encoded string to represent the choices chosen
+  required: ['choice', 'question_content_uid']

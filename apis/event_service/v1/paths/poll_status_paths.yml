@@ -1,0 +1,164 @@
+/sessions/{session_uid}/polling/{question_manifest_uid}:
+  parameters:
+    - name: session_uid
+      description: the session that this poll is relevant to
+      type: string
+      in: path
+      required: true  
+    - name: question_manifest_uid
+      description: quesiton manifest associated uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getPollStatus
+    description: |
+      Get the poll status
+    parameters:
+      - name: question_content_uid
+        description: the question content that is specific for this poll
+        type: string
+        in: query
+        required: true
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PollStatus'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/polling/{question_manifest_uid}/start:
+  parameters:
+    - name: session_uid
+      description: the session that this poll is relevant to
+      type: string
+      in: path
+      required: true    
+    - name: question_manifest_uid
+      description: quesiton manifest associated uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: startPoll
+    description: |
+      start the given poll
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PollStatusControlRequest'
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PollStatus'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+
+/sessions/{session_uid}/polling/{question_manifest_uid}/stop:
+  parameters:
+    - name: session_uid
+      description: the session that this poll is relevant to
+      type: string
+      in: path
+      required: true    
+    - name: question_manifest_uid
+      description: quesiton manifest associated uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: stopPoll
+    description: |
+      stop the given poll
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PollStatusControlRequest'
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PollStatus'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/polling/{question_manifest_uid}/add_stat:
+  parameters:
+    - name: session_uid
+      description: the session that this poll is relevant to
+      type: string
+      in: path
+      required: true
+    - name: question_manifest_uid
+      description: quesiton manifest associated uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: addPollStat
+    description: |
+      add statistics for the given poll status
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AddPollStatRequest'
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PollStatus'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/polling/{question_manifest_uid}/publish:
+  parameters:
+    - name: session_uid
+      description: the session that this poll is relevant to
+      type: string
+      in: path
+      required: true
+    - name: question_manifest_uid
+      description: quesiton manifest associated uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: publishPoll
+    description: |
+      publish statistics for a given poll
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/PollStatusControlRequest'
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PollStatus'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
