@@ -2,7 +2,7 @@
   parameters:
     - name: account_uid
       description: uid of the user account
-      type: integer
+      type: string
       in: path
       required: true
   get:

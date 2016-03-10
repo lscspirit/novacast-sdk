@@ -13,6 +13,51 @@ AssignRoleRequest:
       description: name of the resource
   required: ['role_set', 'role', 'resource']
 
+DeleteRoleRequest:
+  type: object
+  description: Request body for deleteAccountRole
+  properties:
+    role_set:
+      type: string
+      description: key of the role set
+    role:
+      type: string
+      description: name of the role
+    resource:
+      type: string
+      description: name of the resource
+  required: ['role_set', 'role', 'resource']
+
+BatchUpdateRoleRequest:
+  type: object
+  description: Request body for batchUpdateAccountRole
+  properties:
+    assign:
+      type: array
+      description: list of assign role request
+      items:
+        $ref: '#/definitions/AssignRoleRequest'
+    delete:
+      type: array
+      description: list of delete role request
+      items:
+        $ref: '#/definitions/DeleteRoleRequest'
+
+BatchUpdateRoleResponse:
+  type: object
+  description: Response body for batchUpdateAccountRole
+  properties:
+    assigned:
+      type: array
+      description: list of assigned role resource permissions
+      items:
+        $ref: '#/definitions/RoleResourcePermissions'
+    deleted:
+      type: array
+      description: list of deleted role resource permissions
+      items:
+        $ref: '#/definitions/RoleResourcePermissions'
+
 ResourcePermissions:
   type: object
   description: list of permissions for a single resource
