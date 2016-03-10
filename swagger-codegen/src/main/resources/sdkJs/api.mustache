@@ -44,7 +44,7 @@ var OPERATIONS = {
     op.headers = {};
     {{#headerParams}}
     {{#required}}op.headers['{{baseName}}'] = Serializer.serialize({{paramName}}, '{{dataType}}');{{/required}}
-    {{^required}}if({{paramName}}) op.headers['{{baseName}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
+    {{^required}}if(opts['{{paramName}}']) op.headers['{{baseName}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
     {{/headerParams}}
     {{/hasHeaderParams}}
 
@@ -53,7 +53,7 @@ var OPERATIONS = {
     op.query = {};
     {{#queryParams}}
     {{#required}}op.query['{{baseName}}'] = Serializer.serialize({{paramName}}, '{{dataType}}');{{/required}}
-    {{^required}}if({{paramName}}) op.query['{{baseName}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
+    {{^required}}if(opts['{{paramName}}']) op.query['{{baseName}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
     {{/queryParams}}
     {{/hasQueryParams}}
 
@@ -62,7 +62,7 @@ var OPERATIONS = {
     op.form = {};
     {{#formParams}}
     {{#required}}op.form['{{baseName}}'] = Serializer.serialize({{paramName}}, '{{dataType}}');{{/required}}
-    {{^required}}if({{paramName}}) op.form['{{baseName}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
+    {{^required}}if(opts['{{paramName}}']) op.form['{{baseName}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
     {{/formParams}}
     {{/hasFormParams}}
 

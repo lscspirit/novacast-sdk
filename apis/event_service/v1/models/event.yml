@@ -99,6 +99,9 @@ EventExtended:
           description: list of pages
           items:
             $ref: '#/definitions/EventPage'
+        active_data_set_uid:
+          type: string
+          description: uid of the active data set
       required: ['default_session_uid', 'public_aliases', 'page_mappings', 'event_sessions', 'event_pages']
 
 EventList:

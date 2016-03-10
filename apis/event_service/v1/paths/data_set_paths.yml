@@ -39,6 +39,34 @@
         schema:
           $ref: '#/definitions/Error'
 
+/events/{event_uid}/data_sets/active:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  put:
+    operationId: setActiveDataSet
+    description: |
+      Set the active data set for an event
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ActiveDataSetUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/DataSet'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+
 /data_sets/{data_set_uid}:
   parameters:
     - name: data_set_uid

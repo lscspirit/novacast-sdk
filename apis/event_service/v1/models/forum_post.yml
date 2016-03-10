@@ -1,0 +1,125 @@
+ForumPost:
+  type: object
+  description: Forum Post
+  properties:
+    uid:
+      type: string
+      description: unique id
+    account_uid:
+      type: string
+      description: account uid of author
+    content:
+      type: string
+      description: content of the post
+    likes:
+      type: integer
+      description: number of likes
+    visible:
+      type: boolean
+      description: visible to public
+    submitted_at:
+      type: string
+      format: date-time
+      description: submission time
+  required: ['display_name', 'content', 'submitted_at', 'visible']
+
+ForumPostExtended:
+  type: object
+  description: Forum Post with extended information
+  allOf:
+    - $ref: '#/definitions/ForumPost'
+    - type: object
+      properties:
+        account_uid:
+          type: string
+          description: uid of the author
+        approved:
+          type: boolean
+          description: approved by moderator
+        hidden:
+          type: boolean
+          description: whether the post is hidden
+        deleted:
+          type: boolean
+          description: whether the post is deleted
+      required: ['account_uid', 'approved', 'hidden', 'deleted']
+
+ForumPostList:
+  type: object
+  description: list of forum posts
+  properties:
+    posts:
+      type: array
+      description: list of forum posts
+      items:
+        $ref: '#/definitions/ForumPost'
+  required: ['posts']
+
+ForumPostExtendedList:
+  type: object
+  description: list of forum posts (with extended information)
+  properties:
+    posts:
+      type: array
+      description: list of forum posts (with extended information)
+      items:
+        $ref: '#/definitions/ForumPostExtended'
+  required: ['posts']
+
+ForumPostLike:
+  type: object
+  description: forum post like
+  properties:
+    account_uid:
+      type: string
+      description: uid of the account
+    forum_post_uid:
+      type: string
+      description: uid of the forum post
+    liked:
+      type: boolean
+      description: like or unlike
+  required: ['forum_post_uid', 'liked']
+
+ForumPostLikeList:
+  type: object
+  description: list of forum post likes
+  properties:
+    likes:
+      type: array
+      description: list of forum post likes
+      items:
+        $ref: '#/definitions/ForumPostLike'
+  required: ['likes']
+
+ForumPostCreateRequest:
+  type: object
+  description: forum post creation request
+  properties:
+    content:
+      type: string
+      description: content of the post
+  required: ['content']
+
+ForumPostUpdateRequest:
+  type: object
+  description: forum post update request
+  properties:
+    approved:
+      type: boolean
+      description: approved by moderator
+    hidden:
+      type: boolean
+      description: whether the post is hidden
+    deleted:
+      type: boolean
+      description: whether the post is deleted
+
+ForumPostLikeRequest:
+  type: object
+  description: forum post like request
+  properties:
+    like:
+      type: boolean
+      description: true to like; false to unlike
+  required: ['like']
