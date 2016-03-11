@@ -28,9 +28,9 @@ DeleteRoleRequest:
       description: name of the resource
   required: ['role_set', 'role', 'resource']
 
-BatchUpdateRoleRequest:
+BatchUpdateRolesRequest:
   type: object
-  description: Request body for batchUpdateAccountRole
+  description: Request body for batchUpdateAccountRoles
   properties:
     assign:
       type: array
@@ -43,9 +43,9 @@ BatchUpdateRoleRequest:
       items:
         $ref: '#/definitions/DeleteRoleRequest'
 
-BatchUpdateRoleResponse:
+BatchUpdateRolesResponse:
   type: object
-  description: Response body for batchUpdateAccountRole
+  description: Response body for batchUpdateAccountRoles
   properties:
     assigned:
       type: array

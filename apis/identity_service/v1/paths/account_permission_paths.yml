@@ -106,7 +106,7 @@
       in: path
       required: true
   put:
-    operationId: batchUpdateAccountRole
+    operationId: batchUpdateAccountRoles
     description: |
       Assign and delete account role in batch
     parameters:
@@ -115,12 +115,12 @@
         in: body
         required: true
         schema:
-          $ref: '#/definitions/BatchUpdateRoleRequest'
+          $ref: '#/definitions/BatchUpdateRolesRequest'
     responses:
       '200':
         description: Updated
         schema:
-          $ref: '#/definitions/BatchUpdateRoleResponse'
+          $ref: '#/definitions/BatchUpdateRolesResponse'
       default:
         description: Update failed
         schema:
