@@ -20,6 +20,9 @@ function execCmd(cmd) {
 
 var temp_file = tmp.fileSync();
 
+// clear the output directory
+execCmd(`rm -rf ${output_path}`);
+
 // Compile the spec into a single temp file
 execCmd(`node ${__dirname}/compile_spec.js ${spec_path} ${temp_file.name}`);
 
