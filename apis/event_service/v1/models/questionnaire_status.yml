@@ -1,0 +1,38 @@
+QuestionnaireStatus:
+  type: object
+  description: question set content
+  properties:
+    start_time:
+      type: integer
+      description: start time of the questionnaire
+    end_time:
+      type: integer
+      description: end time of the questionnaire
+    status:
+      type: string
+      description: the text status of the questionnaire
+    statistics:
+      type: object
+      description: stores current statistics of the questionnaire
+  required: ['start_time', 'end_time', 'status', 'statistics']
+
+QuestionnaireStatusControlRequest:
+  type: object
+  description: control a questionnaire status
+  properties:
+    question_set_uid:
+      type: string
+      description: the question content that is associated with this questionnaire
+  required: ['question_set_uid']
+
+AddquestionnaireStatRequest:
+  type: object
+  description: add questionnaire status statistics requests
+  properties:
+    question_set_uid:
+      type: string
+      description: the question content that is associated with this questionnaire
+    choice:
+      type: string
+      description: a JSON encoded string to represent the choices chosen
+  required: ['choice', 'question_set_uid']

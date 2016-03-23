@@ -47,6 +47,47 @@ SessionModuleList:
         $ref: '#/definitions/SessionModule'
   required: ['modules']
 
+SessionModuleUpdateItem:
+  type: object
+  description: session module resource
+  properties:
+    usage:
+      type: string
+      description: usage of this resource
+    detail:
+      type: object
+      description: detail of the item
+  required: ['usage', 'detail']
+
+SessionModuleUpdateConfig:
+  type: object
+  description: Session module configuration
+  properties:
+    module_config:
+      type: object
+      description: module level config data
+    module_items:
+      type: array
+      description: a collection of items that needs to be configured
+      items:
+        $ref: '#/definitions/SessionModuleUpdateItem'
+  required: ['config']
+
+SessionModuleUpdate:
+  type: object
+  description: Session module update details
+  allOf:
+    - $ref: '#/definitions/SessionModuleUpdateConfig'
+    - type: object
+      properties:
+        module_name:
+          type: string
+          description: name of the module
+        is_enabled:
+          type: boolean
+          description: whether or not this module is enabled          
+      required: ['module_name', 'is_enabled']
+
 SessionModuleUpdateRequest:
   type: object
   description: Session module update request
@@ -55,7 +96,7 @@ SessionModuleUpdateRequest:
       type: array
       description: a collection of module configurations
       items:
-        $ref: '#/definitions/SessionModule'
+        $ref: '#/definitions/SessionModuleUpdate'
   required: ['modules']
 
 SessionRuntime:
