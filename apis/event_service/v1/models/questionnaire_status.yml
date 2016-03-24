@@ -31,8 +31,22 @@ AddquestionnaireStatRequest:
   properties:
     question_set_uid:
       type: string
-      description: the question content that is associated with this questionnaire
+      description: the question set that is associated with this questionnaire
+    answers:
+      type: array
+      description: answers for all the questions in this questionnaire
+      items:
+        $ref: '#/definitions/QuestionnaireAnswer'    
+  required: ['answers', 'question_set_uid']
+
+QuestionnaireAnswer:
+  type: object
+  description: An question for a questionnaire question
+  properties:
+    question_content_uid:
+      type: string
+      description: the question content that is associated with this answer
     choice:
       type: string
       description: a JSON encoded string to represent the choices chosen
-  required: ['choice', 'question_set_uid']
+  required: ['choice', 'question_content_uid']
