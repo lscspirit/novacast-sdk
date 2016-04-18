@@ -17,6 +17,9 @@ EventCreateRequest:
     name:
       type: string
       description: name of the event
+    access_policy_uid:
+      type: string
+      description: uid of the access policy
     asset_bundle_uid:
       type: string
       description: uid of the asset bundle
@@ -32,6 +35,9 @@ EventUpdateRequest:
     name:
       type: string
       description: name of the event
+    access_policy_uid:
+      type: string
+      description: uid of the access policy
     asset_bundle_uid:
       type: string
       description: uid of the asset bundle
@@ -73,6 +79,9 @@ EventExtended:
         default_session_uid:
           type: string
           description: default session uid
+        access_policy_uid:
+          type: string
+          description: uid of the access policy
         asset_bundle_uid:
           type: string
           description: asset bundle uid

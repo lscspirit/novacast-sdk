@@ -1,0 +1,108 @@
+AccessFilterChainItem:
+  type: object
+  description: an access filter within a access filter chain
+  properties:
+    name:
+      type: string
+      description: name of the access filter
+    config:
+      type: object
+      description: configuration data
+  required: ['name']
+
+AccessFilterChain:
+  type: object
+  description: access policy filter chain (an ordered list of enabled access filters)
+  properties:
+    filters:
+      type: array
+      description: a collection of enabled access filters
+      items:
+        $ref: '#/definitions/AccessFilterChainItem'
+  required: ['filters']
+
+AccessFilter:
+  type: object
+  description: access policy filter
+  properties:
+    name:
+      type: string
+      description: name of the access filter
+    config:
+      type: object
+      description: configuration data
+    priority:
+      type: integer
+      description: filter priority
+      default: 100
+    enabled:
+      type: boolean
+      description: whether filter is enabled
+      default: true
+  required: ['name']
+
+AccessPolicy:
+  type: object
+  description: access policy
+  properties:
+    uid:
+      type: string
+      description: access policy uid
+    rn:
+      type: string
+      description: access policy resource name
+    label:
+      type: string
+      description: label
+  required: ['uid', 'rn', 'label']
+
+AccessPolicyExtended:
+  type: object
+  description: access policy with filters
+  allOf:
+    - $ref: '#/definitions/AccessPolicy'
+    - type: object
+      properties:
+        filters:
+          type: array
+          description: access policy filters
+          items:
+            $ref: '#/definitions/AccessFilter'
+
+AccessPolicyList:
+  type: object
+  description: a list of access policies
+  properties:
+    policies:
+      type: array
+      description: a collection of access policies
+      items:
+        $ref: '#/definitions/AccessPolicy'
+  required: ['policies']
+
+AccessPolicyCreateRequest:
+  type: object
+  description: access policy create request
+  properties:
+    label:
+      type: string
+      description: label
+    filters:
+      type: array
+      description: access policy filters
+      items:
+        $ref: '#/definitions/AccessFilter'
+  required: ['label', 'filters']
+
+AccessPolicyUpdateRequest:
+  type: object
+  description: User set update request
+  properties:
+    label:
+      type: string
+      description: label
+    filters:
+      type: array
+      description: access policy filters
+      items:
+        $ref: '#/definitions/AccessFilter'

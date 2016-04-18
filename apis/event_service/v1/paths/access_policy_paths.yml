@@ -1,0 +1,94 @@
+/channels/{channel_uid}/access_policies:
+  parameters:
+    - name: channel_uid
+      description: channel uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getAccessPolicyList
+    description: |
+      Get a list of all access policies for the channel
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/AccessPolicyList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: createAccessPolicy
+    description: |
+      Create a new access policy
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccessPolicyCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/AccessPolicyExtended'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/access_policies/{access_policy_uid}:
+  parameters:
+    - name: access_policy_uid
+      description: access policy uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getAccessPolicy
+    description: |
+      Get details of an access policy
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/AccessPolicyExtended'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: updateAccessPolicy
+    description: |
+      Update an access policy
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccessPolicyUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/AccessPolicyExtended'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    operationId: deleteAccessPolicy
+    description: |
+      Delete an access policy
+    responses:
+      '200':
+        description: Deleted
+        schema:
+          $ref: '#/definitions/AccessPolicy'
+      default:
+        description: Delete failed
+        schema:
+          $ref: '#/definitions/Error'

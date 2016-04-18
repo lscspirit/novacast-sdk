@@ -47,55 +47,6 @@ Enrollment:
       default: false
   required: ['account_type', 'account_uid']
 
-WhiteListRequest:
-  type: object
-  description: Request to white-list accounts in a user set
-  properties:
-    type:
-      type: string
-      description: identifier type
-      enum: ['acct_identifier', 'invitation']
-    activation_code:
-      type: boolean
-      description: requires activation codegen
-      default: false
-    identifiers:
-      type: array
-      description: a list of identifiers
-      items:
-        type: string
-  required: ['type', 'identifiers']
-
-WhiteListedUser:
-  type: object
-  description: white-listed account information
-  properties:
-    uid:
-      type: string
-      description: uid of this white-list entry
-    type:
-      type: string
-      description: identifier type
-      enum: ['acct_identifier', 'invitation']
-    identifier:
-      type: string
-      description: account identifier
-    activation_code:
-      type: string
-      description: activation code for this entry
-  required: ['uid', 'type', 'identifier']
-
-WhiteListedUserList:
-  type: object
-  description: a list of newly white-listed account
-  properties:
-    entries:
-      type: array
-      description: a collection of white-listed entries
-      items:
-        $ref: '#/definitions/WhiteListedUser'
-  required: ['entries']
-
 UserSet:
   type: object
   description: User set
@@ -109,16 +60,16 @@ UserSet:
     label:
       type: string
       description: label
-    access:
-      type: string
-      description: access level
-    enrollment:
+    ch_acct_only:
+      type: boolean
+      description: channel accounts only
+    whitelisted_only:
+      type: boolean
+      description: whitelisted accounts only
+    full_enrollment:
       type: boolean
       description: enrollment required
-    account_only:
-      type: boolean
-      description: account only access
-  required: ['uid', 'rn', 'label', 'access', 'enrollment', 'account_only']
+  required: ['uid', 'rn', 'label', 'ch_acct_only', 'whitelisted_only', 'full_enrollment']
 
 UserSetExtended:
   type: object
@@ -152,17 +103,15 @@ UserSetCreateRequest:
     label:
       type: string
       description: label
-    access:
-      type: string
-      description: access level
-      default: public
-    enrollment:
+    ch_acct_only:
+      type: boolean
+      description: channel accounts only
+    whitelisted_only:
+      type: boolean
+      description: whitelisted accounts only
+    full_enrollment:
       type: boolean
       description: enrollment required
-      default: false
-    account_only:
-      type: boolean
-      description: account only access
       default: false
     fields:
       type: array
@@ -178,17 +127,15 @@ UserSetUpdateRequest:
     label:
       type: string
       description: label
-    access:
-      type: string
-      description: access level
-      default: public
-    enrollment:
+    ch_acct_only:
+      type: boolean
+      description: channel accounts only
+    whitelisted_only:
+      type: boolean
+      description: whitelisted accounts only
+    full_enrollment:
       type: boolean
       description: enrollment required
-      default: false
-    account_only:
-      type: boolean
-      description: account only access
       default: false
     fields:
       type: array

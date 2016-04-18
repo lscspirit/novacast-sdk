@@ -1,0 +1,68 @@
+/user_sets/{user_set_uid}/whitelist:
+  parameters:
+    - name: user_set_uid
+      description: user set uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getWhitelistedUsers
+    description: |
+      Get all whitelisted accounts in the access policy
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/WhitelistedUserList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  post:
+    operationId: whitelistUsers
+    description: |
+      Whitelist one or more users
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/WhitelistRequest'
+    responses:
+      '200':
+        description: Whitelisted
+        schema:
+          $ref: '#/definitions/WhitelistedUserList'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/user_sets/{user_set_uid}/whitelist/revoke:
+  parameters:
+    - name: user_set_uid
+      description: user set uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: revokeWhitelistedUsers
+    description: |
+      Removes one or more accounts from the whitelist
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/WhitelistRequest'
+    responses:
+      '200':
+        description: Revoked
+        schema:
+          $ref: '#/definitions/WhitelistedUserList'
+      default:
+        description: Revoke failed
+        schema:
+          $ref: '#/definitions/Error'

@@ -111,31 +111,3 @@
         description: Enrollment failed
         schema:
           $ref: '#/definitions/Error'
-
-/user_sets/{user_set_uid}/white_list:
-  parameters:
-    - name: user_set_uid
-      description: user set uid
-      type: string
-      in: path
-      required: true
-  post:
-    operationId: whiteListAccounts
-    description: |
-      White-list an account in a user set
-    parameters:
-      - name: body
-        description: request body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/WhiteListRequest'
-    responses:
-      '200':
-        description: White-listed
-        schema:
-          $ref: '#/definitions/WhiteListedUserList'
-      default:
-        description: Creation failed
-        schema:
-          $ref: '#/definitions/Error'

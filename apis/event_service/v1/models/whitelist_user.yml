@@ -1,0 +1,41 @@
+WhitelistRequest:
+  type: object
+  description: Request to whitelist accounts in a user set
+  properties:
+    type:
+      type: string
+      description: identifier type
+      enum: ['username', 'email']
+    identifiers:
+      type: array
+      description: a list of identifiers
+      items:
+        type: string
+  required: ['type', 'identifiers']
+
+WhitelistedUser:
+  type: object
+  description: whitelisted account information
+  properties:
+    type:
+      type: string
+      description: identifier type
+      enum: ['username', 'email']
+    identifier:
+      type: string
+      description: account identifier
+    revoked:
+      type: boolean
+      description: is revoked
+  required: ['type', 'identifier', 'revoked']
+
+WhitelistedUserList:
+  type: object
+  description: a list of newly whitelisted account
+  properties:
+    entries:
+      type: array
+      description: a collection of white-listed entries
+      items:
+        $ref: '#/definitions/WhitelistedUser'
+  required: ['entries']
