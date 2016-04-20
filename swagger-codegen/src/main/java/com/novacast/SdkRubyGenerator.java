@@ -398,10 +398,10 @@ public class SdkRubyGenerator extends DefaultCodegen implements CodegenConfig {
     return underscore(sanitizeName(operationId));
   }
 
-  @Override
-  public String toModelImport(String name) {
-    return gemName + "/" + modelPackage() + "/" + toModelFilename(name);
-  }
+  //@Override
+  //public String toModelImport(String name) {
+  //  return gemName + "/" + modelPackage() + "/" + toModelFilename(name);
+  //}
 
   @Override
   public String toApiImport(String name) {

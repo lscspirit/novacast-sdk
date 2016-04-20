@@ -3,9 +3,9 @@ require 'novacast-sdk-core'
 require '{{customErrorImportPath}}'
 
 # Models
-{{#models}}
-require '{{importPath}}'
-{{/models}}
+{{#models}}{{#model}}
+require '{{gemName}}/{{modelPackage}}/{{classFilename}}'
+{{/model}}{{/models}}
 
 # APIs
 {{#apiInfo}}
