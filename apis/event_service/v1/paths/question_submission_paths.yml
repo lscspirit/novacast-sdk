@@ -1,40 +1,19 @@
-/question_contents/{question_content_uid}/submissions:
+sessions/{session_uid}/question_submissions/{question_manifest_uid}:
   parameters:
-    - name: question_content_uid
-      description: question content uid
+    - name: question_manifest_uid
+      description: question manifest uid
+      type: string
+      in: path
+      required: true  
+    - name: session_uid
+      description: the session uid
       type: string
       in: path
       required: true
   get:
     operationId: getQuestionSubmissions
     description: |
-      Get all submissions for a question content
-    responses:
-      '200':
-        description: Success
-        schema:
-          $ref: '#/definitions/QuestionSubmissionList'
-      default:
-        description: Failed
-        schema:
-          $ref: '#/definitions/Error'
-
-/question_contents/{question_content_uid}/users/{user_uid}/submissions:
-  parameters:
-    - name: question_content_uid
-      description: question content uid
-      type: string
-      in: path
-      required: true
-    - name: user_uid
-      description: uid of the submitter
-      type: string
-      in: path
-      required: true
-  get:
-    operationId: getQuestionSubmissionsForUser
-    description: |
-      Get question content submissions for a user
+      Get all submissions for a question manifest
     responses:
       '200':
         description: Success
@@ -47,7 +26,7 @@
   post:
     operationId: createQuestionSubmission
     description: |
-      Create a question content submission
+      Create submissions for a given question manifest
     parameters:
       - name: body
         description: request body

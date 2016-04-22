@@ -36,24 +36,6 @@ QuestionContent:
       $ref: '#/definitions/QuestionContentType'
   required: ['uid', 'question', 'order', 'content', 'question_content_type']
 
-QuestionSubmission:
-  type: object
-  description: question submission
-  properties:
-    user_uid:
-      type: string
-      description: uid of the submitter
-    answer:
-      type: object
-      description: answer object
-    created_at:
-      type: string
-      format: date-time
-      description: submission time
-    question_content_type:
-      $ref: '#/definitions/QuestionContentType'
-  required: ['user_uid', 'answer', 'created_at', 'question_content_type']
-
 QuestionSetInfo:
   type: object
   description: Question set information
@@ -118,17 +100,6 @@ QuestionContentList:
       items:
         $ref: '#/definitions/QuestionContent'
   required: ['contents']
-
-QuestionSubmissionList:
-  type: object
-  description: a list of question submissions
-  properties:
-    submissions:
-      type: array
-      description: question submission collection
-      items:
-        $ref: '#/definitions/QuestionSubmission'
-  required: ['submissions']
 
 QuestionContentTypeList:
   type: object
@@ -209,12 +180,3 @@ QuestionContentOrderRequest:
       additionalProperties:
         type: integer
   required: ['content_orders']
-
-QuestionSubmissionCreateRequest:
-  type: object
-  description: question submission create request
-  properties:
-    answer:
-      type: object
-      description: answer object
-  required: ['answer']

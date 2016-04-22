@@ -1,0 +1,57 @@
+QuestionSubmission:
+  type: object
+  description: question submission
+  properties:
+    user_uid:
+      type: string
+      description: uid of the submitter
+    user_identifier:
+      type: string
+      description: identifier of the submitter      
+    question_content:
+      $ref: '#/definitions/QuestionContent'
+    answer:
+      type: object
+      description: answer object
+    created_at:
+      type: string
+      format: date-time
+      description: submission time
+  required: ['answer', 'created_at', 'question_content']
+
+QuestionSubmissionList:
+  type: object
+  description: a list of question submissions
+  properties:
+    submissions:
+      type: array
+      description: question submission collection
+      items:
+        $ref: '#/definitions/QuestionSubmission'
+  required: ['submissions']
+
+QuestionSubmissionCreate:
+  type: object
+  description: a question submission create instance
+  properties:
+    answer:
+      type: object
+      description: answer object
+    question_content_uid:
+      type: string
+      description: uid for the corresponding question_content
+  required: ['answer', 'question_content_uid']
+
+QuestionSubmissionCreateRequest:
+  type: object
+  description: question submission create request
+  properties:
+    question_manifest_uid:
+      type: string
+      description: uid for the corresponding question_manifest  
+    submissions:
+      type: array
+      description: a collection of submission create objects
+      items:
+        $ref: '#/definitions/QuestionSubmissionCreate'
+  required: ['submissions']
