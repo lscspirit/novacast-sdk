@@ -1,10 +1,10 @@
-sessions/{session_uid}/question_submissions/{question_manifest_uid}:
+/sessions/{session_uid}/question_submissions/{question_manifest_uid}:
   parameters:
     - name: question_manifest_uid
       description: question manifest uid
       type: string
       in: path
-      required: true  
+      required: true
     - name: session_uid
       description: the session uid
       type: string
