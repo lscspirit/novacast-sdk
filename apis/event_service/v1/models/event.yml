@@ -58,6 +58,9 @@ Event:
   type: object
   description: Event object
   properties:
+    channel_uid:
+      type: string
+      description: uid of the channel the event belongs to
     uid:
       type: string
       description: uid of the event
