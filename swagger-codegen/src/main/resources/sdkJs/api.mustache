@@ -52,8 +52,8 @@ var OPERATIONS = {
     // query parameters
     op.query = {};
     {{#queryParams}}
-    {{#required}}op.query['{{baseName}}'] = Serializer.serialize({{paramName}}, '{{dataType}}');{{/required}}
-    {{^required}}if(opts['{{paramName}}']) op.query['{{baseName}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
+    {{#required}}op.query['{{baseName}}{{#isListContainer}}[]{{/isListContainer}}'] = Serializer.serialize({{paramName}}, '{{dataType}}');{{/required}}
+    {{^required}}if(opts['{{paramName}}']) op.query['{{baseName}}{{#isListContainer}}[]{{/isListContainer}}'] = Serializer.serialize(opts['{{paramName}}'], '{{dataType}}');{{/required}}
     {{/queryParams}}
     {{/hasQueryParams}}
 

@@ -36,8 +36,8 @@ module NovacastSDK
 
         # query parameters
         query_params = {}{{#queryParams}}{{#required}}
-        query_params['{{baseName}}'] = {{paramName}}{{/required}}{{/queryParams}}{{#queryParams}}{{^required}}
-        query_params['{{baseName}}'] = opts[:{{paramName}}] if opts[:{{paramName}}]{{/required}}{{/queryParams}}
+        query_params['{{baseName}}{{#isListContainer}}[]{{/isListContainer}}'] = {{paramName}}{{/required}}{{/queryParams}}{{#queryParams}}{{^required}}
+        query_params['{{baseName}}{{#isListContainer}}[]{{/isListContainer}}'] = opts[:{{paramName}}] if opts[:{{paramName}}]{{/required}}{{/queryParams}}
         op.query = query_params
 
         # http body (model)
