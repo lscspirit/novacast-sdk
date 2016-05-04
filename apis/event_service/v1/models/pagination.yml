@@ -1,0 +1,24 @@
+PagingDetails:
+  type: object
+  description: Pagination information
+  properties:
+    current:
+      type: integer
+      description: current page number
+    total:
+      type: integer
+      description: total number of pages
+    per_page:
+      type: integer
+      description: number of items per page
+    item_count:
+      type: integer
+      description: number of items in total in the whole collection
+  required: ['current', 'total', 'per_page', 'item_count']
+
+Paging:
+  type: object
+  description: Paging information container
+  properties:
+    paging:
+      $ref: '#/definitions/PagingDetails'

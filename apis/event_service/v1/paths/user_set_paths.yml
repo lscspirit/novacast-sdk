@@ -111,3 +111,31 @@
         description: Enrollment failed
         schema:
           $ref: '#/definitions/Error'
+
+/user_sets/{user_set_uid}/enrollments:
+  parameters:
+    - name: user_set_uid
+      description: user set uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getEnrollments
+    description: |
+      Get a list of users belongs to this user set
+    parameters:
+      - name: query
+        description: terms to limit the query
+        type: string
+        in: path
+      - $ref: '#/parameters/paginatePage'
+      - $ref: '#/parameters/paginatePer'
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PaginatedEnrollmentList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

@@ -22,3 +22,14 @@ paths:
   $spec_ref: 'paths'
 definitions:
   $spec_ref: 'models'
+parameters:
+  paginatePage:
+    name: page
+    in: query
+    description: page number in a paginated query
+    type: integer
+  paginatePer:
+    name: per_page
+    in: query
+    descriptioin: number of items per page in a paginated query
+    type: integer

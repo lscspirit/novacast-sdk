@@ -47,6 +47,38 @@ Enrollment:
       default: false
   required: ['account_type', 'account_uid']
 
+EnrollmentExtended:
+  type: object
+  description: Enrollment with field values
+  allOf:
+    - $ref: '#/definitions/Enrollment'
+    - type: object
+      properties:
+        fields:
+          type: object
+          description: field value map
+          additionalProperties:
+            type: string
+      required: ['fields']
+
+EnrollmentExtendedList:
+  type: object
+  description: List of EnrollmentExtended
+  properties:
+    enrollments:
+      type: array
+      description: collection of enrollments
+      items:
+        $ref: '#/definitions/EnrollmentExtended'
+  required: ['enrollments']
+
+PaginatedEnrollmentList:
+  type: object
+  description: a paginated list of EnrollmentExtended
+  allOf:
+    - $ref: '#/definitions/EnrollmentExtendedList'
+    - $ref: '#/definitions/Paging'
+
 UserSet:
   type: object
   description: User set
