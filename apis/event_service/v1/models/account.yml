@@ -1,0 +1,90 @@
+AccountRequest:
+  type: object
+  description: |
+    A request object for creating Account
+  properties:
+    identifier:
+      description: account identifier (username or email)
+      type: string
+    password:
+      description: account password
+      type: string
+  required: ['identifier', 'password']
+
+Account:
+  type: object
+  description: User account
+  properties:
+    uid:
+      type: string
+      description: account unique id
+    identifier:
+      type: string
+      description: account identifier (username or email)
+    domain:
+      type: string
+      description: domain name
+    provider:
+      type: string
+      description: auth provider name
+  required: ['uid', 'identifier', 'domain', 'provider']
+
+AccountList:
+  type: object
+  description: list of user accounts
+  properties:
+    accounts:
+      type: array
+      description: list of Account
+      items:
+        $ref: '#/definitions/Account'
+  required: ['accounts']
+
+AccountExtended:
+  type: object
+  description: User account with role information
+  allOf:
+    - $ref: '#/definitions/Account'
+    - type: object
+      properties:
+        roles:
+          type: object
+          description: role to resources map
+          additionalProperties:
+            type: array
+            items:
+              type: string
+      required: ['roles']
+
+AccountExtendedList:
+  type: object
+  description: list of user account with extended information
+  properties:
+    accounts:
+      type: array
+      description: list of AccountExtended
+      items:
+        $ref: '#/definitions/AccountExtended'
+  required: ['accounts']
+
+AccountCreationResponse:
+  type: object
+  description: account creation response in a batch request
+  properties:
+    account:
+      description: account object if creation succeed
+      $ref: '#/definitions/Account'
+    error:
+      description: error messages if creation failed
+      $ref: '#/definitions/Error'
+
+AccountCreationResponseList:
+  type: object
+  description: a list of account creation responses
+  properties:
+    responses:
+      type: array
+      description: responses to individual account creation requests
+      items:
+        $ref: '#/definitions/AccountCreationResponse'
+  required: ['responses']
