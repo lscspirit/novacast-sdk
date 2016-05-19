@@ -83,6 +83,18 @@ ResourcePermissionsList:
         $ref: '#/definitions/ResourcePermissions'
   required: ['items']
 
+RoleResource:
+  type: object
+  description: role and resource map
+  properties:
+    role:
+      type: string
+      description: name of the role
+    resource:
+      type: string
+      description: name of the resource
+  required: ['role', 'resource']
+
 RoleResourcePermissions:
   type: object
   description: detail information of a role

@@ -19,6 +19,7 @@
         description: Account creation failed
         schema:
           $ref: '#/definitions/Error'
+
 /accounts/{account_uid}:
   get:
     operationId: getAccount
@@ -41,6 +42,7 @@
         description: Error response
         schema:
           $ref: '#/definitions/Error'
+
 /accounts/login:
   post:
     operationId: signIn
@@ -62,6 +64,7 @@
         description: Error response
         schema:
           $ref: '#/definitions/Error'
+
 /accounts/logout:
   get:
     operationId: signOut
@@ -78,6 +81,7 @@
         description: Error response
         schema:
           $ref: '#/definitions/Error'
+
 /access_tokens/{access_token}:
   get:
     operationId: validateToken
@@ -98,5 +102,26 @@
           $ref: '#/definitions/Account'
       default:
         description: Error response
+        schema:
+          $ref: '#/definitions/Error'
+
+/domains/{domain_id}/accounts:
+  parameters:
+    - name: domain_id
+      description: domain id
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getDomainAccounts
+    description: |
+      Get all accounts, along with their roles, for a domain
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/AccountRoleList'
+      default:
+        description: Failed
         schema:
           $ref: '#/definitions/Error'

@@ -27,7 +27,7 @@
       Get a `Domain`
     parameters:
       - name: domain_id
-        description: Account Information
+        description: domain id
         type: string
         in: path
         required: true

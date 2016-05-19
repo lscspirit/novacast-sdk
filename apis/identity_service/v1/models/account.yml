@@ -34,7 +34,35 @@ Account:
     domain_id:
       type: integer
       description: domain id
-  required: ['uid', 'identifier', 'domain_id']
+    provider_id:
+      type: integer
+      description: authentication provider id
+  required: ['uid', 'identifier', 'domain_id', 'provider_id']
+
+AccountRoles:
+  type: object
+  description: account information with roles
+  allOf:
+    - $ref: '#/definitions/Account'
+    - type: object
+      properties:
+        roles:
+          type: array
+          description: list of role on resource
+          items:
+            $ref: '#/definitions/RoleResource'
+      required: ['roles']
+
+AccountRoleList:
+  type: object
+  description: list of accounts with roles
+  properties:
+    accounts:
+      type: array
+      description: account and role entries
+      items:
+        $ref: '#/definitions/AccountRoles'
+  required: ['accounts']
 
 LoginResponse:
   type: object
