@@ -1,0 +1,41 @@
+/auth_providers/{auth_provider_id}:
+  parameters:
+    - name: auth_provider_id
+      description: authentication provider id
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getAuthProvider
+    description: |
+      Get an auth provider
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/AuthProvider'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/auth_providers/name/{auth_provider_name}:
+  parameters:
+    - name: auth_provider_name
+      description: name of the authentication provider
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getAuthProviderByName
+    description: |
+      Get an auth provider by the name
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/AuthProvider'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

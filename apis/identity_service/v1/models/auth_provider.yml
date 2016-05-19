@@ -1,0 +1,14 @@
+AuthProvider:
+  type: object
+  description: Authentication provider
+  properties:
+    id:
+      description: provider id
+      type: integer
+    name:
+      type: string
+      description: name of the provider
+    auth_type:
+      type: string
+      description: authentication type
+  required: ['id', 'name', 'auth_type']
