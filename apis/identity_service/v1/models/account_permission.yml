@@ -58,43 +58,6 @@ BatchUpdateRolesResponse:
       items:
         $ref: '#/definitions/RoleResourcePermissions'
 
-ResourcePermissions:
-  type: object
-  description: list of permissions for a single resource
-  properties:
-    resource:
-      type: string
-      description: name of the resource
-    permissions:
-      type: array
-      description: list of permission names
-      items:
-        type: string
-  required: ['resource', 'permissions']
-
-ResourcePermissionsList:
-  type: object
-  description: A collection of ResourcePermissions objects
-  properties:
-    items:
-      type: array
-      description: list of resource-permissions mappings
-      items:
-        $ref: '#/definitions/ResourcePermissions'
-  required: ['items']
-
-RoleResource:
-  type: object
-  description: role and resource map
-  properties:
-    role:
-      type: string
-      description: name of the role
-    resource:
-      type: string
-      description: name of the resource
-  required: ['role', 'resource']
-
 RoleResourcePermissions:
   type: object
   description: detail information of a role

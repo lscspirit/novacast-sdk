@@ -79,31 +79,3 @@
         description: Delete failed
         schema:
           $ref: '#/definitions/Error'
-
-/roles/{role_id}/permissions:
-  parameters:
-    - name: role_id
-      description: AccessRole id
-      type: integer
-      in: path
-      required: true
-  post:
-    operationId: setPermissionForRole
-    description: |
-      Assign a permission on a resource to a role
-    parameters:
-      - name: permissions
-        description: ResourcePermissions object
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/ResourcePermissions'
-    responses:
-      '200':
-        description: updated
-        schema:
-          $ref: '#/definitions/PermissionList'
-      default:
-        description: Creation failed
-        schema:
-          $ref: '#/definitions/Error'

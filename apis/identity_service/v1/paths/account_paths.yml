@@ -120,7 +120,7 @@
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/AccountRoleList'
+          $ref: '#/definitions/AccountExtendedList'
       default:
         description: Failed
         schema:

@@ -39,29 +39,29 @@ Account:
       description: authentication provider id
   required: ['uid', 'identifier', 'domain_id', 'provider_id']
 
-AccountRoles:
+AccountExtended:
   type: object
   description: account information with roles
   allOf:
     - $ref: '#/definitions/Account'
     - type: object
       properties:
-        roles:
+        permissions:
           type: array
-          description: list of role on resource
+          description: list of role and permissions on resource
           items:
-            $ref: '#/definitions/RoleResource'
-      required: ['roles']
+            $ref: '#/definitions/RoleResourcePermissions'
+      required: ['permissions']
 
-AccountRoleList:
+AccountExtendedList:
   type: object
-  description: list of accounts with roles
+  description: list of extended account information
   properties:
     accounts:
       type: array
-      description: account and role entries
+      description: account list
       items:
-        $ref: '#/definitions/AccountRoles'
+        $ref: '#/definitions/AccountExtended'
   required: ['accounts']
 
 LoginResponse:
