@@ -1,0 +1,27 @@
+/accounts/{account_uid}/roles:
+  parameters:
+    - name: account_uid
+      description: uid of the account
+      type: string
+      in: path
+      required: true
+  put:
+    operationId: updateAccountRoles
+    description: |
+      Update the roles assigned to an account
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AccountRoleUpdateRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/AccountResourceRolesList'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'

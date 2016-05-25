@@ -11,6 +11,31 @@ AccountRequest:
       type: string
   required: ['identifier', 'password']
 
+AccountResourceRoles:
+  type: object
+  description: mapping of resource to roles
+  properties:
+    resource:
+      type: string
+      description: resource name
+    roles:
+      type: array
+      description: an list of roles
+      items:
+        $ref: string
+  required: ['resource', 'roles']
+
+AccountResourceRolesList:
+  type: object
+  description: list of account resource roles
+  properties:
+    resource_roles:
+      type: array
+      description: list of account resource roles
+      items:
+        $ref: '#/definitions/AccountResourceRoles'
+  required: ['resource_roles']
+
 Account:
   type: object
   description: User account
@@ -47,14 +72,11 @@ AccountExtended:
     - $ref: '#/definitions/Account'
     - type: object
       properties:
-        roles:
-          type: object
-          description: role to resources map
-          additionalProperties:
-            type: array
-            items:
-              type: string
-      required: ['roles']
+        resource_roles:
+          type: array
+          description: list of resource-roles mapping
+          items:
+            $ref: '#/definitions/AccountResourceRoles'
 
 AccountExtendedList:
   type: object
@@ -88,3 +110,18 @@ AccountCreationResponseList:
       items:
         $ref: '#/definitions/AccountCreationResponse'
   required: ['responses']
+
+AccountRoleUpdateRequest:
+  type: object
+  description: role update request for account
+  properties:
+    assign:
+      type: array
+      description: roles to assign to the account
+      items:
+        $ref: '#/definitions/AccountResourceRoles'
+    delete:
+      type: array
+      description: roles to remove from the account
+      items:
+        $ref: '#/definitions/AccountResourceRoles'
