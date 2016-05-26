@@ -92,3 +92,24 @@
         description: Delete failed
         schema:
           $ref: '#/definitions/Error'
+
+/public_aliases/path/{alias_path}:
+  parameters:
+    - name: alias_path
+      description: path of the public alias
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getPublicAliasByPath
+    description: |
+      Get public alias by path
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PublicAlias'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
