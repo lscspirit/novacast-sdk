@@ -1,0 +1,51 @@
+PublicAliasCreateRequest:
+  type: object
+  description: alias path creation request
+  properties:
+    path:
+      type: string
+      description: path of the alias (relative to /events)
+    event_uid:
+      type: string
+      description: uid of the event that the path is mapped to
+  required: ['path']
+
+PublicAliasUpdateRequest:
+  type: object
+  description: alias path update request
+  properties:
+    path:
+      type: string
+      description: path of the alias (relative to /events)
+    event_uid:
+      type: string
+      description: uid of the event that the path is mapped to
+
+PublicAlias:
+  type: object
+  description: mapping a path to an event
+  properties:
+    uid:
+      type: string
+      description: unique id of the mapping
+    path:
+      type: string
+      description: path of the alias (relative to /events)
+    channel_uid:
+      type: string
+      description: uid of the channel this mapping belongs to
+    event_uid:
+      type: string
+      description: uid of the event that the path is mapped to
+  required: ['uid', 'path', 'channel_uid']
+
+PublicAliasList:
+  type: object
+  description: list of public aliases
+  properties:
+    aliases:
+      type: array
+      description: list of public aliases
+      items:
+        $ref: '#/definitions/PublicAlias'
+  required: ['aliases']

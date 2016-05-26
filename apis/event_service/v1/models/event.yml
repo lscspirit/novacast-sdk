@@ -26,6 +26,9 @@ EventCreateRequest:
     user_set_uid:
       type: string
       description: uid of the user set
+    public_alias_path:
+      type: string
+      description: public alias path
   required: ['name']
 
 EventUpdateRequest:
