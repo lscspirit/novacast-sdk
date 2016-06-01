@@ -28,7 +28,9 @@ QuestionSubmissionList:
       description: question submission collection
       items:
         $ref: '#/definitions/QuestionSubmission'
-  required: ['submissions']
+    question_manifest:
+      $ref: '#/definitions/QuestionManifest'
+  required: ['submissions', 'quesiton_manifest']
 
 QuestionSubmissionCreate:
   type: object
