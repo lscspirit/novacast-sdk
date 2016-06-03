@@ -1,12 +1,7 @@
-/events/{event_uid}/page_contents/{page_path}:
+/event_pages/{event_page_uid}/contents:
   parameters:
-    - name: event_uid
-      description: event uid
-      type: string
-      in: path
-      required: true
-    - name: page_path
-      description: event page path
+    - name: event_page_uid
+      description: event page uid
       type: string
       in: path
       required: true

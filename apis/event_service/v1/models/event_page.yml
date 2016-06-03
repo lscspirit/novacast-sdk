@@ -2,102 +2,41 @@ EventPageCreateRequest:
   type: object
   description: Information of a event page
   properties:
-    path:
+    label:
       type: string
-      description: event page path
-    session_uid:
-      type: string
-      description: uid of the event page's session. Null if this is a shared session page.
-    public:
-      type: boolean
-      description: whether this page can be accessed publicly
-    level:
-      type: string
-      description: the page level - event, single, shared
-    usage:
-      type: string
-      description: page usage
-  required: ['path', 'level']
+      description: label of the page
+  required: ['label']
 
 EventPageUpdateRequest:
   type: object
   description: Information of a event page
   properties:
-    path:
+    label:
       type: string
-      description: event page path
-    session_uid:
-      type: string
-      description: uid of the event page's session
-    public:
-      type: boolean
-      description: whether this page can be accessed publicly
-    level:
-      type: string
-      description: the page level - event, single, shared
-      
+      description: label of the page
+
 EventPage:
   type: object
   description: Event page object
   properties:
-    event_uid:
+    uid:
       type: string
-      description: uid of the event
-    session_uid:
+      description: uid of the page
+    label:
       type: string
-      description: uid of the event session
-    path:
-      type: string
-      description: event page path
-    public:
-      type: boolean
-      description: whether this page can be accessed publicly
-    level:
-      type: string
-      description: the page level - event, single, shared
+      description: label of the page
     page_config:
       type: string
       description: page configuration in json
-    mappings:
-      type: array
-      description: page mappings
-      items:
-        $ref: '#/definitions/PageMapping'
-  required: ['event_uid', 'path', 'public', 'level']
+  required: ['uid', 'event_uid']
 
-SessionExceptionUpdate:
+EventPageList:
   type: object
-  description: Session exception update request for shared session page
+  description: list of event pages
   properties:
-    session_uids:
+    pages:
       type: array
-      description: a collection of session uids
+      description: array of event pages
       items:
-        type: string
-  required: ['session_uids']
-
-SessionException:
-  type: object
-  description: session exception details
-  properties:
-    session_uid:
-      type: string
-      description: session uid
-    session_pathname:
-      type: string
-      description: session pathname
-  required: ['session_uid', 'session_pathname']
-
-PageSessionExceptions:
-  type: object
-  description: A list of session exceptions for shared session page
-  properties:
-    page_path:
-      type: string
-      description: event page path
-    exceptions:
-      type: array
-      description: a collection of session exceptions
-      items:
-        $ref: '#/definitions/SessionException'
-  required: ['page_path', 'exceptions']
+        $ref: '#/definitions/EventPage'
+  required: ['pages']

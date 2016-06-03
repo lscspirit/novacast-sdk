@@ -99,11 +99,6 @@ EventExtended:
           description: list of public aliases
           items:
             $ref: '#/definitions/PublicAlias'
-        page_mappings:
-          type: array
-          description: list of page mappings
-          items:
-            $ref: '#/definitions/PageMapping'
         event_sessions:
           type: array
           description: list of sessions

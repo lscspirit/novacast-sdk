@@ -1,0 +1,115 @@
+StaticPathMapping:
+  type: object
+  description: mapping of a path to a event page
+  properties:
+    path:
+      type: string
+      description: pathname
+    public:
+      type: string
+      description: whether the page is public or not
+    event_session_uid:
+      type: string
+      description: uid of the event session
+    event_page_uid:
+      type: string
+      description: uid of the event page
+  required: ['path', 'public', 'event_page_uid']
+
+StaticPathMappingCreateRequest:
+  type: object
+  description: create request for static path mapping
+  properties:
+    path:
+      type: string
+      description: pathname (only specify either path or usage)
+    usage:
+      type: string
+      description: usage of the page (only specify either path or usage)
+    public:
+      type: string
+      description: whether the page is public or not
+    event_session_uid:
+      type: string
+      description: uid of the event session
+    event_page_uid:
+      type: string
+      description: uid of the event page
+  required: ['event_page_uid']
+
+StaticPathMappingUpdateRequest:
+  type: object
+  description: update request for static path mapping
+  properties:
+    path:
+      type: string
+      description: pathname (only specify either path or usage)
+    usage:
+      type: string
+      description: usage of the page (only specify either path or usage)
+    public:
+      type: string
+      description: whether the page is public or not
+    event_session_uid:
+      type: string
+      description: uid of the event session
+    event_page_uid:
+      type: string
+      description: uid of the event page
+
+ActivePathMapping:
+  type: object
+  description: dynamic mapping of a path to a static path
+  properties:
+    path:
+      type: string
+      description: pathname
+    target:
+      type: string
+      description: pathname of the static path to map this to
+  required: ['path', 'target']
+
+ActivePathMappingCreateRequest:
+  type: object
+  description: create request for active path mapping
+  properties:
+    path:
+      type: string
+      description: pathname (only specify either path or usage)
+    usage:
+      type: string
+      description: usage of the page (only specify either path or usage)
+    target:
+      type: string
+      description: pathname of the static path to map this to
+  required: ['target']
+
+ActivePathMappingUpdateRequest:
+  type: object
+  description: update request for active path mapping
+  properties:
+    path:
+      type: string
+      description: pathname (only specify either path or usage)
+    usage:
+      type: string
+      description: usage of the page (only specify either path or usage)
+    target:
+      type: string
+      description: pathname of the static path to map this to
+
+PathMappingList:
+  type: object
+  description: list of static and active path mappings
+  properties:
+    static:
+      type: array
+      description: array of static path mappings
+      items:
+        $ref: '#/definitions/StaticPathMapping'
+    active:
+      type: array
+      description: array of active path mappings
+      items:
+        $ref: '#/definitions/ActivePathMapping'
+  required: ['static', 'active']
