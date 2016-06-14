@@ -30,7 +30,7 @@ EventContent:
     type:
       type: string
       description: content type
-      enum: ['html', 'url']
+      enum: ['html', 'url', 'content_path']
     value:
       type: string
       description: content value

@@ -6,7 +6,7 @@ StaticPathMapping:
       type: string
       description: pathname
     public:
-      type: string
+      type: boolean
       description: whether the page is public or not
     event_session_uid:
       type: string
@@ -27,7 +27,7 @@ StaticPathMappingCreateRequest:
       type: string
       description: usage of the page (only specify either path or usage)
     public:
-      type: string
+      type: boolean
       description: whether the page is public or not
     event_session_uid:
       type: string
@@ -48,7 +48,7 @@ StaticPathMappingUpdateRequest:
       type: string
       description: usage of the page (only specify either path or usage)
     public:
-      type: string
+      type: boolean
       description: whether the page is public or not
     event_session_uid:
       type: string

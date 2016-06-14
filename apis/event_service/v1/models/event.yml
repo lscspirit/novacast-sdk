@@ -99,11 +99,6 @@ EventExtended:
           description: list of public aliases
           items:
             $ref: '#/definitions/PublicAlias'
-        event_sessions:
-          type: array
-          description: list of sessions
-          items:
-            $ref: '#/definitions/EventSession'
         event_pages:
           type: array
           description: list of pages
@@ -112,7 +107,7 @@ EventExtended:
         active_data_set_uid:
           type: string
           description: uid of the active data set
-      required: ['default_session_uid', 'public_aliases', 'page_mappings', 'event_sessions', 'event_pages']
+      required: ['default_session_uid', 'public_aliases', 'page_mappings', 'event_pages']
 
 EventList:
   type: object

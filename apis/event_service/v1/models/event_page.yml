@@ -28,7 +28,7 @@ EventPage:
     page_config:
       type: string
       description: page configuration in json
-  required: ['uid', 'event_uid']
+  required: ['uid', 'label']
 
 EventPageList:
   type: object

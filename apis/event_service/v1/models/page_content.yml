@@ -13,6 +13,17 @@ PageContent:
       description: page content
   required: ['event_page_uid', 'locale', 'content']
 
+PageContentList:
+  type: object
+  description: a collection of PageContent
+  properties:
+    contents:
+      type: array
+      description: an array of PageContent
+      items:
+        $ref: '#/definitions/PageContent'
+  required: ['contents']
+
 PageContentUpdateRequest:
   type: object
   description: update request for a page content
