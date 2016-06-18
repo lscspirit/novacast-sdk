@@ -5,10 +5,7 @@ EventSessionCreateRequest:
     label:
       type: string
       description: label of the session
-    pathname:
-      type: string
-      description: path name of the session
-  required: ['label', 'pathname']
+  required: ['label']
 
 EventSession:
   type: object
@@ -20,9 +17,6 @@ EventSession:
     label:
       type: string
       description: label of the session
-    pathname:
-      type: string
-      description: pathname of the session
     event_uid:
       type: string
       description: uid of the event that this session belongs to
@@ -32,7 +26,7 @@ EventSession:
     is_default:
       type: boolean
       description: whether the session is a event's default
-  required: ['uid', 'label', 'pathname', 'event_uid', 'event_name', 'is_default']
+  required: ['uid', 'label', 'event_uid', 'event_name', 'is_default']
 
 EventSessionExtended:
   type: object

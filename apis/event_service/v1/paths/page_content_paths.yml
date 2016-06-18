@@ -1,24 +1,19 @@
-/events/{event_uid}/page_contents/{page_path}:
+/event_pages/{event_page_uid}/contents:
   parameters:
-    - name: event_uid
-      description: event uid
-      type: string
-      in: path
-      required: true
-    - name: page_path
-      description: event page path
+    - name: event_page_uid
+      description: event page uid
       type: string
       in: path
       required: true
   get:
-    operationId: getEventPageContent
+    operationId: getContentsForEventPage
     description: |
-      Get the page content of a event page
+      Get all the page contents of a event page
     responses:
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/PageContent'
+          $ref: '#/definitions/PageContentList'
       default:
         description: Failed
         schema:
@@ -41,5 +36,31 @@
           $ref: '#/definitions/PageContent'
       default:
         description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/event_pages/{event_page_uid}/contents/{content_locale}:
+  parameters:
+    - name: event_page_uid
+      description: event page uid
+      type: string
+      in: path
+      required: true
+    - name: content_locale
+      description: locale of the page content
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getEventPageContent
+    description: |
+      Get event page content for a specific locale
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PageContent'
+      default:
+        description: Failed
         schema:
           $ref: '#/definitions/Error'

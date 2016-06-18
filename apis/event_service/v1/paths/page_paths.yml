@@ -1,10 +1,23 @@
-/events/{event_uid}/pages:
+/events/{event_uid}/event_pages:
   parameters:
     - name: event_uid
       description: event uid
       type: string
       in: path
       required: true
+  get:
+    operationId: getPagesForEvent
+    description: |
+      Get all the event pages of the event
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/EventPageList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
   post:
     operationId: createEventPage
     description: |
@@ -26,15 +39,10 @@
         schema:
           $ref: '#/definitions/Error'
 
-/events/{event_uid}/pages/{page_path}:
+/event_pages/{event_page_uid}:
   parameters:
-    - name: event_uid
-      description: event uid
-      type: string
-      in: path
-      required: true
-    - name: page_path
-      description: event page path
+    - name: event_page_uid
+      description: event page uid
       type: string
       in: path
       required: true
@@ -71,49 +79,16 @@
         description: Update failed
         schema:
           $ref: '#/definitions/Error'
-
-/events/{event_uid}/page_exceptions/{page_path}:
-  parameters:
-    - name: event_uid
-      description: event uid
-      type: string
-      in: path
-      required: true
-    - name: page_path
-      description: event page path
-      type: string
-      in: path
-      required: true
-  get:
-    operationId: getPageExceptions
+  delete:
+    operationId: deleteEventPage
     description: |
-      Get the session exceptions for a shared session page
+      Delete the event page
     responses:
       '200':
-        description: Success
+        description: Deleted
         schema:
-          $ref: '#/definitions/PageSessionExceptions'
+          $ref: '#/definitions/EventPage'
       default:
-        description: Failed
-        schema:
-          $ref: '#/definitions/Error'
-  put:
-    operationId: updatePageExceptions
-    description: |
-      Update the session exceptions for a shared session page
-    parameters:
-      - name: body
-        description: request body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/SessionExceptionUpdate'
-    responses:
-      '200':
-        description: Updated
-        schema:
-          $ref: '#/definitions/PageSessionExceptions'
-      default:
-        description: Update failed
+        description: Delete failed
         schema:
           $ref: '#/definitions/Error'
