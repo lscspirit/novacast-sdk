@@ -14,7 +14,7 @@ StaticPathMapping:
     event_page_uid:
       type: string
       description: uid of the event page
-  required: ['path', 'public', 'event_page_uid']
+  required: ['path', 'public', 'event_session_uid', 'event_page_uid']
 
 StaticPathMappingCreateRequest:
   type: object
@@ -35,7 +35,7 @@ StaticPathMappingCreateRequest:
     event_page_uid:
       type: string
       description: uid of the event page
-  required: ['event_page_uid']
+  required: ['event_session_uid', 'event_page_uid']
 
 StaticPathMappingUpdateRequest:
   type: object
