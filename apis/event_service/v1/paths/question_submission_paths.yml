@@ -38,7 +38,7 @@
       '201':
         description: Created
         schema:
-          $ref: '#/definitions/QuestionSubmission'
+          $ref: '#/definitions/QuestionSubmissionList'
       default:
         description: Creation failed
         schema:
