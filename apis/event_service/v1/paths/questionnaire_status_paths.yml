@@ -162,3 +162,24 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/questionnaire/get_active_questionnaires:
+  parameters:
+    - name: session_uid
+      description: the session that we are querying for
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getActiveQuestionnaires
+    description: |
+      get the currently active Questionnaires
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ActiveQuestionnaireList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

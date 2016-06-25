@@ -16,6 +16,31 @@ PollStatus:
       description: stores current statistics of the poll
   required: ['start_time', 'end_time', 'status', 'statistics']
 
+ActivePoll:
+  type: object
+  description: represent an operable active poll
+  properties:
+    question_manifest_uid:
+      type: string
+      description: uid for the question manifest related to this poll
+    question_content:
+      $ref: '#/definitions/QuestionContent'
+    status:
+      type: string
+      description: the text status of the poll
+  required: ['question_manifest_uid', 'question_content', 'status']
+
+ActivePollList:
+  type: object
+  description: a list of active polls
+  properties:
+    polls:
+      type: array
+      description: active polls collection
+      items:
+        $ref: '#/definitions/ActivePoll'
+  required: ['polls']
+
 PollStatusControlRequest:
   type: object
   description: control a poll status
