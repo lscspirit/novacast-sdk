@@ -1,0 +1,19 @@
+/sessions/{session_uid}/event_session_command/get_active_commands:
+  parameters:
+    - name: session_uid
+      description: the session for which the commands are to be loaded for
+      type: string
+      in: path
+      required: true  
+  get:
+    operationId: getActiveSessionCommands
+    description: |      
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/EventSessionCommandList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

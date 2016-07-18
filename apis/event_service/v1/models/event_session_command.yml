@@ -1,0 +1,23 @@
+EventSessionCommand:
+  type: object
+  description: An Event Session Command
+  properties:
+    command:
+      type: string
+      description: the command string
+    payload:
+      type: object
+      description: a JSON serializable object
+  required: ['command', 'payload']
+
+EventSessionCommandList:
+  type: object
+  description: a list of event session command
+  properties:
+    commands:
+      type: array
+      description: event session commands collection
+      items:
+        $ref: '#/definitions/EventSessionCommand'
+  required: ['commands']
+
