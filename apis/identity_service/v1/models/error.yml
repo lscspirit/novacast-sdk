@@ -1,3 +1,13 @@
+ErrorField:
+  type: object
+  description: an error on a field/attribute of the object
+  properties:
+    field:
+      description: name of the attribute/field
+      type: string
+    message:
+      description: error message
+      type: string
 Error:
   type: object
   description: |
@@ -7,7 +17,13 @@ Error:
       description: error class name
       type: string
     messages:
-      description: list of error messages
+      description: list of error messages (from all attributes)
       type: array
       items:
         type: string
+    fields:
+      description: error fields
+      type: array
+      items:
+        $ref: '#/definitions/ErrorField'
+
