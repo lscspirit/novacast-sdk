@@ -8,6 +8,8 @@ ErrorField:
     message:
       description: error message
       type: string
+  required: ['field', 'message']
+
 Error:
   type: object
   description: |
@@ -26,4 +28,4 @@ Error:
       type: array
       items:
         $ref: '#/definitions/ErrorField'
-
+  required: ['klass_name', 'messages']
