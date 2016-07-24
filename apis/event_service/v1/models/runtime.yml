@@ -10,6 +10,18 @@ ModuleRuntime:
       description: module runtime configuration
   required: ['module_name', 'runtime']
 
+RuntimeInfo:
+  type: object
+  description: additional information about the current session
+  properties:
+    session_label:
+      type: string
+      description: label of the event session
+    event_name:
+      type: string
+      description: name of the event
+  required: ['session_label', 'event_name']
+  
 PageRuntime:
   type: object
   description: runtime configuration for use by client
@@ -22,6 +34,8 @@ PageRuntime:
       description: runtime config for individual module
       items:
         $ref: '#/definitions/ModuleRuntime'
+    info:
+      $ref: '#/definitions/RuntimeInfo'
 
 EventContent:
   type: object
