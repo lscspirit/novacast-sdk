@@ -21,7 +21,7 @@ RuntimeInfo:
       type: string
       description: name of the event
   required: ['session_label', 'event_name']
-  
+
 PageRuntime:
   type: object
   description: runtime configuration for use by client
@@ -49,7 +49,7 @@ EventContent:
       type: string
       description: content value
     public:
-      type: string
+      type: boolean
       description: content is public
     session_uid:
       type: string
