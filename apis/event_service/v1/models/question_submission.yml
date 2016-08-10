@@ -8,8 +8,9 @@ QuestionSubmission:
     user_identifier:
       type: string
       description: identifier of the submitter      
-    question_content:
-      $ref: '#/definitions/QuestionContent'
+    question_content_uid:
+      type: string
+      description: uid for the question content specific of this submission
     answer:
       type: object
       description: answer object
@@ -18,6 +19,17 @@ QuestionSubmission:
       format: date-time
       description: submission time
   required: ['answer', 'created_at', 'question_content']
+
+QuestionSubmissionQueryResponse:
+  type: object
+  description: response for question submission query
+  properties:
+    submissions_list:
+      $ref: '#/definitions/QuestionSubmissionList'
+    record_exceeded:
+      type: boolean
+      description: indicate if number of records exceeded limit
+  required: ['submissions_list', 'record_exceeded']
 
 QuestionSubmissionList:
   type: object

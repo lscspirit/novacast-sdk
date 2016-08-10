@@ -71,7 +71,10 @@ QuestionnaireAnswer:
     question_content_uid:
       type: string
       description: the question content that is associated with this answer
-    choice:
+    question_content_type:
       type: string
+      description: the question content type to help processing the answer at the server end
+    choice:
+      type: object
       description: a JSON encoded string to represent the choices chosen
   required: ['choice', 'question_content_uid']

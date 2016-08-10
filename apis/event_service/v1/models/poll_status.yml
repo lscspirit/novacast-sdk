@@ -58,6 +58,6 @@ AddPollStatRequest:
       type: string
       description: the question content that is associated with this poll
     choice:
-      type: string
+      type: object
       description: a JSON encoded string to represent the choices chosen
   required: ['choice', 'question_content_uid']
