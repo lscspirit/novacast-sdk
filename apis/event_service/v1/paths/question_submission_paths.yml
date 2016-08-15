@@ -10,25 +10,26 @@
       type: string
       in: path
       required: true
-    - name: max_records
-      description: optional max records for return
-      in: query
-      required: false
-      type: number
-    - name: from_date
-      description: optional from date filter in ISO8601 format
-      in: query
-      required: false
-      type: string
-    - name: to_date
-      description: optional to date filter in ISO8601 format
-      in: query
-      required: false
-      type: string      
   get:
     operationId: getQuestionSubmissions
     description: |
       Get all submissions for a question manifest
+    parameters:
+      - name: max_records
+        description: optional max records for return
+        in: query
+        required: false
+        type: number
+      - name: from_date
+        description: optional from date filter in ISO8601 format
+        in: query
+        required: false
+        type: string
+      - name: to_date
+        description: optional to date filter in ISO8601 format
+        in: query
+        required: false
+        type: string
     responses:
       '200':
         description: Success

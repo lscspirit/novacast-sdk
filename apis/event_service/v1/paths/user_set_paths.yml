@@ -135,3 +135,42 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/enrollments:
+  parameters:
+    - name: session_uid
+      description: the session uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getSessionEnrollments
+    description: |
+      Get a list of users belongs to this user set
+    parameters:
+      - $ref: '#/parameters/paginatePage'
+      - $ref: '#/parameters/paginatePer'
+      - name: max_records
+        description: optional max records for return
+        in: query
+        required: false
+        type: number
+      - name: from_date
+        description: optional from date filter in ISO8601 format
+        in: query
+        required: false
+        type: string
+      - name: to_date
+        description: optional to date filter in ISO8601 format
+        in: query
+        required: false
+        type: string      
+    responses:
+      '200':
+        description: Success
+        schema:
+            $ref: '#/definitions/FilteredEnrollmentList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
