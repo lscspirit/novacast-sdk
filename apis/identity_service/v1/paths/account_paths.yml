@@ -43,6 +43,32 @@
         schema:
           $ref: '#/definitions/Error'
 
+/accounts/batch_get:
+  get:
+    operationId: batchGetAccount
+    description: |
+      Gets the `User` object for a list of accounts
+    parameters:
+      - name: account_uids
+        in: query
+        required: true
+        description: the account uids
+        type: array
+        items:
+          type: string
+    security:
+      - appSecret: []
+    responses:
+      '200':
+        description: Successful response
+        schema:
+          $ref: '#/definitions/AccountList'
+      default:
+        description: Error response
+        schema:
+          $ref: '#/definitions/Error'
+
+
 /accounts/login:
   post:
     operationId: signIn

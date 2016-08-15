@@ -39,6 +39,18 @@ Account:
       description: authentication provider id
   required: ['uid', 'identifier', 'domain_id', 'provider_id']
 
+AccountList:
+  type: object
+  description: |
+    a list of accounts
+  properties:
+    accounts:
+      type: array
+      description: the account objects
+      items:
+        $ref: '#/definitions/Account'
+  required: ['accounts']
+
 AccountExtended:
   type: object
   description: account information with roles
