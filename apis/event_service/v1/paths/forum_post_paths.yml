@@ -149,3 +149,23 @@
         description: Update failed
         schema:
           $ref: '#/definitions/Error'
+
+/mods/forum_post/posts/{forum_post_uid}/likes/with_accounts:
+  parameters:
+    - name: forum_post_uid
+      description: uid of the forum post
+      type: string
+      in: path
+  get:
+    operationId: getForumPostLikesWithAccounts
+    description: |
+      Get all likes for the forum post with the account info of the users
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ForumPostLikeList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

@@ -90,6 +90,11 @@ ForumPostLikeList:
       description: list of forum post likes
       items:
         $ref: '#/definitions/ForumPostLike'
+    accounts:
+      type: array
+      description: optional account info for all accounts for the likes
+      items:        
+        $ref: '#/definitions/Account'    
   required: ['likes']
 
 ForumPostCreateRequest:

@@ -70,6 +70,15 @@ EnrollmentExtendedList:
       description: collection of enrollments
       items:
         $ref: '#/definitions/EnrollmentExtended'
+    accounts:
+      type: array
+      description: optional account info for all accounts in the enrollments
+      items:        
+        $ref: '#/definitions/Account'
+    fields:
+      type: array
+      items:
+        type: string
   required: ['enrollments']
 
 PaginatedEnrollmentList:
@@ -78,6 +87,16 @@ PaginatedEnrollmentList:
   allOf:
     - $ref: '#/definitions/EnrollmentExtendedList'
     - $ref: '#/definitions/Paging'
+
+FilteredEnrollmentList:
+  type: object
+  description: a paginated list of EnrollmentExtended
+  allOf:
+    - $ref: '#/definitions/EnrollmentExtendedList'
+    - properties:
+        record_exceeded:
+          type: boolean
+          description: indicate if number of records exceeded limit
 
 UserSet:
   type: object
@@ -191,3 +210,16 @@ UserSetEnrollRequest:
       items:
         $ref: '#/definitions/EnrollmentFieldValue'
   required: ['account_uid']
+
+Account:
+  type: object
+  description: |
+    A trimmed version of Account object as depicted from identity service
+  properties:
+    uid:
+      type: string
+      description: account unique id (uid)
+    identifier:
+      type: string
+      description: account identifier (username or email)
+  required: ['uid', 'identifier']
