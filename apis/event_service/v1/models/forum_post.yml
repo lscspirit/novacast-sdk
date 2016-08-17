@@ -42,7 +42,10 @@ ForumPostExtended:
         deleted:
           type: boolean
           description: whether the post is deleted
-      required: ['account_uid', 'approved', 'hidden', 'deleted']
+        starred:
+          type: boolean
+          description: whether the post is starred
+      required: ['account_uid', 'approved', 'hidden', 'deleted', 'starred']
 
 ForumPostList:
   type: object
@@ -93,8 +96,8 @@ ForumPostLikeList:
     accounts:
       type: array
       description: optional account info for all accounts for the likes
-      items:        
-        $ref: '#/definitions/Account'    
+      items:
+        $ref: '#/definitions/Account'
   required: ['likes']
 
 ForumPostCreateRequest:
@@ -110,6 +113,9 @@ ForumPostUpdateRequest:
   type: object
   description: forum post update request
   properties:
+    content:
+      type: string
+      description: content of the post update
     approved:
       type: boolean
       description: approved by moderator
@@ -119,6 +125,9 @@ ForumPostUpdateRequest:
     deleted:
       type: boolean
       description: whether the post is deleted
+    starred:
+      type: boolean
+      description: whether the post is starred
 
 ForumPostLikeRequest:
   type: object
