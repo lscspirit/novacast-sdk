@@ -92,6 +92,9 @@ UserSet:
     label:
       type: string
       description: label
+    channel_uid:
+      type: string
+      description: channel uid
     ch_acct_only:
       type: boolean
       description: channel accounts only
@@ -101,7 +104,7 @@ UserSet:
     full_enrollment:
       type: boolean
       description: enrollment required
-  required: ['uid', 'rn', 'label', 'ch_acct_only', 'whitelisted_only', 'full_enrollment']
+  required: ['uid', 'rn', 'label', 'channel_uid', 'ch_acct_only', 'whitelisted_only', 'full_enrollment']
 
 UserSetExtended:
   type: object
