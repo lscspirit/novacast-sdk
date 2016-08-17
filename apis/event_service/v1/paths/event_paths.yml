@@ -59,6 +59,7 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+    tags: ['default', 'internal']
   put:
     operationId: updateEvent
     description: |
@@ -128,7 +129,8 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
-
+    tags: ['default', 'internal']
+    
 /events/{event_uid}/interface_filter_chain:
   parameters:
     - name: event_uid

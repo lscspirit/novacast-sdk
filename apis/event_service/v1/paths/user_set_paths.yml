@@ -59,6 +59,7 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+    tags: ['default', 'internal']
   put:
     operationId: updateUserSet
     description: |
