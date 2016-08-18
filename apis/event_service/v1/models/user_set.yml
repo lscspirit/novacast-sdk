@@ -73,7 +73,7 @@ EnrollmentExtendedList:
     accounts:
       type: array
       description: optional account info for all accounts in the enrollments
-      items:        
+      items:
         $ref: '#/definitions/Account'
     fields:
       type: array
@@ -210,16 +210,3 @@ UserSetEnrollRequest:
       items:
         $ref: '#/definitions/EnrollmentFieldValue'
   required: ['account_uid']
-
-Account:
-  type: object
-  description: |
-    A trimmed version of Account object as depicted from identity service
-  properties:
-    uid:
-      type: string
-      description: account unique id (uid)
-    identifier:
-      type: string
-      description: account identifier (username or email)
-  required: ['uid', 'identifier']
