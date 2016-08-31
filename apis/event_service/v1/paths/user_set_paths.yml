@@ -112,7 +112,8 @@
         description: Enrollment failed
         schema:
           $ref: '#/definitions/Error'
-
+    tags: ['default', 'internal']
+    
 /user_sets/{user_set_uid}/enrollments:
   parameters:
     - name: user_set_uid
@@ -165,7 +166,7 @@
         description: optional to date filter in ISO8601 format
         in: query
         required: false
-        type: string      
+        type: string
     responses:
       '200':
         description: Success

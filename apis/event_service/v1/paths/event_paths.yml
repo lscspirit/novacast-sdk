@@ -130,24 +130,3 @@
         schema:
           $ref: '#/definitions/Error'
     tags: ['default', 'internal']
-    
-/events/{event_uid}/interface_filter_chain:
-  parameters:
-    - name: event_uid
-      description: event uid
-      type: string
-      in: path
-      required: true
-  get:
-    operationId: getEventInterfaceFilterChain
-    description: |
-      Get the access filter chain for the event interface
-    responses:
-      '200':
-        description: Success
-        schema:
-          $ref: '#/definitions/AccessFilterChain'
-      default:
-        description: Failed
-        schema:
-          $ref: '#/definitions/Error'

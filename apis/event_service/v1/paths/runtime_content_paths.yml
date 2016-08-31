@@ -1,3 +1,35 @@
+/events/{event_uid}/filter_access/{content_path}:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+    - name: content_path
+      description: path to access the content
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: filterEventAccess
+    description: |
+      Check if a user have access to the event
+    parameters:
+      - name: account_uid
+        description: account uid
+        type: string
+        in: query
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/AccessFilterChain'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+    tags: ['internal']
+
 /events/{event_uid}/contents/{content_path}:
   parameters:
     - name: event_uid
@@ -23,6 +55,7 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+    tags: ['internal']
 
 /events/{event_uid}/runtimes/{content_path}:
   parameters:
@@ -49,3 +82,4 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+    tags: ['internal']
