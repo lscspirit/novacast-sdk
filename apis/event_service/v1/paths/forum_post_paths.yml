@@ -169,3 +169,23 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+
+/mods/forum_post/posts/{forum_post_uid}/publish:
+  parameters:
+    - name: forum_post_uid
+      description: uid of the forum post
+      type: string
+      in: path
+  put:
+    operationId: publishForumPost
+    description: |
+      publish a particular forum post
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ForumPost'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
