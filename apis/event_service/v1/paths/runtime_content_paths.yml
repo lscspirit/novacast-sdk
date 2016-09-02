@@ -1,3 +1,25 @@
+/events/{event_uid}/interface_filter_chain:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getInterfaceFilterChain
+    description: |
+      Get the event's interface filter chain
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/AccessFilterChain'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+    tags: ['internal']
+
 /events/{event_uid}/filter_access/{content_path}:
   parameters:
     - name: event_uid
@@ -22,8 +44,6 @@
     responses:
       '200':
         description: Success
-        schema:
-          $ref: '#/definitions/AccessFilterChain'
       default:
         description: Failed
         schema:
