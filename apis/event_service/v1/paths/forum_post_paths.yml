@@ -189,3 +189,16 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+  delete:
+    operationId: dismissForumPost
+    description: |
+      dismiss a published forum post
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ForumPost'        
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'    
