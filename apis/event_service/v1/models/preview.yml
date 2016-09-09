@@ -1,0 +1,27 @@
+PreviewToken:
+  type: object
+  description: preview token
+  allOf:
+    - $ref: '#/definitions/PreviewTokenInfo'
+    - type: object
+      properties:
+        token:
+          type: string
+          description: token value
+      required: ['token']
+
+PreviewTokenInfo:
+  type: object
+  description: information about the preview token
+  properties:
+    event_uid:
+      type: string
+      description: event uid
+    expires_at:
+      type: string
+      format: date-time
+      description: the time at which this token will expire
+    session_ttl:
+      type: integer
+      description: the number of seconds each preview mode session is valid for
+  required: ['event_uid', 'ttl', 'session_ttl']

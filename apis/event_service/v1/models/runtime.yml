@@ -55,3 +55,14 @@ EventContent:
       type: string
       description: uid of the session (only available for 'html' type)
   required: ['type', 'value', 'public']
+
+FilterAccessResponse:
+  type: object
+  description: result of event access filtering
+  properties:
+    preview_mode:
+      type: boolean
+      description: whether the preview mode is enabled
+    view_perm:
+      type: boolean
+      description: whether the user has view event permission

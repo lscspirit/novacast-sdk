@@ -1,0 +1,52 @@
+/preview:
+  get:
+    operationId: generatePreviewToken
+    description: |
+      Get a preview token to access a event in preview mode
+    parameters:
+      - name: event_uid
+        description: uid of the event to generate the token for
+        type: string
+        in: query
+        required: true
+      - name: ttl
+        description: the number of seconds this token is valid for
+        type: integer
+        in: query
+        required: true
+      - name: session_ttl
+        description: the number of seconds each preview mode session is valid for
+        type: integer
+        in: query
+        required: true
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PreviewToken'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/preview/validate:
+  get:
+    operationId: validatePreviewToken
+    description: |
+      Validates a preview token
+    parameters:
+      - name: token
+        description: preivew token
+        type: string
+        in: query
+        required: true
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/PreviewTokenInfo'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+    tags: ['internal']

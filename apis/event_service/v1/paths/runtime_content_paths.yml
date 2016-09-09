@@ -41,9 +41,16 @@
         description: account uid
         type: string
         in: query
+        required: true
+      - name: preview_token
+        description: preview token
+        type: string
+        in: query
     responses:
       '200':
         description: Success
+        schema:
+          $ref: '#/definitions/FilterAccessResponse'
       default:
         description: Failed
         schema:
