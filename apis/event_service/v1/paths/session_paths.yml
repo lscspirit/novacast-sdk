@@ -108,3 +108,22 @@
         description: Update failed
         schema:
           $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/close_panels:
+  parameters:
+    - name: session_uid
+      description: event session uid
+      type: string
+      in: path
+      required: true
+  put:
+    operationId: closeSessionPanels
+    description: |
+      Close all the closable panels for this session
+    responses:
+      '200':
+        description: Fired off close panel requests
+      default:
+        description: failed to send panel requests
+        schema:
+          $ref: '#/definitions/Error'
