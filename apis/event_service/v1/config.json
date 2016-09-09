@@ -2,5 +2,5 @@
   "sdkName":      "novacast-event-sdk",
   "moduleName":   "EventV1",
   "apiVersion":   "1.0.1",
-  "customErrors": "EventNotActive:404,NotEnrolled:401,NoChannelEventAccess:401,EnrollmentExists:400"
+  "customErrors": "EventNotActive:404,EventNotInProgress:404,NotEnrolled:401,NoChannelEventAccess:401,EnrollmentExists:400,InvalidPreviewToken:400,PreviewTokenExpired:400"
 }
