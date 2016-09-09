@@ -47,7 +47,10 @@ EventUpdateRequest:
     user_set_uid:
       type: string
       description: uid of the user set
-
+    preview_enabled:
+      type: boolean
+      description: whether preview mode is enabled
+      
 EventStageRequest:
   type: object
   description: Event stage update request
@@ -73,7 +76,10 @@ Event:
     stage:
       type: string
       description: state of the event
-  required: ['uid', 'name', 'stage']
+    preview_enabled:
+      type: boolean
+      description: whether preview mode is enabled
+  required: ['uid', 'name', 'stage', 'preview_enabled']
 
 EventExtended:
   type: object
