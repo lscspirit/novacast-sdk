@@ -2,6 +2,8 @@
 
 var assign     = require('object-assign');
 var Deferred   = require('deferred');
+
+var ApiError   = require('../../core/api_error');
 var Serializer = require('../serializer');
 
 {{#operations}}
@@ -87,21 +89,31 @@ var OPERATIONS = {
 
     // execute the operation
     var op_defer = Deferred();
+
     op.execute().done(function(result) {
+      // deserializes the response body and resolves the promise with the resulting object
       var return_obj = Serializer.deserialize(result.body, resp_types[result.statusCode] || resp_types[0]);
       op_defer.resolve(return_obj);
     }, function(result) {
       if (result instanceof Error) {
+        // the request fails without a response from the server and returns an Error
+
+        // extends the Error with a 'messages' property so that
+        // it is consistent with the properties of ApiError
         result.messages = [result.message];
+
+        // resolves with the "extended" error object
         op_defer.reject(result);
       } else {
+        // the server returns a non-2xx response
+        // deserializes the body
         var api_error = Serializer.deserialize(result.body, resp_types[result.statusCode] || resp_types[0]);
 
-        // converts the api error into a javascript error object
-        var err_obj = new Error(api_error.messages.join(', '));
+        // converts the body content into a ApiError object
+        var err_obj = new ApiError(api_error.messages, api_error.fields);
         err_obj.name = api_error.klass_name;
-        err_obj.messages = api_error.messages;
 
+        // resolves the promise with the ApiError object
         op_defer.reject(err_obj);
       }
     });
