@@ -16,6 +16,28 @@ TrackAttendanceRequest:
       description: event session uid
   required: ['client_session_id']
 
+TrackAttendanceByTokenRequest:
+  type: object
+  description: track attendance request
+  properties:
+    track_requests:
+      type: array
+      description: a collection of track by token requests
+      items:
+        $ref: '#/definitions/TrackAttendanceByToken'
+
+TrackAttendanceByToken:
+  type: object
+  description: a track request to track by token
+  allOf:
+    - $ref: '#/definitions/TrackAttendanceRequest'
+    - type: object
+      properties:
+        access_token:
+          type: string
+          description: the access token representing the user
+      required: ['access_token']
+
 AttendanceList:
   type: object
   description: |

@@ -24,6 +24,29 @@
         schema:
           $ref: '#/definitions/Error'
 
+/attendances/track_by_token:
+  post:
+    operationId: trackAttendanceByToken
+    description: |
+      a batch call to track multiple attendances by their access tokens
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/TrackAttendanceByTokenRequest'
+    responses:
+      '200':
+        description: updated attendances
+        schema:
+          $ref: '#/definitions/AttendanceList'
+      default:
+        description: Track failed
+        schema:
+          $ref: '#/definitions/Error'
+    tags: ['internal']
+
 /sessions/{session_uid}/attendances:
   parameters:
     - name: session_uid
