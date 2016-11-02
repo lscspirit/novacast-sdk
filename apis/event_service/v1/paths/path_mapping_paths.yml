@@ -1,4 +1,4 @@
-/events/{event_uid}/path_mappings:
+/events/{event_uid}/active_paths:
   parameters:
     - name: event_uid
       description: uid of the event
@@ -6,181 +6,125 @@
       in: path
       required: true
   get:
-    operationId: getEventPathMappings
+    operationId: getEventActivePaths
     description: |
-      Get all path mappings of the event
+      Get all active paths and their mappings of the event
     responses:
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/PathMappingList'
+          $ref: '#/definitions/ActivePathList'
       default:
         description: Failed
         schema:
           $ref: '#/definitions/Error'
   post:
-    operationId: createStaticPathMapping
+    operationId: createActivePath
     description: |
-      Create a new static path mapping
+      Create a new active path with mapping(s)
     parameters:
       - name: body
         description: request body
         in: body
         required: true
         schema:
-          $ref: '#/definitions/StaticPathMappingCreateRequest'
+          $ref: '#/definitions/PathMappingRequest'
     responses:
       '201':
         description: Created
         schema:
-          $ref: '#/definitions/StaticPathMapping'
+          $ref: '#/definitions/ActivePath'
       default:
         description: Creation failed
         schema:
           $ref: '#/definitions/Error'
 
-/events/{event_uid}/path_mappings/{mapping_path}:
+/events/{event_uid}/active_paths/{path_uid}:
   parameters:
     - name: event_uid
       description: uid of the event
       type: string
       in: path
       required: true
-    - name: mapping_path
-      description: path of the mapping
+    - name: path_uid
+      description: uid of the active path
       type: string
       in: path
       required: true
   get:
-    operationId: getStaticPathMapping
+    operationId: getActivePath
     description: |
-      Get a static path mapping
+      Get the config and mappings for a given active path
     responses:
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/StaticPathMapping'
+          $ref: '#/definitions/ActivePath'
       default:
         description: Failed
         schema:
-          $ref: '#/definitions/Error'
+          $ref: '#/definitions/Error'      
   put:
-    operationId: updateStaticPathMapping
+    operationId: updateActivePath
     description: |
-      Update a static path mapping
+      Update a active path and its mappings
     parameters:
       - name: body
         description: request body
         in: body
         required: true
         schema:
-          $ref: '#/definitions/StaticPathMappingUpdateRequest'
+          $ref: '#/definitions/PathMappingRequest'
     responses:
       '200':
         description: Updated
         schema:
-          $ref: '#/definitions/StaticPathMapping'
+          $ref: '#/definitions/ActivePath'
       default:
         description: Update failed
         schema:
-          $ref: '#/definitions/Error'
+          $ref: '#/definitions/Error'      
   delete:
-    operationId: deleteStaticPathMapping
+    operationId: deleteActivePath
     description: |
-      Delete a static path mapping
+      Delete an active path
     responses:
       '200':
         description: Deleted
         schema:
-          $ref: '#/definitions/StaticPathMapping'
+          $ref: '#/definitions/ActivePath'
       default:
         description: Delete failed
         schema:
           $ref: '#/definitions/Error'
 
-/events/{event_uid}/active_path_mappings:
+/events/{event_uid}/active_paths/{path_uid}/switch_active_mapping:
   parameters:
     - name: event_uid
       description: uid of the event
       type: string
       in: path
       required: true
-  post:
-    operationId: createActivePathMapping
-    description: |
-      Create a new active path mapping
-    parameters:
-      - name: body
-        description: request body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/ActivePathMappingCreateRequest'
-    responses:
-      '201':
-        description: Created
-        schema:
-          $ref: '#/definitions/ActivePathMapping'
-      default:
-        description: Creation failed
-        schema:
-          $ref: '#/definitions/Error'
-
-/events/{event_uid}/active_path_mappings/{mapping_path}:
-  parameters:
-    - name: event_uid
-      description: uid of the event
+    - name: path_uid
+      description: uid of the active path
       type: string
       in: path
       required: true
-    - name: mapping_path
-      description: path of the mapping
-      type: string
-      in: path
-      required: true
-  get:
-    operationId: getActivePathMapping
-    description: |
-      Get a active path mapping
-    responses:
-      '200':
-        description: Success
-        schema:
-          $ref: '#/definitions/ActivePathMapping'
-      default:
-        description: Failed
-        schema:
-          $ref: '#/definitions/Error'
   put:
-    operationId: updateActivePathMapping
+    operationId: switchActiveMapping
     description: |
-      Update a active path mapping
+      a runtime operation that switches active mapping for the given path
     parameters:
       - name: body
         description: request body
         in: body
         required: true
         schema:
-          $ref: '#/definitions/ActivePathMappingUpdateRequest'
+          $ref: '#/definitions/SwitchMappingRequest'
     responses:
       '200':
         description: Updated
-        schema:
-          $ref: '#/definitions/ActivePathMapping'
       default:
         description: Update failed
         schema:
-          $ref: '#/definitions/Error'
-  delete:
-    operationId: deleteActivePathMapping
-    description: |
-      Delete a active path mapping
-    responses:
-      '200':
-        description: Deleted
-        schema:
-          $ref: '#/definitions/ActivePathMapping'
-      default:
-        description: Delete failed
-        schema:
-          $ref: '#/definitions/Error'
+          $ref: '#/definitions/Error'      
