@@ -124,6 +124,8 @@
     responses:
       '200':
         description: Updated
+        schema:
+          $ref: '#/definitions/ActivePath'        
       default:
         description: Update failed
         schema:
