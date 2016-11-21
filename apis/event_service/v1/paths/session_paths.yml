@@ -28,7 +28,7 @@
         in: body
         required: true
         schema:
-          $ref: '#/definitions/EventSessionCreateRequest'
+          $ref: '#/definitions/EventSessionInfoRequest'
     responses:
       '201':
         description: Created
@@ -55,6 +55,39 @@
         description: Success
         schema:
           $ref: '#/definitions/EventSessionExtended'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+  put:
+    operationId: updateEventSession
+    description: |
+      Update the info for an event session 
+    parameters:
+      - name: body
+        description: update session info
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/EventSessionInfoRequest'
+    responses:
+      '200':
+        description: Updated
+        schema:
+          $ref: '#/definitions/EventSession'
+      default:
+        description: Update failed
+        schema:
+          $ref: '#/definitions/Error'
+  delete:
+    operationId: deleteEventSession
+    description: |
+      delete an event session
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/EventSession'
       default:
         description: Failed
         schema:

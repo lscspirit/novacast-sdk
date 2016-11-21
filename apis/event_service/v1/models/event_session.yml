@@ -1,4 +1,4 @@
-EventSessionCreateRequest:
+EventSessionInfoRequest:
   type: object
   description: request for creating a new event session
   properties:
