@@ -20,6 +20,19 @@ AccountRequest:
       type: string
   required: ['domain_name', 'provider_name']
 
+AccountBatchRequest:
+  type: object
+  description: |
+    a list of account uids
+  properties:
+    account_uids:
+      type: array
+      description: the account uids
+      items:
+        description: account_uid
+        type: string
+  required: ['account_uids']
+
 Account:
   type: object
   description: |

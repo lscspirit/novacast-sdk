@@ -44,18 +44,17 @@
           $ref: '#/definitions/Error'
 
 /accounts/batch_get:
-  get:
+  post:
     operationId: batchGetAccount
     description: |
       Gets the `User` object for a list of accounts
     parameters:
-      - name: account_uids
-        in: query
+      - name: body
+        description: request body
+        in: body
         required: true
-        description: the account uids
-        type: array
-        items:
-          type: string
+        schema:
+          $ref: '#/definitions/AccountBatchRequest'
     security:
       - appSecret: []
     responses:
