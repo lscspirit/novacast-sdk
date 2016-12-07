@@ -1,26 +1,3 @@
-AccessFilterChainItem:
-  type: object
-  description: an access filter within a access filter chain
-  properties:
-    name:
-      type: string
-      description: name of the access filter
-    config:
-      type: object
-      description: configuration data
-  required: ['name']
-
-AccessFilterChain:
-  type: object
-  description: access policy filter chain (an ordered list of enabled access filters)
-  properties:
-    filters:
-      type: array
-      description: a collection of enabled access filters
-      items:
-        $ref: '#/definitions/AccessFilterChainItem'
-  required: ['filters']
-
 AccessFilter:
   type: object
   description: access policy filter
