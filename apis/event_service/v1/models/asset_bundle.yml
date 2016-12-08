@@ -2,6 +2,12 @@ BundleContent:
   type: object
   description: asset bundle content
   properties:
+    uid:
+      type: string
+      description: uid of the content
+    meta_data:
+      type: object
+      description: optional meta data for the content
     url:
       type: string
       description: url of the content
@@ -75,4 +81,7 @@ BundleContentConfirmRequest:
     token:
       type: string
       description: confirmation token
-  required: ['token']
+    file_path:
+      type: string
+      description: file path of the content to confirm
+  required: ['token', 'file_path']

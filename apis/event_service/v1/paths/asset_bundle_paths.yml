@@ -88,15 +88,10 @@
         schema:
           $ref: '#/definitions/Error'
 
-/assets/{asset_bundle_uid}/confirm/{file_path}:
+/assets/{asset_bundle_uid}/confirm:
   parameters:
     - name: asset_bundle_uid
       description: asset bundle uid
-      type: string
-      in: path
-      required: true
-    - name: file_path
-      description: content path within the bundle
       type: string
       in: path
       required: true
@@ -137,6 +132,32 @@
     operationId: getBundleContent
     description: |
       Get an asset bundle content
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/BundleContent'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/assets/{asset_bundle_uid}/delete_content/{bundle_content_uid}:
+  parameters:
+    - name: asset_bundle_uid
+      description: asset bundle uid
+      type: string
+      in: path
+      required: true
+    - name: bundle_content_uid
+      description: uid for the bundle content to delete
+      type: string
+      in: path
+      required: true
+  delete:
+    operationId: deleteBundleContent
+    description: |
+      Delete an asset bundle content
     responses:
       '200':
         description: Success
