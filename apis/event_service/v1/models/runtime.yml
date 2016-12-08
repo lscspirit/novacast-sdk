@@ -54,7 +54,7 @@ EventContent:
     session_uid:
       type: string
       description: uid of the session (only available for 'html' type)
-  required: ['type', 'value', 'public']
+  required: ['type', 'value']
 
 ClientRequestInfo:
   type: object
