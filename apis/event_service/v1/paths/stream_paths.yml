@@ -59,6 +59,19 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+  delete:
+    operationId: deleteStreamMedium
+    description: |
+      Delete a stream medium
+    responses:
+      '200':
+        description: Deleted
+        schema:
+          $ref: '#/definitions/StreamMedium'
+      default:
+        description: Delete failed
+        schema:
+          $ref: '#/definitions/Error'
 
 /streams/{stream_medium_uid}/sources:
   parameters:

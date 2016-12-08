@@ -54,7 +54,25 @@ EventContent:
     session_uid:
       type: string
       description: uid of the session (only available for 'html' type)
-  required: ['type', 'value', 'public']
+  required: ['type', 'value']
+
+ClientRequestInfo:
+  type: object
+  description: information of the HTTP request from client
+  properties:
+    method:
+      type: string
+      description: request method
+    protocol:
+      type: string
+      description: request protocol
+    remote_ip:
+      type: string
+      description: client IP
+    referrer:
+      type: string
+      description: request referrer
+  required: ['method', 'protocol', 'remote_ip']
 
 FilterAccessResponse:
   type: object
@@ -63,6 +81,13 @@ FilterAccessResponse:
     preview_mode:
       type: boolean
       description: whether the preview mode is enabled
-    view_perm:
+    view_event_permission:
       type: boolean
-      description: whether the user has view event permission
+      description: whether the user has the ViewEvent permission on this event
+    action:
+      type: string
+      description: action to be performed as a result of the event access filtering
+      enum: ['redirect_url', 'redirect_path', 'redirect_ssl']
+    action_target:
+      type: string
+      description: target for the action

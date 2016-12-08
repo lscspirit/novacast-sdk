@@ -21,7 +21,7 @@ ForumPost:
       type: string
       format: date-time
       description: submission time
-  required: ['display_name', 'content', 'submitted_at', 'visible']
+  required: ['content', 'submitted_at', 'visible']
 
 ForumPostExtended:
   type: object

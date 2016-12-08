@@ -1,25 +1,3 @@
-/events/{event_uid}/interface_filter_chain:
-  parameters:
-    - name: event_uid
-      description: event uid
-      type: string
-      in: path
-      required: true
-  get:
-    operationId: getInterfaceFilterChain
-    description: |
-      Get the event's interface filter chain
-    responses:
-      '200':
-        description: Success
-        schema:
-          $ref: '#/definitions/AccessFilterChain'
-      default:
-        description: Failed
-        schema:
-          $ref: '#/definitions/Error'
-    tags: ['internal']
-
 /events/{event_uid}/filter_access/{content_path}:
   parameters:
     - name: event_uid
@@ -32,7 +10,7 @@
       type: string
       in: path
       required: true
-  get:
+  post:
     operationId: filterEventAccess
     description: |
       Check if a user have access to the event
@@ -42,6 +20,12 @@
         type: string
         in: query
         required: true
+      - name: client_request
+        description: information of request from client
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ClientRequestInfo'
       - name: preview_token
         description: preview token
         type: string

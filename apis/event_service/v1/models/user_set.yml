@@ -17,7 +17,7 @@ EnrollmentField:
     index:
       type: integer
       description: index of the field
-  required: ['name', 'data_type', 'label', 'optional', 'index']
+  required: ['name', 'data_type', 'optional', 'index']
 
 EnrollmentFieldValue:
   type: object
