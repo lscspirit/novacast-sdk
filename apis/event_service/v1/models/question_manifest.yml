@@ -19,7 +19,7 @@ QuestionManifest:
       description: extra config info for this manifest
     question_set:
       $ref: '#/definitions/QuestionSetInfo'
-  required: ['uid', 'label', 'manifest_type', 'config', 'question_set']
+  required: ['uid', 'label', 'manifest_type', 'question_set']
 
 QuestionManifestList:
   type: object
