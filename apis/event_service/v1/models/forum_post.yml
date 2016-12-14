@@ -32,7 +32,10 @@ ForumPostExtended:
       properties:
         account_uid:
           type: string
-          description: uid of the author
+          description: account uid of the submitter        
+        account_identifier:
+          type: string
+          description: identifier of the submitter
         approved:
           type: boolean
           description: approved by moderator
@@ -45,7 +48,7 @@ ForumPostExtended:
         starred:
           type: boolean
           description: whether the post is starred
-      required: ['account_uid', 'approved', 'hidden', 'deleted', 'starred']
+      required: ['approved', 'hidden', 'deleted', 'starred']
 
 ForumPostList:
   type: object
@@ -76,6 +79,9 @@ ForumPostLike:
     account_uid:
       type: string
       description: uid of the account
+    account_identifier:
+      type: string
+      description: identifier of the account (only present in certain calls and relevant)  
     forum_post_uid:
       type: string
       description: uid of the forum post
@@ -93,11 +99,6 @@ ForumPostLikeList:
       description: list of forum post likes
       items:
         $ref: '#/definitions/ForumPostLike'
-    accounts:
-      type: array
-      description: optional account info for all accounts for the likes
-      items:
-        $ref: '#/definitions/Account'
   required: ['likes']
 
 ForumPostCreateRequest:

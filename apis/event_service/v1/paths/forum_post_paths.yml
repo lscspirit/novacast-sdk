@@ -63,6 +63,31 @@
         schema:
           $ref: '#/definitions/Error'
 
+/mods/forum_post/sessions/{session_uid}/with_accounts:
+  parameters:
+    - name: session_uid
+      description: uid of the session
+      type: string
+      in: path
+  get:
+    operationId: getForumPostsWithAccounts
+    description: |
+      Get all forum posts (with extended information and subbmitter account identifier) of the session
+    parameters:
+      - name: data_set_uid
+        description: uid of the data set. Default to the active data set of the event
+        type: string
+        in: query
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ForumPostExtendedList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
 /mods/forum_post/sessions/{session_uid}/account/likes:
   parameters:
     - name: session_uid
