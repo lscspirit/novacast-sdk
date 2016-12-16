@@ -32,6 +32,9 @@ QuestionContent:
     content:
       type: object
       description: answer content
+    question_set_uid:
+      type: string
+      description: uid for the question set that this question content belongs to
     question_content_type:
       $ref: '#/definitions/QuestionContentType'
   required: ['uid', 'question', 'order', 'content', 'question_content_type']
