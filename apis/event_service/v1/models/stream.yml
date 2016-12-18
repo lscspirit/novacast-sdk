@@ -66,6 +66,14 @@ StreamMediumCreateRequest:
       description: stream label
   required: ['label']
 
+StreamMediumUpdateRequest:
+  type: object
+  description: stream medium update request
+  properties:
+    label:
+      type: string
+      description: stream label
+
 StreamSourceCreateRequest:
   type: object
   description: Stream source creation request
