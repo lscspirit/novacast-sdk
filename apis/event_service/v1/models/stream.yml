@@ -10,7 +10,10 @@ StreamSource:
       description: resource name
     url:
       type: string
-      description: url of the stream
+      description: url of the stream source
+    uri:
+      type: string
+      description: uri of the stream source
     source:
       type: string
       description: source provider of the stream
