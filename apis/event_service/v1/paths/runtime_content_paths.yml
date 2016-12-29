@@ -1,4 +1,4 @@
-/events/{event_uid}/filter_access/{content_path}:
+/events/{event_uid}/filter_access{/content_path*}:
   parameters:
     - name: event_uid
       description: event uid
@@ -41,7 +41,7 @@
           $ref: '#/definitions/Error'
     tags: ['internal']
 
-/events/{event_uid}/contents/{content_path}:
+/events/{event_uid}/contents{/content_path*}:
   parameters:
     - name: event_uid
       description: event uid
@@ -68,7 +68,7 @@
           $ref: '#/definitions/Error'
     tags: ['internal']
 
-/events/{event_uid}/runtimes/{content_path}:
+/events/{event_uid}/runtimes{/content_path*}:
   parameters:
     - name: event_uid
       description: event uid
