@@ -35,8 +35,22 @@ var spec = YAML.load(fs.readFileSync(path.join(spec_path, 'spec.yml')).toString(
 //
 traverse(spec).forEach(function(value) {
   if (this.key == '$spec_ref') {
-    if (value == 'models') this.parent.update(models, true);
-    else if (value == 'paths') this.parent.update(paths, true);
+    var ref = null;
+    switch(value) {
+      case 'models':
+        ref = models;
+        break;
+      case 'paths':
+        ref = paths;
+        break;
+      default:
+        break;
+    }
+
+    if (ref) {
+      this.delete(true);
+      this.parent.update(extend(this.parent.node, ref), true);
+    }
   }
 });
 
