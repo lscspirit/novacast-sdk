@@ -8,6 +8,9 @@
     operationId: getForumPosts
     description: |
       Get all forum posts of the session
+    security:
+      - accessKey: []
+      - previewToken: []
     responses:
       '200':
         description: Success
@@ -28,6 +31,9 @@
         required: true
         schema:
           $ref: '#/definitions/ForumPostCreateRequest'
+    security:
+      - accessKey: []
+      - previewToken: []
     responses:
       '201':
         description: Created
@@ -98,6 +104,9 @@
     operationId: getForumPostLikesForAccount
     description: |
       Get all forum posts likes of the session submitted by the access user
+    security:
+      - accessKey: []
+      - previewToken: []
     responses:
       '200':
         description: Success
@@ -165,6 +174,9 @@
         required: true
         schema:
           $ref: '#/definitions/ForumPostLikeRequest'
+    security:
+      - accessKey: []
+      - previewToken: []
     responses:
       '200':
         description: Updated
@@ -222,8 +234,8 @@
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/ForumPost'        
+          $ref: '#/definitions/ForumPost'
       default:
         description: Failed
         schema:
-          $ref: '#/definitions/Error'    
+          $ref: '#/definitions/Error'
