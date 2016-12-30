@@ -16,6 +16,10 @@ securityDefinitions:
     type: apiKey
     in: query
     name: app_token
+  previewToken:
+    type: apiKey
+    in: query
+    name: preview_token
 security:
   - accessKey: []
 paths:
