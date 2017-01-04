@@ -20,12 +20,12 @@
         type: string
         in: query
         required: true
-      - name: client_request
-        description: information of request from client
+      - name: body
+        description: request body
         in: body
         required: true
         schema:
-          $ref: '#/definitions/ClientRequestInfo'
+          $ref: '#/definitions/FilterAccessRequest'
       - name: preview_token
         description: preview token
         type: string

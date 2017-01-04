@@ -74,6 +74,14 @@ ClientRequestInfo:
       description: request referrer
   required: ['method', 'protocol', 'remote_ip']
 
+FilterAccessRequest:
+  type: object
+  description: event access filtering request
+  properties:
+    client_request:
+      $ref: '#/definitions/ClientRequestInfo'
+  required: ['client_request']
+
 FilterAccessResponse:
   type: object
   description: result of event access filtering
