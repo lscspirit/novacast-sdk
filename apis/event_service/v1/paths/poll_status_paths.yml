@@ -120,11 +120,49 @@
         required: true
         schema:
           $ref: '#/definitions/AddPollStatRequest'
+    security:
+      - accessKey: []
+      - previewToken: []
     responses:
       '200':
         description: Success
         schema:
           $ref: '#/definitions/PollStatus'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/polling/{question_manifest_uid}/prior_submissions:
+  parameters:
+    - name: session_uid
+      description: the session that this poll is relevant to
+      type: string
+      in: path
+      required: true
+    - name: question_manifest_uid
+      description: quesiton manifest associated uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getPriorPollSubmissions
+    description: |
+      get previous submissions for this poll
+    parameters:
+      - name: question_content_uid
+        description: the question content that is specific for this poll
+        type: string
+        in: query
+        required: true
+    security:
+      - accessKey: []
+      - previewToken: []
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/QuestionSubmissionList'
       default:
         description: Failed
         schema:

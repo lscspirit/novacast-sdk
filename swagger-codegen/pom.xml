@@ -114,6 +114,11 @@
       <version>${swagger-codegen-version}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
   </dependencies>
   <properties>
     <swagger-codegen-version>2.2.0</swagger-codegen-version>

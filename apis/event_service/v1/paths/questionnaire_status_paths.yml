@@ -120,11 +120,43 @@
         required: true
         schema:
           $ref: '#/definitions/AddquestionnaireStatRequest'
+    security:
+      - accessKey: []
+      - previewToken: []
     responses:
       '200':
         description: Success
         schema:
           $ref: '#/definitions/QuestionnaireStatus'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/questionnaire/{question_manifest_uid}/prior_submissions:
+  parameters:
+    - name: session_uid
+      description: the session that this questionnaire is relevant to
+      type: string
+      in: path
+      required: true
+    - name: question_manifest_uid
+      description: quesiton manifest associated uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getPriorQuestionnaireSubmissions
+    description: |
+      get previous submissions for this questionnaire
+    security:
+      - accessKey: []
+      - previewToken: []
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/QuestionSubmissionList'
       default:
         description: Failed
         schema:

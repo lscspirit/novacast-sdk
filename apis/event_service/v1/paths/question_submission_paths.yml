@@ -59,29 +59,3 @@
         description: Creation failed
         schema:
           $ref: '#/definitions/Error'
-
-/sessions/{session_uid}/question_submissions/{question_manifest_uid}/lookup_by_user:
-  parameters:
-    - name: question_manifest_uid
-      description: question manifest uid
-      type: string
-      in: path
-      required: true
-    - name: session_uid
-      description: the session uid
-      type: string
-      in: path
-      required: true
-  get:
-    operationId: getQuestionSubmissionsByUser
-    description: |
-      Get all submissions for a question manifest by the calling user
-    responses:
-      '200':
-        description: Success
-        schema:
-          $ref: '#/definitions/QuestionSubmissionList'
-      default:
-        description: Failed
-        schema:
-          $ref: '#/definitions/Error'          
