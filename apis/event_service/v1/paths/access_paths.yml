@@ -1,0 +1,80 @@
+/events/{event_uid}/filter_access:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: filterEventAccess
+    description: |
+      Check if a user have access to the event
+    parameters:
+      - name: account_uid
+        description: account uid
+        type: string
+        in: query
+        required: true
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/FilterAccessRequest'
+      - name: preview_token
+        description: preview token
+        type: string
+        in: query
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/FilterAccessResponse'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+    tags: ['internal']
+
+/events/{event_uid}/filter_access/content{/content_path*}:
+  parameters:
+    - name: event_uid
+      description: event uid
+      type: string
+      in: path
+      required: true
+    - name: content_path
+      description: path to access the content
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: filterEventContentAccess
+    description: |
+      Check if a user have access to the event
+    parameters:
+      - name: account_uid
+        description: account uid
+        type: string
+        in: query
+        required: true
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/FilterAccessRequest'
+      - name: preview_token
+        description: preview token
+        type: string
+        in: query
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/FilterAccessResponse'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+    tags: ['internal']
