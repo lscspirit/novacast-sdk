@@ -10,7 +10,8 @@ var output_path = argv['o'] || argv['output'];
 var debug_mode  = argv['debug'];
 var lang = argv['l'] || argv['lang'] || 'sdkRuby';
 
-var swagger_lib = `${root_path}/swagger-codegen/target`;
+var codegen_path = `${root_path}/swagger-codegen`
+var swagger_lib  = `${codegen_path}/target`;
 
 function execCmd(cmd) {
   console.log('===== Executing: ' + cmd + ' ======\n');
@@ -19,6 +20,9 @@ function execCmd(cmd) {
 }
 
 var temp_file = tmp.fileSync();
+
+// build generator to make sure we have the latest generator code
+execCmd(`cd ${codegen_path} && mvn package`);
 
 // clear the output directory
 execCmd(`rm -rf ${output_path}`);
