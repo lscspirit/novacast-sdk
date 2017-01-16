@@ -139,7 +139,7 @@ module NovacastSDK
         # raise error if the response type (or a fallback) is not defined for this status code
         raise ArgumentError, "Status code '#{status_code}' response definition not found for '#{api}'" unless (resp_type = definition[status_code] || definition[0])
 
-        resp_type
+        resp_type.empty? ? nil : resp_type
       end
     end
 
