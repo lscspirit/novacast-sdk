@@ -1,0 +1,20 @@
+/template_manifests/find_by_type:
+  get:
+    operationId: getTemplateManifestByType
+    description: |
+      Get template manifests for a specific type
+    parameters:
+      - name: manifest_type
+        description: the type of template 
+        type: string
+        in: query
+        required: true
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/TemplateManifestList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

@@ -1,0 +1,27 @@
+TemplateManifest:
+  type: object
+  description: template manifest object
+  properties:
+    template_name:
+      type: string
+      description: the name of the template
+    label:
+      type: string
+      description: description for this event template
+    preview_thumbnail:
+      type: string
+      description: url for the thumbnail of the event
+    config:
+      type: object
+      description: extra configs if any
+
+TemplateManifestList:
+  type: object
+  description: List of templates manifests
+  properties:
+    template_manifests:
+      type: array
+      description: a collection of TemplateManifest
+      items:
+        $ref: '#/definitions/TemplateManifest'
+  required: ['template_manifests']

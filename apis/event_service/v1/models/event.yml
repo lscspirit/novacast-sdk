@@ -29,6 +29,9 @@ EventCreateRequest:
     public_alias_path:
       type: string
       description: public alias path
+    template_name:
+      type: string
+      description: name of the template to be used      
   required: ['name']
 
 EventUpdateRequest:
@@ -50,7 +53,7 @@ EventUpdateRequest:
     preview_enabled:
       type: boolean
       description: whether preview mode is enabled
-      
+
 EventStageRequest:
   type: object
   description: Event stage update request
