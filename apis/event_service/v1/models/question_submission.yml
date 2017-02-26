@@ -11,6 +11,9 @@ QuestionSubmission:
     question_content_uid:
       type: string
       description: uid for the question content specific of this submission
+    question_manifest_uid:
+      type: string
+      description: uid for the question manifest specific of this submission      
     answer:
       type: object
       description: answer object
@@ -31,9 +34,9 @@ QuestionSubmissionQueryResponse:
       description: indicate if number of records exceeded limit
   required: ['submissions_list', 'record_exceeded']
 
-QuestionSubmissionList:
+ManifestSubmissions:
   type: object
-  description: a list of question submissions
+  description: a list of question submissions specific to a question manifest
   properties:
     submissions:
       type: array
@@ -43,6 +46,17 @@ QuestionSubmissionList:
     question_manifest:
       $ref: '#/definitions/QuestionManifest'
   required: ['submissions', 'quesiton_manifest']
+
+QuestionSubmissionsList:
+  type: object
+  description: a list of question submissions
+  properties:
+    submissions:
+      type: array
+      description: list of question submissions
+      items:
+        $ref: '#/definitions/QuestionSubmission'
+  required: ['submissions']
 
 QuestionSubmissionCreate:
   type: object

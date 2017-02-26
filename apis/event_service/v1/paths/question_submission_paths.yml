@@ -54,7 +54,7 @@
       '201':
         description: Created
         schema:
-          $ref: '#/definitions/QuestionSubmissionList'
+          $ref: '#/definitions/ManifestSubmissions'
       default:
         description: Creation failed
         schema:
