@@ -1,0 +1,28 @@
+ArchiveActivity:
+  type: object
+  description: an activity for an archive session
+  properties:
+    uid:
+      type: string
+      description: uid of the activity
+    time_code:
+      type: integer
+      description: the time code in seconds
+    activity_type:
+      type: string
+      description: name of the activity
+    config:
+      type: object
+      description: the details for this archive activity
+  required: ['uid', 'time_code', 'activity_type', 'config']
+
+ArchiveActivityList:
+  type: object
+  description: a list of archive activities
+  properties:
+    activities:
+      type: array
+      description: archive activities
+      items:
+        $ref: '#/definitions/ArchiveActivity'
+  required: ['activities']

@@ -1,0 +1,20 @@
+/sessions/{session_uid}/archive_session_activities:
+  parameters:
+    - name: session_uid
+      description: the session that this questionnaire is relevant to
+      type: string
+      in: path
+      required: true  
+  get:
+    operationId: getArchiveActivities
+    description: |
+      Get the archive activities for a given session
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/ArchiveActivityList'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
