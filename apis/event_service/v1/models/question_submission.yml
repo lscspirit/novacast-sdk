@@ -28,7 +28,7 @@ QuestionSubmissionQueryResponse:
   description: response for question submission query
   properties:
     submissions_list:
-      $ref: '#/definitions/QuestionSubmissionList'
+      $ref: '#/definitions/ManifestSubmissions'
     record_exceeded:
       type: boolean
       description: indicate if number of records exceeded limit
