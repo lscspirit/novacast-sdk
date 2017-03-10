@@ -1,4 +1,4 @@
-/events/{event_uid}/attendances:
+/attendances/events/{event_uid}:
   parameters:
     - name: event_uid
       description: event uid
@@ -23,10 +23,11 @@
         description: Track failed
         schema:
           $ref: '#/definitions/Error'
+    tags: ['internal']
 
-/attendances/track_by_token:
+/attendances/batch:
   post:
-    operationId: trackAttendanceByToken
+    operationId: batchTrackAttendance
     description: |
       a batch call to track multiple attendances by their access tokens
     parameters:
@@ -35,19 +36,19 @@
         in: body
         required: true
         schema:
-          $ref: '#/definitions/TrackAttendanceByTokenRequest'
+          $ref: '#/definitions/BatchTrackAttendanceRequest'
     responses:
       '200':
-        description: updated attendances
+        description: responses
         schema:
-          $ref: '#/definitions/AttendanceList'
+          $ref: '#/definitions/BatchTrackAttendanceResponse'
       default:
         description: Track failed
         schema:
           $ref: '#/definitions/Error'
     tags: ['internal']
 
-/sessions/{session_uid}/attendances:
+/attendances/sessions/{session_uid}:
   parameters:
     - name: session_uid
       description: the session uid

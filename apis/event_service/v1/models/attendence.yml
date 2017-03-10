@@ -2,6 +2,9 @@ TrackAttendanceRequest:
   type: object
   description: track attendance request
   properties:
+    account_uid:
+      type: string
+      description: account uid
     client_session_id:
       type: string
       description: client browser session id
@@ -14,29 +17,38 @@ TrackAttendanceRequest:
     session_uid:
       type: string
       description: event session uid
-  required: ['client_session_id']
+  required: ['account_uid', 'client_session_id']
 
-TrackAttendanceByTokenRequest:
+BatchTrackAttendanceRequest:
   type: object
-  description: track attendance request
+  description: batch track attendance request
   properties:
-    track_requests:
+    requests:
       type: array
-      description: a collection of track by token requests
+      description: a collection of track attendance requests
       items:
-        $ref: '#/definitions/TrackAttendanceByToken'
+        $ref: '#/definitions/TrackAttendanceRequest'
 
-TrackAttendanceByToken:
+BatchTrackAttendanceResponseEntry:
   type: object
-  description: a track request to track by token
-  allOf:
-    - $ref: '#/definitions/TrackAttendanceRequest'
-    - type: object
-      properties:
-        access_token:
-          type: string
-          description: the access token representing the user
-      required: ['access_token']
+  description: batch track attendance response entry
+  properties:
+    attendance:
+      description: successfully created attendance
+      $ref: '#/definitions/Attendance'
+    error:
+      description: error messages if creation failed
+      $ref: '#/definitions/Error'
+
+BatchTrackAttendanceResponse:
+  type: object
+  description: batch track attendance response
+  properties:
+    responses:
+      type: array
+      description: a collection of responses
+      items:
+        $ref: '#/definitions/BatchTrackAttendanceResponseEntry'
 
 AttendanceList:
   type: object
@@ -51,7 +63,7 @@ AttendanceList:
     accounts:
       type: array
       description: optional account info for all accounts in the attendances
-      items:        
+      items:
         $ref: '#/definitions/Account'
     sessions:
       type: array
@@ -60,7 +72,7 @@ AttendanceList:
         $ref: '#/definitions/EventSession'
     record_exceeded:
       type: boolean
-      description: indicate if number of records exceeded limit        
+      description: indicate if number of records exceeded limit
   required: ['attendances']
 
 Attendance:
