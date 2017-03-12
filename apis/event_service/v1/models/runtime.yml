@@ -11,8 +11,8 @@ ModuleRuntime:
     timestamp:
       type: string
       format: date-time
-      description: last updated time (not available for 'url' type)
-  required: ['module_name', 'runtime', 'timestamp']
+      description: last updated time
+  required: ['module_name', 'runtime']
 
 RuntimeInfo:
   type: object
