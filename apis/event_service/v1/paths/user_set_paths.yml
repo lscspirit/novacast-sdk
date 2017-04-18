@@ -113,7 +113,7 @@
         schema:
           $ref: '#/definitions/Error'
     tags: ['default', 'internal']
-    
+
 /user_sets/{user_set_uid}/enrollments:
   parameters:
     - name: user_set_uid
@@ -148,7 +148,7 @@
   get:
     operationId: getSessionEnrollments
     description: |
-      Get a list of users belongs to this user set
+      Get a list of users belonging to this session's user set
     parameters:
       - $ref: '#/parameters/paginatePage'
       - $ref: '#/parameters/paginatePer'
@@ -176,3 +176,30 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/enrollments/{account_uid}:
+  parameters:
+    - name: session_uid
+      description: the session uid
+      type: string
+      in: path
+      required: true
+    - name: account_uid
+      description: the account uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getSessionEnrollmentByAccount
+    description: |
+      Get enrollment for an account belonging to this session's user set
+    responses:
+      '200':
+        description: Success
+        schema:
+            $ref: '#/definitions/Enrollment'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+    tags: ['internal']
