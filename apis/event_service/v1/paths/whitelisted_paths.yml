@@ -6,22 +6,22 @@
       in: path
       required: true
   get:
-    operationId: getWhitelistedUsers
+    operationId: getWhitelistPatterns
     description: |
-      Get all whitelisted accounts in the access policy
+      Get all whitelisted patterns in the user set
     responses:
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/WhitelistedUserList'
+          $ref: '#/definitions/WhitelistPatternList'
       default:
         description: Failed
         schema:
           $ref: '#/definitions/Error'
   post:
-    operationId: whitelistUsers
+    operationId: addWhitelistPatterns
     description: |
-      Whitelist one or more users
+      Add one or more whitelisted patterns
     parameters:
       - name: body
         description: request body
@@ -33,36 +33,29 @@
       '200':
         description: Whitelisted
         schema:
-          $ref: '#/definitions/WhitelistedUserList'
+          $ref: '#/definitions/WhitelistPatternList'
       default:
         description: Creation failed
         schema:
           $ref: '#/definitions/Error'
 
-/user_sets/{user_set_uid}/whitelist/revoke:
+/whitelisted_patterns/{pattern_uid}:
   parameters:
-    - name: user_set_uid
-      description: user set uid
+    - name: pattern_uid
+      description: whitelisted pattern uid
       type: string
       in: path
       required: true
-  post:
-    operationId: revokeWhitelistedUsers
+  delete:
+    operationId: deleteWhitelistPattern
     description: |
-      Removes one or more accounts from the whitelist
-    parameters:
-      - name: body
-        description: request body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/WhitelistRequest'
+      Removes a whitelisted pattern from the user set
     responses:
       '200':
-        description: Revoked
+        description: Deleted
         schema:
-          $ref: '#/definitions/WhitelistedUserList'
+          $ref: '#/definitions/WhitelistPattern'
       default:
-        description: Revoke failed
+        description: Delete failed
         schema:
           $ref: '#/definitions/Error'

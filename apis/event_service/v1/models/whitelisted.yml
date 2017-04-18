@@ -1,0 +1,47 @@
+WhitelistRequest:
+  type: object
+  description: request to add a new whitelisted pattern
+  properties:
+    enrollment_field:
+      type: string
+      description: the field this pattern applies to
+    pattern_type:
+      type: string
+      description: pattern type
+      enum: ['string', 'pattern']
+    patterns:
+      type: array
+      description: a list of pattern values
+      items:
+        type: string
+  required: ['enrollment_field', 'pattern_type', 'patterns']
+
+WhitelistPattern:
+  type: object
+  description: whitelisted account information
+  properties:
+    uid:
+      type: string
+      description: pattern uid
+    enrollment_field:
+      type: string
+      description: the field this pattern applies to
+    pattern_type:
+      type: string
+      description: pattern type
+      enum: ['string', 'pattern']
+    pattern:
+      type: string
+      description: pattern value
+  required: ['uid', 'enrollment_field', 'pattern_type', 'pattern']
+
+WhitelistPatternList:
+  type: object
+  description: a list of newly added whitelist pattern
+  properties:
+    patterns:
+      type: array
+      description: a collection of whitelisted patterns
+      items:
+        $ref: '#/definitions/WhitelistPattern'
+  required: ['entries']
