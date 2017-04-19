@@ -39,7 +39,7 @@
         schema:
           $ref: '#/definitions/Error'
 
-/whitelisted_patterns/{pattern_uid}:
+/whitelist_patterns/{pattern_uid}:
   parameters:
     - name: pattern_uid
       description: whitelisted pattern uid
