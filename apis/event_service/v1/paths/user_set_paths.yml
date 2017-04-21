@@ -197,7 +197,7 @@
       '200':
         description: Success
         schema:
-            $ref: '#/definitions/Enrollment'
+            $ref: '#/definitions/EnrollmentExtended'
       default:
         description: Failed
         schema:
