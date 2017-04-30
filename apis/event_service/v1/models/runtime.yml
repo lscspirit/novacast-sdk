@@ -55,6 +55,9 @@ EventContent:
     public:
       type: boolean
       description: content is public
+    locale:
+      type: string
+      description: the locale used for this content
     session_uid:
       type: string
       description: uid of the session (only available for 'html' type)

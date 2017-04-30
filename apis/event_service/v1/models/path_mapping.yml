@@ -43,7 +43,10 @@ PathMapping:
     event_page_label:
       type: string
       description: label for the mapped event page
-  required: ['public', 'is_active', 'event_session_uid', 'event_page_uid']
+    locale:
+      type: string
+      description: locale for this path mapping
+  required: ['public', 'is_active', 'event_session_uid', 'event_page_uid', 'locale']
 
 ActivePathList:
   type: object
