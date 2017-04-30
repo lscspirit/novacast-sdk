@@ -1,0 +1,88 @@
+/translation_service/get_dictionary:
+  get:
+    operationId: getDictionaryForLocale
+    description: |
+      Get dictionary for a given locale
+    parameters:
+      - name: locale
+        description: the locale that we are looking for
+        type: string
+        in: query
+        required: true
+      - name: category
+        description: the category that we are interested in
+        type: string
+        in: query
+        required: false
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/DictionaryQueryResponse'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/translation_service/filter_dictionary:
+  get:
+    operationId: getFilteredDictionary
+    description: |
+      Get dictionary for a given set of filter options
+    parameters:
+      - name: locale
+        description: the locale that we are looking for
+        type: string
+        in: query
+        required: false
+      - name: category
+        description: the category that we are interested in
+        type: string
+        in: query
+        required: false
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/DictionaryFilterResponse'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'          
+
+/translation_service/all_filter_options:
+  get:
+    operationId: getAllFilterOptions
+    description: |
+      Get all the possible filter options
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/TranslationFilterOptionsResponse'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/translation_service/update_definition:
+  put:
+    operationId: UpdateDictionaryDefinition
+    description: |
+      Update a given dictionary definition
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UpdateDictionaryDefinitionRequest'      
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/DictionaryEntry'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'          

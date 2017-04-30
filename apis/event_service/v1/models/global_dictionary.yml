@@ -1,0 +1,55 @@
+DictionaryEntry:
+  type: object
+  description: a dictionary entry
+  properties:
+    locale:
+      type: string
+    usage_key:
+      type: string
+    category:
+      type: string
+    context:
+      type: string
+    is_sys:
+      type: integer
+
+UpdateDictionaryDefinitionRequest:
+  type: object
+  description: request for updating a dictionary definition
+  properties:
+    operation:
+      type: string      
+    newEntry:
+      $ref: '#/definitions/DictionaryEntry'
+
+DictionaryQueryResponse:
+  type: object
+  description: response for getting global dictionary
+  properties:
+    dictionary:
+      type: object
+    locale:
+      type: string
+      description: the calling locale for getting this dictionary
+
+TranslationFilterOptionsResponse:
+  type: object
+  description: response for getting all filter options
+  properties:
+    locales:
+      type: array
+      items:
+        type: string
+    categories:
+      type: array     
+      items:
+        type: string
+
+DictionaryFilterResponse:
+  type: object
+  description: response for getting all filtered entries
+  properties:
+    entries:
+      type: array
+      items:
+        $ref: '#/definitions/DictionaryEntry'
