@@ -29,26 +29,14 @@ BatchTrackAttendanceRequest:
       items:
         $ref: '#/definitions/TrackAttendanceRequest'
 
-BatchTrackAttendanceResponseEntry:
-  type: object
-  description: batch track attendance response entry
-  properties:
-    attendance:
-      description: successfully created attendance
-      $ref: '#/definitions/Attendance'
-    error:
-      description: error messages if creation failed
-      $ref: '#/definitions/Error'
-
 BatchTrackAttendanceResponse:
   type: object
   description: batch track attendance response
   properties:
-    responses:
-      type: array
-      description: a collection of responses
-      items:
-        $ref: '#/definitions/BatchTrackAttendanceResponseEntry'
+    count:
+      type: integer
+      description: the number of requests queued for processing
+  required: ['count']
 
 AttendanceList:
   type: object
