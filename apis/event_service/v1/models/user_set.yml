@@ -123,6 +123,9 @@ UserSet:
     full_enrollment:
       type: boolean
       description: enrollment required
+    passcode:
+      type: string
+      description: enrollment passcode
   required: ['uid', 'rn', 'label', 'channel_uid', 'ch_acct_only', 'whitelisted_only', 'full_enrollment']
 
 UserSetExtended:
@@ -167,6 +170,9 @@ UserSetCreateRequest:
       type: boolean
       description: enrollment required
       default: false
+    passcode:
+      type: string
+      description: enrollment passcode
     fields:
       type: array
       description: enrollment fields
@@ -191,6 +197,9 @@ UserSetUpdateRequest:
       type: boolean
       description: enrollment required
       default: false
+    passcode:
+      type: string
+      description: enrollment passcode
     fields:
       type: array
       description: enrollment fields
