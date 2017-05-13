@@ -35,3 +35,13 @@ PageContentUpdateRequest:
       type: string
       description: page content
   required: ['content']
+
+PageContentDeleteResponse:
+  type: object
+  description: response for deleting a page content
+  properties:
+    page_content:
+      $ref: '#/definitions/PageContent'
+    event_page:
+      $ref: '#/definitions/EventPage'
+  required: ['page_content', 'event_page']

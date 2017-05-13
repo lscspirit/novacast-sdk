@@ -5,7 +5,10 @@ EventPageCreateRequest:
     label:
       type: string
       description: label of the page
-  required: ['label']
+    default_locale:
+      type: string
+      description: the default locale being used for this page      
+  required: ['label', 'default_locale']
 
 EventPageUpdateRequest:
   type: object
@@ -14,6 +17,9 @@ EventPageUpdateRequest:
     label:
       type: string
       description: label of the page
+    default_locale:
+      type: string
+      description: the default locale being used for this page
 
 EventPage:
   type: object
@@ -28,7 +34,10 @@ EventPage:
     page_config:
       type: string
       description: page configuration in json
-  required: ['uid', 'label']
+    default_locale:
+      type: string
+      description: the default locale being used for this page
+  required: ['uid', 'label', 'default_locale']
 
 EventPageList:
   type: object
