@@ -33,9 +33,9 @@ ForumPostExtended:
         account_uid:
           type: string
           description: account uid of the submitter        
-        account_identifier:
-          type: string
-          description: identifier of the submitter
+        account_info:
+          type: object
+          description: an object containing relevant infos for the submitter
         approved:
           type: boolean
           description: approved by moderator
