@@ -71,10 +71,8 @@ EnrollmentExtendedList:
       items:
         $ref: '#/definitions/EnrollmentExtended'
     accounts:
-      type: array
-      description: optional account info for all accounts in the enrollments
-      items:
-        $ref: '#/definitions/Account'
+      type: object
+      description: a map of account_uid to display info for relevant accounts
     fields:
       type: array
       items:

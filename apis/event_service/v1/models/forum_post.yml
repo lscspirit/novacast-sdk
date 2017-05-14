@@ -36,6 +36,9 @@ ForumPostExtended:
         account_info:
           type: object
           description: an object containing relevant infos for the submitter
+        account_identifier:
+          type: string
+          description: a generally acceptable identifier for the submitter which is not the account uid
         approved:
           type: boolean
           description: approved by moderator
