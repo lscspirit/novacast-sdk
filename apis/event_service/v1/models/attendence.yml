@@ -38,7 +38,7 @@ BatchTrackAttendanceResponse:
       description: the number of requests queued for processing
   required: ['count']
 
-AttendanceList:
+AttendanceResponse:
   type: object
   description: |
     a list of attendances
@@ -48,28 +48,41 @@ AttendanceList:
       description: the attendance objects
       items:
         $ref: '#/definitions/Attendance'
-    accounts:
+    account_info:
       type: object
       description: a map of account_uid to display info for relevant accounts
-    sessions:
-      type: array
-      description: session infos for all sessions for the given event
-      items:
-        $ref: '#/definitions/EventSession'
-    record_exceeded:
-      type: boolean
-      description: indicate if number of records exceeded limit
+      additionalProperties:
+        type: string
   required: ['attendances']
+
+SessionAttendanceResponse:
+  type: object
+  description: |
+    a list of attendances
+  properties:
+    session_attendances:
+      type: array
+      description: the session attendance list
+      items:
+        $ref: '#/definitions/SessionAttendance'
+    attendances:
+      type: array
+      description: the event attendance list
+      items:
+        $ref: '#/definitions/Attendance'
+    account_info:
+      type: object
+      description: a map of account_uid to display info for relevant accounts
+      additionalProperties:
+        type: string
+    session:
+      $ref: '#/definitions/EventSession'
+  required: ['session_attendances']
 
 Attendance:
   type: object
   description: the event level attendance
   properties:
-    session_attendances:
-      type: array
-      description: the session level attendances
-      items:
-        $ref: '#/definitions/SessionAttendance'
     event_uid:
       type: string
       description: uid for the event
@@ -87,21 +100,30 @@ Attendance:
       description: user agent for the client
     first_request_at:
       type: string
+      format: date-time
       description: the first time user sign on to the event
     last_request_at:
       type: string
+      format: date-time
       description: the last time user sign on to the event
+  required: ['event_uid', 'account_type', 'account_uid', 'first_request_at', 'last_request_at']
 
 SessionAttendance:
   type: object
   description: the session level attendance
   properties:
+    account_uid:
+      type: string
+      description: uid for the user account
     session_uid:
       type: string
       description: the uid for the session
     first_request_at:
       type: string
+      format: date-time
       description: the first time user sign on to the session
     last_request_at:
       type: string
+      format: date-time
       description: the last time user sign on to the session
+  required: ['session_uid', 'first_request_at', 'last_request_at']

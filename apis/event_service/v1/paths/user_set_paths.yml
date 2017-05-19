@@ -126,13 +126,28 @@
     description: |
       Get a list of users belongs to this user set
     parameters:
-      - $ref: '#/parameters/paginatePage'
-      - $ref: '#/parameters/paginatePer'
+      - name: max_records
+        description: optional max records for return
+        in: query
+        required: false
+        type: number
+      - name: from_date
+        description: optional from date filter in ISO8601 format
+        in: query
+        required: false
+        type: string
+        format: date-time
+      - name: to_date
+        description: optional to date filter in ISO8601 format
+        in: query
+        required: false
+        type: string
+        format: date-time
     responses:
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/PaginatedEnrollmentList'
+          $ref: '#/definitions/EnrollmentListResponse'
       default:
         description: Failed
         schema:
@@ -150,8 +165,6 @@
     description: |
       Get a list of users belonging to this session's user set
     parameters:
-      - $ref: '#/parameters/paginatePage'
-      - $ref: '#/parameters/paginatePer'
       - name: max_records
         description: optional max records for return
         in: query
@@ -162,16 +175,18 @@
         in: query
         required: false
         type: string
+        format: date-time
       - name: to_date
         description: optional to date filter in ISO8601 format
         in: query
         required: false
         type: string
+        format: date-time
     responses:
       '200':
         description: Success
         schema:
-            $ref: '#/definitions/FilteredEnrollmentList'
+            $ref: '#/definitions/EnrollmentListResponse'
       default:
         description: Failed
         schema:

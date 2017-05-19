@@ -59,42 +59,31 @@ EnrollmentExtended:
           description: field value map
           additionalProperties:
             type: string
-      required: ['fields']
+        enrolled_at:
+          type: string
+          format: date-time
+          description: time of the enrollment
+      required: ['fields', 'enrolled_at']
 
-EnrollmentExtendedList:
+EnrollmentListResponse:
   type: object
   description: List of EnrollmentExtended
   properties:
     enrollments:
       type: array
-      description: collection of enrollments
+      description: collection of EnrollmentExtended
       items:
         $ref: '#/definitions/EnrollmentExtended'
-    accounts:
+    account_info:
       type: object
       description: a map of account_uid to display info for relevant accounts
+      additionalProperties:
+        type: string
     fields:
       type: array
       items:
-        type: string
+        $ref: '#/definitions/EnrollmentField'
   required: ['enrollments']
-
-PaginatedEnrollmentList:
-  type: object
-  description: a paginated list of EnrollmentExtended
-  allOf:
-    - $ref: '#/definitions/EnrollmentExtendedList'
-    - $ref: '#/definitions/Paging'
-
-FilteredEnrollmentList:
-  type: object
-  description: a paginated list of EnrollmentExtended
-  allOf:
-    - $ref: '#/definitions/EnrollmentExtendedList'
-    - properties:
-        record_exceeded:
-          type: boolean
-          description: indicate if number of records exceeded limit
 
 UserSet:
   type: object

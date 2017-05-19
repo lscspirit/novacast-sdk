@@ -5,6 +5,37 @@
       type: string
       in: path
       required: true
+  get:
+    operationId: getEventAttendances
+    description: Lookup event level attendances
+    parameters:
+      - name: max_records
+        description: optional max records for return
+        in: query
+        required: false
+        type: number
+      - name: from_date
+        description: optional from date filter in ISO8601 format
+        in: query
+        required: false
+        type: string
+        format: date-time
+      - name: to_date
+        description: optional to date filter in ISO8601 format
+        in: query
+        required: false
+        type: string
+        format: date-time
+    responses:
+      '200':
+        description: event attendances
+        schema:
+          $ref: '#/definitions/AttendanceResponse'
+      default:
+        description: failed to retrieve
+        schema:
+          $ref: '#/definitions/Error'
+
   post:
     operationId: trackAttendance
     description: |
@@ -65,19 +96,21 @@
       in: query
       required: false
       type: string
+      format: date-time
     - name: to_date
       description: optional to date filter in ISO8601 format
       in: query
       required: false
       type: string
+      format: date-time
   get:
     operationId: getSessionAttendances
-    description: Lookup event and session attendances by session uid
+    description: Lookup session attendances by session uid, which also include corresponding event level attendances
     responses:
       '200':
         description: retrieved attendances
         schema:
-          $ref: '#/definitions/AttendanceList'
+          $ref: '#/definitions/SessionAttendanceResponse'
       default:
         description: failed to retrieve
         schema:
