@@ -231,7 +231,7 @@
     description: |
       Get the displayable informations for a list of account uids
     parameters:
-      - name: body
+      - name: accountDisplayInfoBody
         description: request body
         in: body
         required: true
