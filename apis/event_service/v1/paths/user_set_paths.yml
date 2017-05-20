@@ -218,3 +218,37 @@
         schema:
           $ref: '#/definitions/Error'
     tags: ['internal']
+
+/sessions/{session_uid}/account_display_infos:
+  parameters:
+    - name: session_uid
+      description: the session uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: getAccountDisplayInfos
+    description: |
+      Get the displayable informations for a list of account uids
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          type: object
+          description: user set enrollment request
+          properties:        
+            account_uids: 
+              type: array
+              items:
+                type: string
+    responses:
+      '200':
+        description: Success
+        schema:
+          type: object
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
