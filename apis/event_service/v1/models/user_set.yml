@@ -206,3 +206,24 @@ UserSetEnrollRequest:
       items:
         $ref: '#/definitions/EnrollmentFieldValue'
   required: ['account_uid']
+
+GetAccountDisplayInfoRequest:
+  type: object
+  description: account display info request
+  properties:
+    account_uids:
+      type: array
+      items:
+        type: string
+  required: ['account_uids']
+
+GetAccountDisplayInfoResponse:
+  type: object
+  description: account display info response
+  properties:
+    account_info:
+      type: object
+      description: map of account display info
+      additionalProperties:
+        $ref: '#/definitions/AccountDisplayInfo'
+    required: ['account_info']
