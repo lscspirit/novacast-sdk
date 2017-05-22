@@ -50,9 +50,9 @@ AttendanceResponse:
         $ref: '#/definitions/Attendance'
     account_info:
       type: object
-      description: a map of account_uid to display info for relevant accounts
+      description: map of account display info
       additionalProperties:
-        type: string
+        $ref: '#/definitions/AccountDisplayInfo'
   required: ['attendances']
 
 SessionAttendanceResponse:
@@ -72,9 +72,9 @@ SessionAttendanceResponse:
         $ref: '#/definitions/Attendance'
     account_info:
       type: object
-      description: a map of account_uid to display info for relevant accounts
+      description: map of account display info
       additionalProperties:
-        type: string
+        $ref: '#/definitions/AccountDisplayInfo'
     session:
       $ref: '#/definitions/EventSession'
   required: ['session_attendances']

@@ -76,9 +76,9 @@ EnrollmentListResponse:
         $ref: '#/definitions/EnrollmentExtended'
     account_info:
       type: object
-      description: a map of account_uid to display info for relevant accounts
+      description: map of account display info
       additionalProperties:
-        type: string
+        $ref: '#/definitions/AccountDisplayInfo'
     fields:
       type: array
       items:

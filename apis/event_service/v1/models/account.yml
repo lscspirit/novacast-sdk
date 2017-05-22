@@ -89,6 +89,32 @@ AccountExtendedList:
         $ref: '#/definitions/AccountExtended'
   required: ['accounts']
 
+AccountDisplayInfo:
+  type: object
+  description: display info for an account
+  properties:
+    display_name:
+      type: string
+      description: display name
+    username:
+      type: string
+      description: account user name
+    name:
+      type: string
+      description: name of the user
+    email:
+      type: string
+      description: account email
+    company:
+      type: string
+      description: company
+    title:
+      type: string
+      description: job title
+    country:
+      type: string
+      description: country
+
 AccountCreationResponse:
   type: object
   description: account creation response in a batch request
