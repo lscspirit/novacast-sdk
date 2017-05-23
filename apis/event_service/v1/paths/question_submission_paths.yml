@@ -21,15 +21,17 @@
         required: false
         type: number
       - name: from_date
-        description: optional from date filter in ISO8601 format
+        description: optional from date filter
         in: query
         required: false
         type: string
+        format: date-time
       - name: to_date
-        description: optional to date filter in ISO8601 format
+        description: optional to date filter 
         in: query
         required: false
         type: string
+        format: date-time
     responses:
       '200':
         description: Success
