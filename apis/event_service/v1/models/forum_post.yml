@@ -32,13 +32,9 @@ ForumPostExtended:
       properties:
         account_uid:
           type: string
-          description: account uid of the submitter        
+          description: account uid of the submitter
         account_info:
-          type: object
-          description: an object containing relevant infos for the submitter
-        account_identifier:
-          type: string
-          description: a generally acceptable identifier for the submitter which is not the account uid
+          $ref: '#/definitions/AccountDisplayInfo'
         approved:
           type: boolean
           description: approved by moderator
@@ -82,9 +78,9 @@ ForumPostLike:
     account_uid:
       type: string
       description: uid of the account
-    account_identifier:
+    account_display_name:
       type: string
-      description: identifier of the account (only present in certain calls and relevant)  
+      description: uid of the account
     forum_post_uid:
       type: string
       description: uid of the forum post
