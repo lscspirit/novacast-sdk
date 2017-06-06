@@ -17,6 +17,9 @@ QuestionManifest:
     config:
       type: object
       description: extra config info for this manifest
+    created_timestamp:
+      type: integer
+      description: unix timestamp value for the created datetime
     question_set:
       $ref: '#/definitions/QuestionSetInfo'
   required: ['uid', 'label', 'manifest_type', 'question_set']
