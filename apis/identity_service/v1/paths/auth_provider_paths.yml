@@ -1,3 +1,24 @@
+/auth_providers:
+  post:
+    operationId: createAuthProvider
+    description: Create a new authentication provider
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AuthProviderRequest'
+    responses:
+      '201':
+        description: Success
+        schema:
+          $ref: '#/definitions/AuthProvider'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
 /auth_providers/{auth_provider_id}:
   parameters:
     - name: auth_provider_id

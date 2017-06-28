@@ -12,3 +12,22 @@ AuthProvider:
       type: string
       description: authentication type
   required: ['id', 'name', 'auth_type']
+
+AuthProviderRequest:
+  type: object
+  description: authentication provider creation request
+  properties:
+    name:
+      description: provider name
+      type: string
+    application_id:
+      description: application id for the authentication server
+      type: string
+    application_secret:
+      description: application secret for the authentication server
+      type: string
+    handler_type:
+      description: type of authentication
+      type: string
+      enum: ['shared_key']
+  required: ['name', 'application_id', 'application_secret', 'handler_type']
