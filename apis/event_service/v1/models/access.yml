@@ -14,6 +14,9 @@ ClientRequestInfo:
     referrer:
       type: string
       description: request referrer
+    origin:
+      type: string
+      description: request origin
   required: ['method', 'protocol', 'remote_ip']
 
 FilterAccessRequest:
