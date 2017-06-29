@@ -29,5 +29,5 @@ AuthProviderRequest:
     handler_type:
       description: type of authentication
       type: string
-      enum: ['shared_key']
+      enum: ['simple_id', 'shared_key']
   required: ['name', 'application_id', 'application_secret', 'handler_type']
