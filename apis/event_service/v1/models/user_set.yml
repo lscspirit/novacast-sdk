@@ -113,6 +113,9 @@ UserSet:
     passcode:
       type: string
       description: enrollment passcode
+    auth_provider:
+      type: string
+      description: name of the authentication provider
   required: ['uid', 'rn', 'label', 'channel_uid', 'ch_acct_only', 'whitelisted_only', 'full_enrollment']
 
 UserSetExtended:
