@@ -55,7 +55,7 @@
       '200':
         description: Changed
         schema:
-          $ref: '#/definitions/LiveCastState'
+          $ref: '#/definitions/LiveCastPageChangeResponse'
       default:
         description: Update failed
         schema:

@@ -27,3 +27,16 @@ LiveCastPageChangeRequest:
       type: integer
       description: page number to change to
   required: ['page']
+
+LiveCastPageChangeResponse:
+  type: object
+  description: (LiveCast) response to the slide change request
+  properties:
+    state:
+      $ref: '#/definitions/LiveCastState'
+    sync_errors:
+      type: array
+      description: slide sync error messages
+      items:
+        type: string
+  required: ['state']
