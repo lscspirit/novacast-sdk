@@ -17,6 +17,9 @@ Slide:
     thumb_url:
       type: string
       description: url of the slide thumbnail file
+    title:
+      type: string
+      description: title of the slide
   required: ['uid', 'rn', 'page', 'url']
 
 SlideDeckInfo:
@@ -100,3 +103,11 @@ SlideDeleteRequest:
       items:
         type: string
   required: ['slide_uids']
+
+SlideUpdateRequest:
+  type: object
+  description: slide update request
+  properties:
+    title:
+      type: string
+      description: title of the slide
