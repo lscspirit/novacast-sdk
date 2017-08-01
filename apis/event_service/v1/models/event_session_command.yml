@@ -5,6 +5,10 @@ EventSessionCommand:
     command:
       type: string
       description: the command string
+    timestamp:
+      type: string
+      format: date-time
+      description: tiem when the command was issued
     payload:
       type: object
       description: a JSON serializable object
