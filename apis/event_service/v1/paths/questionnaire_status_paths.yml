@@ -14,12 +14,6 @@
     operationId: getQuestionnaireStatus
     description: |
       Get the questionnaire status
-    parameters:
-      - name: question_set_uid
-        description: the question set that is specific for this questionnaire
-        type: string
-        in: query
-        required: true
     responses:
       '200':
         description: Success
