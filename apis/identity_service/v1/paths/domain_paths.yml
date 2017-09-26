@@ -41,6 +41,28 @@
         schema:
           $ref: '#/definitions/Error'
 
+/domains/batch_get:
+  post:
+    operationId: batchGetDomain
+    description: |
+      Get a list of domains
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/DomainBatchRequest'
+    responses:
+      '200':
+        description: Domains found
+        schema:
+          $ref: '#/definitions/DomainList'
+      default:
+        description: Domain lookup failed
+        schema:
+          $ref: '#/definitions/Error'
+
 /domains/key/{domain_key}:
   get:
     operationId: getDomainByKey

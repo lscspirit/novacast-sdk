@@ -19,6 +19,19 @@ Channel:
           description: channel uid
       required: ['uid']
 
+ChannelBatchRequest:
+  type: object
+  description: |
+    a list of channel uids
+  properties:
+    channel_uids:
+      type: array
+      description: the channel uids
+      items:
+        description: channel uid
+        type: string
+  required: ['channel_uids']
+
 ChannelList:
   type: object
   description: List of channels

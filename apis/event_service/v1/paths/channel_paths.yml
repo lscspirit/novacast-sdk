@@ -80,3 +80,26 @@
         description: Creation failed
         schema:
           $ref: '#/definitions/Error'
+
+/channels/batch_get:
+  post:
+    operationId: batchGetChannel
+    description: |
+      Get a list of channels by uids
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ChannelBatchRequest'
+    responses:
+      '200':
+        description: Successful response
+        schema:
+          $ref: '#/definitions/ChannelList'
+      default:
+        description: Error response
+        schema:
+          $ref: '#/definitions/Error'
+    tags: ['internal']

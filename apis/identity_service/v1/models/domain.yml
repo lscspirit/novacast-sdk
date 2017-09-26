@@ -10,6 +10,7 @@ DomainInfo:
       description: domain name
       type: string
   required: ['key']
+
 Domain:
   type: object
   description: |
@@ -22,3 +23,27 @@ Domain:
           description: domain id
           type: integer
       required: ['id']
+
+DomainList:
+  type: object
+  description: list of Domains
+  properties:
+    domains:
+      type: array
+      description: collection of domains
+      items:
+        $ref: '#/definitions/Domain'
+  required: ['domains']
+
+DomainBatchRequest:
+  type: object
+  description: |
+    a list of domain id
+  properties:
+    domain_ids:
+      type: array
+      description: the domain ids
+      items:
+        description: domain id
+        type: integer
+  required: ['domain_ids']
