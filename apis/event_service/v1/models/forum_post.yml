@@ -8,6 +8,9 @@ ForumPost:
     account_uid:
       type: string
       description: account uid of author
+    account_display_name:
+      type: string
+      description: display name of the author
     content:
       type: string
       description: content of the post
