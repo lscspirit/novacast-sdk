@@ -37,10 +37,23 @@ FilterAccessResponse:
     view_event_permission:
       type: boolean
       description: whether the user has the ViewEvent permission on this event
+    actions:
+      type: array
+      description: action list
+      items:
+        $ref: '#/definitions/FilterAccessAction'
+
+FilterAccessAction:
+  type: object
+  description: filter access action
+  properties:
     action:
       type: string
       description: action to be performed as a result of the event access filtering
-      enum: ['redirect_url', 'redirect_path', 'redirect_ssl']
-    action_target:
+      enum: ['redirect', 'add_header']
+    target:
       type: string
       description: target for the action
+    value:
+      type: string
+      description: value for the action
