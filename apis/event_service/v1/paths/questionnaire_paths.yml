@@ -1,106 +1,33 @@
-/sessions/{session_uid}/polling/{question_manifest_uid}:
+/sessions/{session_uid}/questionnaire/{question_manifest_uid}:
   parameters:
     - name: session_uid
-      description: the session that this poll is relevant to
+      description: the session that this questionnaire is relevant to
       type: string
       in: path
-      required: true  
+      required: true
     - name: question_manifest_uid
       description: quesiton manifest associated uid
       type: string
       in: path
       required: true
   get:
-    operationId: getPollStatus
+    operationId: getQuestionnaireStatus
     description: |
-      Get the poll status
-    parameters:
-      - name: question_content_uid
-        description: the question content that is specific for this poll
-        type: string
-        in: query
-        required: true
+      Get the questionnaire status
     responses:
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/PollStatus'
+          $ref: '#/definitions/QuestionnaireStatus'
       default:
         description: Failed
         schema:
           $ref: '#/definitions/Error'
 
-/sessions/{session_uid}/polling/{question_manifest_uid}/start:
+/sessions/{session_uid}/questionnaire/{question_manifest_uid}/start:
   parameters:
     - name: session_uid
-      description: the session that this poll is relevant to
-      type: string
-      in: path
-      required: true    
-    - name: question_manifest_uid
-      description: quesiton manifest associated uid
-      type: string
-      in: path
-      required: true
-  post:
-    operationId: startPoll
-    description: |
-      start the given poll
-    parameters:
-      - name: body
-        description: request body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/PollStatusControlRequest'
-    responses:
-      '200':
-        description: Success
-        schema:
-          $ref: '#/definitions/PollStatus'
-      default:
-        description: Failed
-        schema:
-          $ref: '#/definitions/Error'
-
-
-/sessions/{session_uid}/polling/{question_manifest_uid}/stop:
-  parameters:
-    - name: session_uid
-      description: the session that this poll is relevant to
-      type: string
-      in: path
-      required: true    
-    - name: question_manifest_uid
-      description: quesiton manifest associated uid
-      type: string
-      in: path
-      required: true
-  post:
-    operationId: stopPoll
-    description: |
-      stop the given poll
-    parameters:
-      - name: body
-        description: request body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/PollStatusControlRequest'
-    responses:
-      '200':
-        description: Success
-        schema:
-          $ref: '#/definitions/PollStatus'
-      default:
-        description: Failed
-        schema:
-          $ref: '#/definitions/Error'
-
-/sessions/{session_uid}/polling/{question_manifest_uid}/add_stat:
-  parameters:
-    - name: session_uid
-      description: the session that this poll is relevant to
+      description: the session that this questionnaire is relevant to
       type: string
       in: path
       required: true
@@ -110,16 +37,83 @@
       in: path
       required: true
   post:
-    operationId: addPollStat
+    operationId: startQuestionnaire
     description: |
-      add statistics for the given poll status
+      start the given questionnaire
     parameters:
       - name: body
         description: request body
         in: body
         required: true
         schema:
-          $ref: '#/definitions/AddPollStatRequest'
+          $ref: '#/definitions/QuestionnaireStatusControlRequest'
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/QuestionnaireStatus'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+
+/sessions/{session_uid}/questionnaire/{question_manifest_uid}/stop:
+  parameters:
+    - name: session_uid
+      description: the session that this questionnaire is relevant to
+      type: string
+      in: path
+      required: true
+    - name: question_manifest_uid
+      description: quesiton manifest associated uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: stopQuestionnaire
+    description: |
+      stop the given questionnaire
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/QuestionnaireStatusControlRequest'
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/QuestionnaireStatus'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/questionnaire/{question_manifest_uid}/submit:
+  parameters:
+    - name: session_uid
+      description: the session that this questionnaire is relevant to
+      type: string
+      in: path
+      required: true
+    - name: question_manifest_uid
+      description: quesiton manifest associated uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: addQuestionnaireStat
+    description: |
+      add statistics for the given questionnaire status
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/AddquestionnaireStatRequest'
     security:
       - accessKey: []
       - previewToken: []
@@ -133,10 +127,10 @@
         schema:
           $ref: '#/definitions/Error'
 
-/sessions/{session_uid}/polling/{question_manifest_uid}/publish:
+/sessions/{session_uid}/questionnaire/{question_manifest_uid}/publish:
   parameters:
     - name: session_uid
-      description: the session that this poll is relevant to
+      description: the session that this questionnaire is relevant to
       type: string
       in: path
       required: true
@@ -146,27 +140,60 @@
       in: path
       required: true
   post:
-    operationId: publishPoll
+    operationId: publishQuestionnaire
     description: |
-      publish statistics for a given poll
+      publish statistics for a given questionnaire
     parameters:
       - name: body
         description: request body
         in: body
         required: true
         schema:
-          $ref: '#/definitions/PollStatusControlRequest'
+          $ref: '#/definitions/QuestionnaireStatusControlRequest'
     responses:
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/PollStatus'
+          $ref: '#/definitions/QuestionnaireStatus'
       default:
         description: Failed
         schema:
           $ref: '#/definitions/Error'
 
-/sessions/{session_uid}/polling/get_active_polls:
+/sessions/{session_uid}/questionnaire/{question_manifest_uid}/submissions:
+  parameters:
+    - name: session_uid
+      description: the session that this questionnaire is relevant to
+      type: string
+      in: path
+      required: true
+    - name: question_manifest_uid
+      description: quesiton manifest associated uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: createQuestionnaireSubmission
+    description: |
+      Create submission for a given questionnaire
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/QuestionSubmissionCreateRequest'
+    responses:
+      '201':
+        description: Created
+        schema:
+          $ref: '#/definitions/ManifestSubmissions'
+      default:
+        description: Creation failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/questionnaire/get_active_questionnaires:
   parameters:
     - name: session_uid
       description: the session that we are querying for
@@ -174,28 +201,28 @@
       in: path
       required: true
   get:
-    operationId: getActivePolls
+    operationId: getActiveQuestionnaires
     description: |
-      get the currently active polls
+      get the currently active Questionnaires
     responses:
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/ActivePollList'
+          $ref: '#/definitions/ActiveQuestionnaireList'
       default:
         description: Failed
         schema:
           $ref: '#/definitions/Error'
 
-/sessions/{session_uid}/polling/prior_submissions:
+/sessions/{session_uid}/questionnaire/prior_submissions:
   parameters:
     - name: session_uid
-      description: the session that this poll is relevant to
+      description: the session that this questionnaire is relevant to
       type: string
       in: path
       required: true
   get:
-    operationId: getPriorPollSubmissions
+    operationId: getPriorQuestionnaireSubmissions
     description: |
       get all previous submissions from this user for this given session
     security:

@@ -39,3 +39,47 @@
         description: Failed
         schema:
           $ref: '#/definitions/Error'
+
+/question_manifests/{question_manifest_uid}/sessions/{session_uid}/submissions:
+  parameters:
+    - name: question_manifest_uid
+      description: question manifest uid
+      type: string
+      in: path
+      required: true
+    - name: session_uid
+      description: the session that the submissions belong to
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getQuestionSubmissions
+    description: |
+      Get all submissions for a question manifest
+    parameters:
+      - name: max_records
+        description: optional max records for return
+        in: query
+        required: false
+        type: number
+      - name: from_date
+        description: optional from date filter
+        in: query
+        required: false
+        type: string
+        format: date-time
+      - name: to_date
+        description: optional to date filter
+        in: query
+        required: false
+        type: string
+        format: date-time
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/QuestionSubmissionQueryResponse'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
