@@ -113,7 +113,7 @@
         in: body
         required: true
         schema:
-          $ref: '#/definitions/AddquestionnaireStatRequest'
+          $ref: '#/definitions/AddQuestionnaireStatRequest'
     security:
       - accessKey: []
       - previewToken: []

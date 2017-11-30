@@ -20,7 +20,7 @@ QuestionSubmission:
       type: string
       format: date-time
       description: submission time
-  required: ['answer', 'created_at', 'question_content']
+  required: ['answer', 'created_at', 'question_content_uid', 'question_manifest_uid']
 
 QuestionSubmissionQueryResponse:
   type: object

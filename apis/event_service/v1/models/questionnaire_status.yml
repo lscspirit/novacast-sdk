@@ -50,19 +50,16 @@ QuestionnaireStatusControlRequest:
       description: the question content that is associated with this questionnaire
   required: ['question_set_uid']
 
-AddquestionnaireStatRequest:
+AddQuestionnaireStatRequest:
   type: object
   description: add questionnaire status statistics requests
   properties:
-    question_set_uid:
-      type: string
-      description: the question set that is associated with this questionnaire
     answers:
       type: array
       description: answers for all the questions in this questionnaire
       items:
-        $ref: '#/definitions/QuestionnaireAnswer'    
-  required: ['answers', 'question_set_uid']
+        $ref: '#/definitions/QuestionnaireAnswer'
+  required: ['answers']
 
 QuestionnaireAnswer:
   type: object
@@ -71,10 +68,7 @@ QuestionnaireAnswer:
     question_content_uid:
       type: string
       description: the question content that is associated with this answer
-    question_content_type:
-      type: string
-      description: the question content type to help processing the answer at the server end
-    choice:
+    answer:
       type: object
-      description: a JSON encoded string to represent the choices chosen
-  required: ['choice', 'question_content_uid']
+      description: a JSON encoded string to represent the answer
+  required: ['answer', 'question_content_uid']

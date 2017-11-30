@@ -11,10 +11,7 @@ QuestionContentType:
     type_key:
       type: string
       description: key name
-    params:
-      type: object
-      description: config parameters
-  required: ['name', 'type_key', 'params']
+  required: ['name', 'type_key']
 
 QuestionContent:
   type: object
@@ -32,12 +29,15 @@ QuestionContent:
     content:
       type: object
       description: answer content
+    optional:
+      type: boolean
+      description: whether answer is required
     question_set_uid:
       type: string
       description: uid for the question set that this question content belongs to
     question_content_type:
       $ref: '#/definitions/QuestionContentType'
-  required: ['uid', 'question', 'order', 'content', 'question_content_type']
+  required: ['uid', 'question', 'order', 'content', 'optional', 'question_content_type']
 
 QuestionSetInfo:
   type: object
@@ -52,10 +52,7 @@ QuestionSetInfo:
     label:
       type: string
       description: label
-    state:
-      type: string
-      description: question set state
-  required: ['uid', 'rn', 'label', 'state']
+  required: ['uid', 'rn', 'label']
 
 QuestionSet:
   type: object
@@ -64,6 +61,9 @@ QuestionSet:
     - $ref: '#/definitions/QuestionSetInfo'
     - type: object
       properties:
+        config:
+          type: object
+          description: question set config
         contents:
           type: array
           description: question set contents
@@ -122,10 +122,10 @@ QuestionSetCreateRequest:
     label:
       type: string
       description: label
-    state:
-      type: string
-      description: question set state
-  required: ['label', 'state']
+    config:
+      type: object
+      description: question set config
+  required: ['label']
 
 QuestionSetUpdateRequest:
   type: object
@@ -134,9 +134,6 @@ QuestionSetUpdateRequest:
     label:
       type: string
       description: label
-    state:
-      type: string
-      description: question set state
 
 QuestionContentCreateRequest:
   type: object
@@ -151,10 +148,13 @@ QuestionContentCreateRequest:
     content:
       type: object
       description: answer content
+    optional:
+      type: boolean
+      description: whether answer is required
     type:
       type: string
       description: content type
-  required: ['question', 'order', 'content', 'type']
+  required: ['question', 'order', 'content', 'type', 'optional']
 
 QuestionContentUpdateRequest:
   type: object
@@ -169,6 +169,9 @@ QuestionContentUpdateRequest:
     content:
       type: object
       description: answer content
+    optional:
+      type: boolean
+      description: whether answer is required
     type:
       type: string
       description: content type key
