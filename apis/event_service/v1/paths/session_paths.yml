@@ -62,7 +62,7 @@
   put:
     operationId: updateEventSession
     description: |
-      Update the info for an event session 
+      Update the info for an event session
     parameters:
       - name: body
         description: update session info
@@ -88,6 +88,48 @@
         description: Success
         schema:
           $ref: '#/definitions/EventSession'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/status:
+  parameters:
+    - name: session_uid
+      description: event session uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getEventSessionStatus
+    description: |
+      Get the status of event session
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/SessionStatus'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/sessions/{session_uid}/users:
+  parameters:
+    - name: session_uid
+      description: event session uid
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getEventSessionUsers
+    description: |
+      Get the uids of all users active in the event session
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/SessionUserList'
       default:
         description: Failed
         schema:

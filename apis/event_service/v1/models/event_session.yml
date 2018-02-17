@@ -52,3 +52,24 @@ EventSessionList:
       items:
         $ref: '#/definitions/EventSession'
   required: ['sessions']
+
+SessionStatus:
+  type: object
+  description: status of a event session
+  properties:
+    user_count:
+      type: integer
+      description: number of user active in the session
+  required: ['user_count']
+
+SessionUserList:
+  type: object
+  description: list of users active in the event session
+  properties:
+    user_uids:
+      type: array
+      description: list of user uids
+      items:
+        description: user uid
+        type: string
+  required: ['user_uids']
