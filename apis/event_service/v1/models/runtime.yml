@@ -41,6 +41,15 @@ PageRuntime:
     info:
       $ref: '#/definitions/RuntimeInfo'
 
+UserRuntimeData:
+  type: object
+  description: User data needed by the runtime modules
+  properties:
+    user_data:
+      type: object
+      description: user data for each modules
+  required: ['user_data']
+
 EventContent:
   type: object
   description: Event content with meta information

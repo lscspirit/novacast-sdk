@@ -9,7 +9,7 @@
       description: path to access the content
       type: string
       in: path
-      required: true  
+      required: true
   get:
     operationId: getContentByPath
     description: |
@@ -18,7 +18,7 @@
       - name: content_locale
         description: an optional parameter to specify the locale for the content
         type: string
-        in: query   
+        in: query
         required: false
     responses:
       '200':
@@ -52,6 +52,33 @@
         description: Success
         schema:
           $ref: '#/definitions/PageRuntime'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+    tags: ['internal']
+
+/sessions/{session_uid}/user_runtime_data/{account_uid}:
+  parameters:
+    - name: session_uid
+      description: event session uid
+      type: string
+      in: path
+      required: true
+    - name: account_uid
+      description: uid of the account
+      type: string
+      in: path
+      required: true
+  get:
+    operationId: getUserRuntimeData
+    description: |
+      Get user data required by the runtime
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/UserRuntimeData'
       default:
         description: Failed
         schema:
