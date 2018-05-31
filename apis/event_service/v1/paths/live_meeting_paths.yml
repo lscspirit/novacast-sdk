@@ -1,0 +1,26 @@
+/mods/live_meeting/sessions/{session_uid}/connect:
+  parameters:
+    - name: session_uid
+      description: session uid
+      type: string
+      in: path
+      required: true
+    - name: body
+      description: request body
+      in: body
+      required: true
+      schema:
+        $ref: '#/definitions/LiveMeetingConnectRequest'
+  post:
+    operationId: liveMeetingConnect
+    description: |
+      (LiveMeeting) connect to the live meeting session
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/LiveMeetingConnectResponse'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'

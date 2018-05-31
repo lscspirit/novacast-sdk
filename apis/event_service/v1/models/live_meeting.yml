@@ -1,0 +1,22 @@
+LiveMeetingConnectRequest:
+  type: object
+  description: (LiveMeeting) connection request
+  properties:
+    host_descriptor:
+      $ref: '#/definitions/PeerDescriptor'
+    peer_uid:
+      type: string
+      description: uid of the peer
+    meeting_uid:
+      type: string
+      description: uid of the meeting
+  required: ['host_listener', 'peer_uid']
+
+LiveMeetingConnectResponse:
+  type: object
+  description: (LiveMeeting) connection request
+  properties:
+    meeting_uid:
+      type: string
+      description: uid of the meeting
+  required: ['meeting_uid']

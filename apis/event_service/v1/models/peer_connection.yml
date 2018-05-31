@@ -1,0 +1,25 @@
+PeerDescriptor:
+  type: object
+  description: details for a peer connection
+  properties:
+    account_uid:
+      type: string
+      description: the uid for the account
+    client_id:
+      type: string
+      description: client id
+    listener_id:
+      type: string
+      description: listener identifier
+  required: ['account_uid', 'client_id', 'listener_id']
+
+PeerConnector:
+  type: object
+  description: connector for establishing a peer connection
+  properties:
+    descriptor:
+      $ref: '#/definitions/PeerDescriptor'
+    perm_token:
+      type: string
+      description: permission token string
+  required: ['descriptor', 'perm_token']
