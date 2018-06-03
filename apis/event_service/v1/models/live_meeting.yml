@@ -20,3 +20,20 @@ LiveMeetingConnectResponse:
       type: string
       description: uid of the meeting
   required: ['meeting_uid']
+
+LiveMeetingMessageRequest:
+  type: object
+  description: (LiveMeeting) message request
+  properties:
+    content:
+      type: string
+      description: message content
+  required: ['content']
+
+LiveMeetingMessageResponse:
+  type: object
+  description: (LiveMeeting) message response
+  properties:
+    message:
+      $ref: '#/definitions/ChatMessage'
+  required: ['message']

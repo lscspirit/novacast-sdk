@@ -1,0 +1,18 @@
+ChatMessage:
+  type: object
+  description: Chat Message
+  properties:
+    account_uid:
+      type: string
+      description: account uid of author
+    account_display_name:
+      type: string
+      description: display name of the author
+    content:
+      type: string
+      description: content of the post
+    submitted_at:
+      type: string
+      format: date-time
+      description: submission time
+  required: ['account_uid', 'account_display_name', 'content', 'submitted_at']

@@ -5,21 +5,50 @@
       type: string
       in: path
       required: true
-    - name: body
-      description: request body
-      in: body
-      required: true
-      schema:
-        $ref: '#/definitions/LiveMeetingConnectRequest'
   post:
     operationId: liveMeetingConnect
     description: |
       (LiveMeeting) connect to the live meeting session
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/LiveMeetingConnectRequest'
     responses:
       '200':
         description: Success
         schema:
           $ref: '#/definitions/LiveMeetingConnectResponse'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
+
+/mods/live_meeting/meetings/{meeting_uid}/message:
+  parameters:
+    - name: meeting_uid
+      description: live meeting uid
+      type: string
+      in: path
+      required: true
+  post:
+    operationId: liveMeetingMessage
+    description: |
+      (LiveMeeting) send a chat message to the live meeting
+    parameters:
+      - name: body
+        description: request body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/LiveMeetingMessageRequest'
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/LiveMeetingMessageResponse'
       default:
         description: Failed
         schema:
