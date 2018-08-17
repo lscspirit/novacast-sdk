@@ -1,0 +1,8 @@
+RTSConfig:
+  type: object
+  description: RTS configuration
+  properties:
+    ice_servers:
+      type: object
+      description: list of ICE servers to be used in a WebRTC connection
+  required: ['ice_servers']

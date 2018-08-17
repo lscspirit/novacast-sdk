@@ -1,0 +1,14 @@
+/rts/config:
+  get:
+    operationId: getRTSConfig
+    description: |
+      Get configuration required for setting up a RealTimeSession
+    responses:
+      '200':
+        description: Success
+        schema:
+          $ref: '#/definitions/RTSConfig'
+      default:
+        description: Failed
+        schema:
+          $ref: '#/definitions/Error'
