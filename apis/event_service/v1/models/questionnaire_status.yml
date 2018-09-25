@@ -16,19 +16,15 @@ QuestionnaireStatus:
       description: stores current statistics of the questionnaire
   required: ['start_time', 'end_time', 'status', 'statistics']
 
-ActiveQuestionnaire:
+Questionnaire:
   type: object
-  description: represent an operable active Questionnaire
+  description: represent a Questionnaire
   properties:
-    question_manifest_uid:
-      type: string
-      description: uid for the question manifest related to this Questionnaire
+    question_manifest:
+      $ref: '#/definitions/QuestionManifest'
     question_set:
       $ref: '#/definitions/QuestionSet'
-    status:
-      type: string
-      description: the text status of the questionnaire
-  required: ['question_manifest_uid', 'question_set', 'status']
+  required: ['question_manifest', 'question_set']
 
 ActiveQuestionnaireList:
   type: object
@@ -38,7 +34,7 @@ ActiveQuestionnaireList:
       type: array
       description: active Questionnaires collection
       items:
-        $ref: '#/definitions/ActiveQuestionnaire'
+        $ref: '#/definitions/Questionnaire'
   required: ['questionnaires']
 
 QuestionnaireStatusControlRequest:
