@@ -57,6 +57,10 @@
     description: |
       Get all submissions for a question manifest
     parameters:
+      - name: question_content_uid
+        description: optional filter submission by question content uid
+        in: query
+        type: string
       - name: max_records
         description: optional max records for return
         in: query

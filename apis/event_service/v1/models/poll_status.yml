@@ -49,15 +49,3 @@ PollStatusControlRequest:
       type: string
       description: the question content that is associated with this poll
   required: ['question_content_uid']
-
-AddPollStatRequest:
-  type: object
-  description: add poll status statistics requests
-  properties:
-    question_content_uid:
-      type: string
-      description: the question content that is associated with this poll
-    answer:
-      type: object
-      description: a JSON encoded string to represent the answer
-  required: ['answer', 'question_content_uid']

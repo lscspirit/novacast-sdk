@@ -7,30 +7,44 @@ QuestionSubmission:
       description: uid of the submitter
     account_info:
       $ref: '#/definitions/AccountDisplayInfo'
-    question_content_uid:
-      type: string
-      description: uid for the question content specific of this submission
     question_manifest_uid:
       type: string
       description: uid for the question manifest specific of this submission
-    answer:
-      type: object
-      description: answer object
     created_at:
       type: string
       format: date-time
       description: submission time
-  required: ['answer', 'created_at', 'question_content_uid', 'question_manifest_uid']
+    answers:
+      type: array
+      description: answers to each question
+      items:
+        $ref: '#/definitions/SubmissionAnswer'
+  required: ['created_at', 'question_manifest_uid']
+
+SubmissionAnswer:
+  type: object
+  description: answer to a question submission
+  properties:
+    question_content_uid:
+      type: string
+      description: uid for the question content specific of this submission
+    answer:
+      type: object
+      description: answer object
+  required: ['answer', 'question_content_uid']
+
+SubmissionAnswerList:
+  type: object
+  description: a list of submission answers
+  properties:
+    answers:
+      type: array
+      description: a collection of question answers
+      items:
+        $ref: '#/definitions/SubmissionAnswer'
+  required: ['answers']
 
 QuestionSubmissionQueryResponse:
-  type: object
-  description: response for question submission query
-  properties:
-    submissions_list:
-      $ref: '#/definitions/ManifestSubmissions'
-  required: ['submissions_list']
-
-ManifestSubmissions:
   type: object
   description: a list of question submissions specific to a question manifest
   properties:
@@ -43,7 +57,7 @@ ManifestSubmissions:
       $ref: '#/definitions/QuestionManifest'
   required: ['submissions', 'quesiton_manifest']
 
-QuestionSubmissionsList:
+QuestionSubmissionList:
   type: object
   description: a list of question submissions
   properties:
@@ -52,30 +66,4 @@ QuestionSubmissionsList:
       description: list of question submissions
       items:
         $ref: '#/definitions/QuestionSubmission'
-  required: ['submissions']
-
-QuestionSubmissionCreate:
-  type: object
-  description: a question submission create instance
-  properties:
-    answer:
-      type: object
-      description: answer object
-    question_content_uid:
-      type: string
-      description: uid for the corresponding question_content
-  required: ['answer', 'question_content_uid']
-
-QuestionSubmissionCreateRequest:
-  type: object
-  description: question submission create request
-  properties:
-    question_manifest_uid:
-      type: string
-      description: uid for the corresponding question_manifest
-    submissions:
-      type: array
-      description: a collection of submission create objects
-      items:
-        $ref: '#/definitions/QuestionSubmissionCreate'
   required: ['submissions']

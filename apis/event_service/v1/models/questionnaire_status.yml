@@ -45,26 +45,3 @@ QuestionnaireStatusControlRequest:
       type: string
       description: the question content that is associated with this questionnaire
   required: ['question_set_uid']
-
-AddQuestionnaireStatRequest:
-  type: object
-  description: add questionnaire status statistics requests
-  properties:
-    answers:
-      type: array
-      description: answers for all the questions in this questionnaire
-      items:
-        $ref: '#/definitions/QuestionnaireAnswer'
-  required: ['answers']
-
-QuestionnaireAnswer:
-  type: object
-  description: An question for a questionnaire question
-  properties:
-    question_content_uid:
-      type: string
-      description: the question content that is associated with this answer
-    answer:
-      type: object
-      description: a JSON encoded string to represent the answer
-  required: ['answer', 'question_content_uid']

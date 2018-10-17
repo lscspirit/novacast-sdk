@@ -97,7 +97,7 @@
         schema:
           $ref: '#/definitions/Error'
 
-/sessions/{session_uid}/polling/{question_manifest_uid}/submit:
+/sessions/{session_uid}/polling/{question_manifest_uid}/submissions:
   parameters:
     - name: session_uid
       description: the session that this poll is relevant to
@@ -110,16 +110,16 @@
       in: path
       required: true
   post:
-    operationId: addPollStat
+    operationId: createPollSubmission
     description: |
-      add statistics for the given poll status
+      create a submission for the given poll
     parameters:
       - name: body
         description: request body
         in: body
         required: true
         schema:
-          $ref: '#/definitions/AddPollStatRequest'
+          $ref: '#/definitions/SubmissionAnswer'
     security:
       - accessKey: []
       - previewToken: []
@@ -127,7 +127,7 @@
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/QuestionSubmissionsList'
+          $ref: '#/definitions/QuestionSubmission'
       default:
         description: Failed
         schema:
@@ -163,39 +163,6 @@
           $ref: '#/definitions/PollStatus'
       default:
         description: Failed
-        schema:
-          $ref: '#/definitions/Error'
-
-/sessions/{session_uid}/polling/{question_manifest_uid}/submissions:
-  parameters:
-    - name: session_uid
-      description: the session that this poll is relevant to
-      type: string
-      in: path
-      required: true
-    - name: question_manifest_uid
-      description: quesiton manifest associated uid
-      type: string
-      in: path
-      required: true
-  post:
-    operationId: createPollSubmission
-    description: |
-      Create submission for a given poll
-    parameters:
-      - name: body
-        description: request body
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/QuestionSubmissionCreateRequest'
-    responses:
-      '201':
-        description: Created
-        schema:
-          $ref: '#/definitions/ManifestSubmissions'
-      default:
-        description: Creation failed
         schema:
           $ref: '#/definitions/Error'
 
@@ -238,7 +205,7 @@
       '200':
         description: Success
         schema:
-          $ref: '#/definitions/QuestionSubmissionsList'
+          $ref: '#/definitions/QuestionSubmissionList'
       default:
         description: Failed
         schema:
