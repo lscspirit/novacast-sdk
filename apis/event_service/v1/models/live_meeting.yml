@@ -2,19 +2,20 @@ LiveMeetingConnectRequest:
   type: object
   description: (LiveMeeting) connection request
   properties:
-    host_descriptor:
-      $ref: '#/definitions/PeerDescriptor'
+    connection_token:
+      type: string
+      description: connection token of the host
     peer_uid:
       type: string
       description: uid of the peer
     meeting_uid:
       type: string
       description: uid of the meeting
-  required: ['host_listener', 'peer_uid']
+  required: ['connection_token', 'peer_uid']
 
 LiveMeetingConnectResponse:
   type: object
-  description: (LiveMeeting) connection request
+  description: (LiveMeeting) response to connection request
   properties:
     meeting_uid:
       type: string
